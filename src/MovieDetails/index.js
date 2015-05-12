@@ -19,7 +19,7 @@ var ForTouchScene = React.createClass({
       this.fetchData();
     },
     fetchData: function() {
-      fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=&plot=short&r=json")
+      fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=&plot=full&r=json")
         .then((response) => response.json())
         .then((responseData) => {
           this.setState({
@@ -35,7 +35,7 @@ var ForTouchScene = React.createClass({
                 <Image
               source={{uri:this.props.post["image-480x270"]}}
               style={styles.cellImage}/>
-                <Text>{this.props.post.title}</Text>
+                <Text style={{fontWeight: 'bold'}}>{this.props.post.title}</Text>
                 <Text>{this.state.movieDetails.Plot}</Text>
             </View>
         );
