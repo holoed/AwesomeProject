@@ -18,7 +18,6 @@ var {
             initialRoute={{
               component: PostsView,
               title: 'Movies',
-              passProps: { myProp: 'foo' },
       }}/>
     );
   },

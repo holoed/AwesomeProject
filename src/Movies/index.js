@@ -11,27 +11,8 @@ var {
   Image
 } = React;
 
-var PostCell = React.createClass({
-  render: function() {
-     return (
-      <View>
-        <TouchableHighlight>
-          <View style={styles.row}>
-            <Image
-              source={{uri:this.props.post["image-480x270"]}}
-              style={styles.cellImage}/>
-            <View style={styles.textContainer}>
-              <Text style={styles.movieTitle} numberOfLines={2}>
-                {this.props.post.title}
-              </Text>
-            </View>
-          </View>
-        </TouchableHighlight>
-        <View style={styles.cellBorder} />
-      </View>
-    );
-  }
-});
+
+var PostCell = require('../MovieItem');
 
 var MyView = React.createClass({
 
@@ -79,7 +60,7 @@ var MyView = React.createClass({
   },
   renderPostCell: function(post){
     return(
-      <PostCell post={post}/>
+      <PostCell post={post} navigator={this.props.navigator}/>
     );
   }
 });
