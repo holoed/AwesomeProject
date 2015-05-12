@@ -19,7 +19,8 @@ var PostCell = React.createClass({
   onPress: function() {
         this.props.navigator.push({
             title: this.props.post.title,
-            component: ForTouchScene
+            component: ForTouchScene,
+            passProps: { post : this.props.post },
         });
     },
 
