@@ -13,7 +13,7 @@ var Video = require('react-native-video');
 
 var MovieVideo = React.createClass({
     render: function() {
-        return ( <Video source={{uri: this.props.post.sources[0]}}
+        return ( <Video source={{uri: this.props.post.sources[0], isNetwork: true}}
                         style={styles.video}
                         resizeMode="contain"></Video>
           
@@ -53,12 +53,15 @@ var ForTouchScene = React.createClass({
     render: function() {
         return ( <View>
                   <TouchableHighlight 
+                         style={{marginLeft:10, marginRight:10}}
                          onPress={this.onPress}>
-                    <Image source={{uri:this.props.post["image-480x270"]}}
+                    <Image source={{uri:this.state.movieDetails.Poster}}
                            style={styles.cellImage} />
                   </TouchableHighlight>
-                  <Text style={{fontWeight: 'bold', fontSize:'30'}}>{this.state.movieDetails.Title}</Text>
-                  <Text>{this.state.movieDetails.Plot}</Text>
+                  <Text/>
+                  <Text style={{fontWeight: 'bold', fontSize:'30',marginLeft:10, marginRight:10}}>{this.state.movieDetails.Title}</Text>
+                  <Text/>
+                  <Text style={{marginLeft:10, marginRight:10}}>{this.state.movieDetails.Plot}</Text>
                 </View>          
         );
     }
@@ -68,9 +71,9 @@ var styles = StyleSheet.create({
   cellImage: {
     backgroundColor: '#dddddd',
     marginTop: 100,
-    height: 300,
+    height: 600,
     marginRight: 10,
-    width: 210,
+    width: 410,
   },
    video: {
     backgroundColor: '#dddddd',
