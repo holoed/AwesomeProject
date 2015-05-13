@@ -16,11 +16,35 @@ var MovieDetails = require('../MovieDetails');
 
 var PostCell = React.createClass({
 
+  getInitialState: function() {
+      return {
+        movieDetails: {},
+        loaded: false
+      };
+    },
+
+  componentDidMount: function() {
+      this.fetchData();
+    },
+
+  fetchData: function() {
+      fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=&plot=full&r=json")
+        .then((response) => response.json())
+        .then((responseData) => {
+          this.setState({
+            movieDetails: responseData,
+            loaded: true
+          });
+        })
+        .done();
+    },
+
   onPress: function() {
         this.props.navigator.push({
-            title: this.props.post.title,
+            title: this.state.title,
             component: MovieDetails,
-            passProps: { post : this.props.post },
+            passProps: { movieDetails : this.state.movieDetails, 
+                         post: this.props.post },
         });
     },
 
@@ -29,12 +53,17 @@ var PostCell = React.createClass({
       <View>
         <TouchableHighlight onPress={this.onPress}>
           <View style={styles.row}>
-            <Image
-              source={{uri:this.props.post["image-480x270"]}}
-              style={styles.cellImage}/>
+            {this.state.loaded ?
+            (<Image
+              source={{uri: this.state.movieDetails.Poster}}
+              style={styles.cellImage}/>)
+            : (<Image
+              source={{uri: this.props.post["image-480x270"]}}
+              style={styles.cellImage}/>)}
+
             <View style={styles.textContainer}>
               <Text style={styles.movieTitle} numberOfLines={2}>
-                {this.props.post.title}
+                {this.state.loaded ? this.state.movieDetails.Title : this.props.post.title}
               </Text>
             </View>
           </View>

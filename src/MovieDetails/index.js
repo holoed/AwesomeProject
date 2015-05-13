@@ -27,29 +27,6 @@ var MovieVideo = React.createClass({
 
 var MovieDetails = React.createClass({
 
-    getInitialState: function() {
-      return {
-        movieDetails: {},
-        loaded: false
-      };
-    },
-
-    componentDidMount: function() {
-      this.fetchData();
-    },
-
-    fetchData: function() {
-      fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=&plot=full&r=json")
-        .then((response) => response.json())
-        .then((responseData) => {
-          this.setState({
-            movieDetails: responseData,
-            loaded: true
-          });
-        })
-        .done();
-    },
-    
     openInEmbedded: function() {
         this.props.navigator.push({
             title: this.props.post.title,
@@ -60,7 +37,7 @@ var MovieDetails = React.createClass({
     render: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
                    <View style={styles.container}>
-                      <Image source={{uri:this.state.movieDetails.Poster}}
+                      <Image source={{uri:this.props.movieDetails.Poster}}
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
@@ -79,9 +56,9 @@ var MovieDetails = React.createClass({
                       </View>
                   </View>    
                   <Text/>
-                  <Text style={{fontWeight: 'bold', fontSize:'30'}}>{this.state.movieDetails.Title}</Text>
+                  <Text style={{fontWeight: 'bold', fontSize:'30'}}>{this.props.movieDetails.Title}</Text>
                   <Text/>
-                  <Text>{this.state.movieDetails.Plot}</Text>
+                  <Text>{this.props.movieDetails.Plot}</Text>
                 </View>          
         );
     }

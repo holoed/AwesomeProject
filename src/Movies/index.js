@@ -12,9 +12,9 @@ var {
 } = React;
 
 
-var PostCell = require('../MovieItem');
+var MovieItem = require('../MovieItem');
 
-var MyView = React.createClass({
+var Movies = React.createClass({
 
   getInitialState: function() {
     return {
@@ -60,7 +60,7 @@ var MyView = React.createClass({
   },
   renderPostCell: function(post){
     return(
-      <PostCell post={post} navigator={this.props.navigator}/>
+      <MovieItem post={post} navigator={this.props.navigator}/>
     );
   }
 });
@@ -120,4 +120,4 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports = MyView;
+module.exports = Movies;
