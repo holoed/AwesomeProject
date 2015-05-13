@@ -6,10 +6,13 @@ var {
   Text,
   Image,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  LinkingIOS,
+  AlertIOS
 } = React;
 
 var Video = require('react-native-video');
+var VideoApplication = require('../VideoApplication');
 
 var MovieVideo = React.createClass({
     render: function() {
@@ -22,16 +25,19 @@ var MovieVideo = React.createClass({
     }  
 });
 
-var ForTouchScene = React.createClass({
+var MovieDetails = React.createClass({
+
     getInitialState: function() {
       return {
         movieDetails: {},
-        loaded: false,
+        loaded: false
       };
     },
+
     componentDidMount: function() {
       this.fetchData();
     },
+
     fetchData: function() {
       fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=&plot=full&r=json")
         .then((response) => response.json())
@@ -43,7 +49,8 @@ var ForTouchScene = React.createClass({
         })
         .done();
     },
-    onPress: function() {
+    
+    openInEmbedded: function() {
         this.props.navigator.push({
             title: this.props.post.title,
             component: MovieVideo,
@@ -51,23 +58,46 @@ var ForTouchScene = React.createClass({
         });
     },
     render: function() {
-        return ( <View>
-                  <TouchableHighlight 
-                         style={{marginLeft:10, marginRight:10}}
-                         onPress={this.onPress}>
-                    <Image source={{uri:this.state.movieDetails.Poster}}
-                           style={styles.cellImage} />
-                  </TouchableHighlight>
+        return ( <View style={{marginLeft:10, marginRight:10}}>
+                   <View style={styles.container}>
+                      <Image source={{uri:this.state.movieDetails.Poster}}
+                             style={styles.cellImage} />
+                      <View style={styles.rightContainer}>
+
+                          <VideoApplication url={this.props.post.sources[0].replace("http", "vlc")} applicationName="VLC" />
+                      
+                          <VideoApplication url={this.props.post.sources[0].replace("http", "infuse")} applicationName="Infuse" />
+                      
+                          <VideoApplication url={this.props.post.sources[0]} applicationName="Safari" />
+
+                          <VideoApplication url={"goodplayer://" + this.props.post.sources[0]} applicationName="Good Player" />
+                      
+                          <TouchableHighlight onPress={this.openInEmbedded} style={styles.button}>
+                            <Text style={styles.buttonText}>Internal</Text>
+                          </TouchableHighlight>
+                          
+                      </View>
+                  </View>    
                   <Text/>
-                  <Text style={{fontWeight: 'bold', fontSize:'30',marginLeft:10, marginRight:10}}>{this.state.movieDetails.Title}</Text>
+                  <Text style={{fontWeight: 'bold', fontSize:'30'}}>{this.state.movieDetails.Title}</Text>
                   <Text/>
-                  <Text style={{marginLeft:10, marginRight:10}}>{this.state.movieDetails.Plot}</Text>
+                  <Text>{this.state.movieDetails.Plot}</Text>
                 </View>          
         );
     }
 });
 
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  rightContainer: {
+    flex: 1,
+  },
   cellImage: {
     backgroundColor: '#dddddd',
     marginTop: 100,
@@ -82,7 +112,24 @@ var styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  buttonText: {
+  fontSize: 18,
+  color: 'white',
+  alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
   }
 });
 
-module.exports = ForTouchScene;
+module.exports = MovieDetails;

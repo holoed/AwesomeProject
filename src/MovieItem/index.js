@@ -12,14 +12,14 @@ var {
 } = React;
 
 
-var ForTouchScene = require('../MovieDetails');
+var MovieDetails = require('../MovieDetails');
 
 var PostCell = React.createClass({
 
   onPress: function() {
         this.props.navigator.push({
             title: this.props.post.title,
-            component: ForTouchScene,
+            component: MovieDetails,
             passProps: { post : this.props.post },
         });
     },
