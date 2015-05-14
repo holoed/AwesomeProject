@@ -13,4 +13,4 @@ var navigation = require('./src/Main');
 
 
 
-AppRegistry.registerComponent('AwesomeProject', () => navigation);
+AppRegistry.registerComponent('Movies', () => navigation);

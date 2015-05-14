@@ -65,6 +65,9 @@ var PostCell = React.createClass({
               <Text style={styles.movieTitle} numberOfLines={2}>
                 {this.state.loaded ? this.state.movieDetails.Title : this.props.post.title}
               </Text>
+              <Text>
+                {this.state.loaded ? this.state.movieDetails.Plot : "loading plot..."}
+              </Text>
             </View>
           </View>
         </TouchableHighlight>
@@ -80,15 +83,13 @@ var styles = StyleSheet.create({
    },
   row: {
     alignItems: 'center',
-    backgroundColor: 'white',
     flexDirection: 'row',
     padding: 5,
   },
   cellImage: {
-    backgroundColor: '#dddddd',
-    height: 143,
+    height: 323,
     marginRight: 10,
-    width: 110,
+    width: 215,
   },
   cellBorder: {
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
@@ -100,7 +101,7 @@ var styles = StyleSheet.create({
     flex: 1,
     fontSize: 25,
     fontWeight: '500',
-    marginBottom: 2,
+    marginBottom: 2
   },
 });
 

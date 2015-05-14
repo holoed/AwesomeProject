@@ -87,7 +87,7 @@ var styles = StyleSheet.create({
     margin: 10,
   },
   postsListView:{
-    backgroundColor: '#F6F6EF',
+    backgroundColor: 'white',
   },
   row: {
     alignItems: 'center',

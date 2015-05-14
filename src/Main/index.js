@@ -14,10 +14,13 @@ var {
   render: function() {
     return (
       <NavigatorIOS
+            barTintColor= '#48BBEC'
+            tintColor= '#ffffff'
+            titleTextColor= '#ffffff'
             style={styles.container}
             initialRoute={{
-              component: PostsView,
-              title: 'Movies',
+            component: PostsView,
+            title: 'Movies',
       }}/>
     );
   },
