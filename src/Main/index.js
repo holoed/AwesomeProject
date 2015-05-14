@@ -3,6 +3,7 @@
 var React = require('react-native');
 var SideMenu = require('react-native-side-menu');
 var PostsView = require('../Movies');
+var Icon = require('FAKIconImage');
 var window = require('Dimensions').get('window');
 
 var {
@@ -51,7 +52,9 @@ var Application = React.createClass({
 });
 
  var navigation = React.createClass ({
+  
   render: function() {
+    var app = Application;
     return (
       <NavigatorIOS
             barTintColor= '#46629D'
@@ -59,8 +62,10 @@ var Application = React.createClass({
             titleTextColor= '#ffffff'
             style={styles.container}
             initialRoute={{
-            component: Application,
-            title: 'Movies',
+              leftButtonTitle: '|||||',
+              //onLeftButtonPress: () => app.sideMenu.toggleMenu() ,
+              component: app,
+              title: 'Movies',
       }}/>
     );
   },
@@ -105,6 +110,11 @@ var styles = StyleSheet.create({
   end: {
     borderWidth: 0.5,
     height: 0.5
+  },
+  beer: {
+    width: 70,
+    height: 70,
+    margin: 10
   },
 });
 
