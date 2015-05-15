@@ -11,29 +11,10 @@ var {
   AlertIOS
 } = React;
 
-var Video = require('react-native-video');
 var VideoApplication = require('../VideoApplication');
-
-var MovieVideo = React.createClass({
-    render: function() {
-        return ( <Video source={{uri: this.props.post.sources[0], isNetwork: true}}
-                        style={styles.video}
-                        resizeMode="contain"></Video>
-          
-           
-        );
-    }  
-});
 
 var MovieDetails = React.createClass({
 
-    openInEmbedded: function() {
-        this.props.navigator.push({
-            title: this.props.post.title,
-            component: MovieVideo,
-            passProps: { post : this.props.post },
-        });
-    },
     render: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
                    <View style={styles.container}>
@@ -48,15 +29,11 @@ var MovieDetails = React.createClass({
                           <VideoApplication url={this.props.post.sources[0]} applicationName="Safari" />
 
                           <VideoApplication url={"goodplayer://" + this.props.post.sources[0]} applicationName="Good Player" />
-                      
-                          <TouchableHighlight onPress={this.openInEmbedded} style={styles.button}>
-                            <Text style={styles.buttonText}>Internal</Text>
-                          </TouchableHighlight>
-                          
+                                               
                       </View>
                   </View>    
                   <Text/>
-                  <Text style={{fontWeight: 'bold', fontSize:'30'}}>{this.props.movieDetails.Title}</Text>
+                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.movieDetails.Title}</Text>
                   <Text/>
                   <Text>{this.props.movieDetails.Plot}</Text>
                 </View>          

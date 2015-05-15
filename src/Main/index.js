@@ -3,7 +3,7 @@
 var React = require('react-native');
 var SideMenu = require('react-native-side-menu');
 var PostsView = require('../Movies');
-var Icon = require('FAKIconImage');
+//var Icon = require('FAKIconImage');
 var window = require('Dimensions').get('window');
 
 var {
@@ -41,12 +41,9 @@ var Menu = React.createClass({
 
 var Application = React.createClass({
   render: function() {
-    var menu = <Menu navigator={this.props.navigator}/>;
-
+  
     return (
-      <SideMenu menu={menu} openMenuOffset={window.width * 1 / 3}>
         <PostsView navigator={this.props.navigator}/>
-      </SideMenu>
     );
   }
 });
@@ -54,19 +51,29 @@ var Application = React.createClass({
  var navigation = React.createClass ({
   
   render: function() {
-    var app = Application;
+
+    var img = (<Image
+            style={styles.avatar}
+            source={{
+              uri: 'http://pickaface.net/includes/themes/clean/img/slide2.png'
+            }}/>)
+
+    var menu = <Menu navigator={this.refs.navigator}/>;
     return (
+  <SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 3}>
+       
       <NavigatorIOS
             barTintColor= '#46629D'
             tintColor= '#ffffff'
             titleTextColor= '#ffffff'
             style={styles.container}
             initialRoute={{
-              leftButtonTitle: '|||||',
-              //onLeftButtonPress: () => app.sideMenu.toggleMenu() ,
-              component: app,
+              leftButtonTitle: '||||||',
+              onLeftButtonPress: () => this.refs.sideMenu.toggleMenu() ,
+              component: Application,
               title: 'Movies',
       }}/>
+   </SideMenu>
     );
   },
 });
