@@ -28,7 +28,7 @@ var PostCell = React.createClass({
     },
 
   fetchData: function() {
-      fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=&plot=full&type=movie&r=json")
+      fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=" + this.props.post.year + "&plot=full&type=movie&r=json")
         .then((response) => response.json())
         .then((responseData) => {
           this.setState({
