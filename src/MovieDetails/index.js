@@ -33,7 +33,7 @@ var MovieDetails = React.createClass({
                       </View>
                   </View>    
                   <Text/>
-                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.movieDetails.Title}</Text>
+                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.movieDetails.Title} [{this.props.movieDetails.Year}]</Text>
                   <Text/>
                   <Text>{this.props.movieDetails.Plot}</Text>
                 </View>          

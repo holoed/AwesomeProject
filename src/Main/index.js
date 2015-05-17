@@ -68,7 +68,7 @@ var Application = React.createClass({
             titleTextColor= '#ffffff'
             style={styles.container}
             initialRoute={{
-              leftButtonTitle: '||||||',
+              leftButtonIcon: require('image!navicon-round'),
               onLeftButtonPress: () => this.refs.sideMenu.toggleMenu() ,
               component: Application,
               title: 'Movies',
