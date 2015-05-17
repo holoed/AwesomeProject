@@ -2,8 +2,7 @@
 
 var React = require('react-native');
 var SideMenu = require('react-native-side-menu');
-var PostsView = require('../Movies');
-//var Icon = require('FAKIconImage');
+var Movies = require('../Movies');
 var window = require('Dimensions').get('window');
 
 var {
@@ -15,7 +14,21 @@ var {
   Image
 } = React;
 
+var Settings = React.createClass({
+  render: function() {
+    return (<View></View>);
+  }
+});
+
 var Menu = React.createClass({
+
+  openSettings: function(e) {
+     this.props.nav().push({
+            title: "Settings",
+            component: Settings
+        });
+  },
+
   render: function() {
     return (
       <ScrollView style={styles.menu}>
@@ -29,7 +42,7 @@ var Menu = React.createClass({
         </View>
 
         <Text style={styles.end}/>
-        <Text style={styles.item}>Settings</Text>
+        <Text style={styles.item} onPress={this.openSettings}>Settings</Text>
         <Text style={styles.item}>About</Text>
         <Text style={styles.item}>Contacts</Text>
         <Text style={styles.item}>Credits</Text>
@@ -41,40 +54,33 @@ var Menu = React.createClass({
 
 var Application = React.createClass({
   render: function() {
-  
     return (
-        <PostsView navigator={this.props.navigator}/>
+        <Movies navigator={this.props.navigator}/>
     );
   }
 });
 
- var navigation = React.createClass ({
+ var Navigation = React.createClass ({
   
+  getNav: function() {
+     return this.refs.nav;
+  },
+
   render: function() {
-
-    var img = (<Image
-            style={styles.avatar}
-            source={{
-              uri: 'http://pickaface.net/includes/themes/clean/img/slide2.png'
-            }}/>)
-
-    var menu = <Menu navigator={this.refs.navigator}/>;
-    return (
-  <SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 3}>
-       
-      <NavigatorIOS
-            barTintColor= '#46629D'
-            tintColor= '#ffffff'
-            titleTextColor= '#ffffff'
-            style={styles.container}
-            initialRoute={{
-              leftButtonIcon: require('image!navicon-round'),
-              onLeftButtonPress: () => this.refs.sideMenu.toggleMenu() ,
-              component: Application,
-              title: 'Movies',
-      }}/>
-   </SideMenu>
-    );
+    var menu = <Menu nav={this.getNav}/>;
+    return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 3}>
+                 <NavigatorIOS  ref="nav"
+                                barTintColor= '#46629D'
+                                tintColor= '#ffffff'
+                                titleTextColor= '#ffffff'
+                                style={styles.container}
+                                initialRoute={{
+                                  leftButtonIcon: require('image!navicon-round'),
+                                  onLeftButtonPress: () => this.refs.sideMenu.toggleMenu() ,
+                                  component: Application,
+                                  title: 'Movies',
+                          }}/>
+             </SideMenu>);
   },
 });
 
@@ -112,9 +118,11 @@ var styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft:10,
     color: 'white',
-    borderWidth: 1
+    borderWidth: 1,
+    borderColor: '#252C3B'
   },
   end: {
+    borderColor: '#252C3B',
     borderWidth: 0.5,
     height: 0.5
   },
@@ -125,4 +133,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = navigation;
+module.exports = Navigation;
