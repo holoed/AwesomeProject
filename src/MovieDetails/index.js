@@ -22,6 +22,18 @@ var MovieDetails = React.createClass({
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
+                          <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.movieDetails.imdbRating}</Text>
+
+                          <Text style={{fontSize:15, marginBottom:10}}>{this.props.movieDetails.Rated} | {this.props.movieDetails.Runtime} | {this.props.movieDetails.Genre}</Text>
+
+                          <Text style={{fontSize:15, marginBottom:10}}>Director: {this.props.movieDetails.Director}</Text>
+
+                          <Text style={{fontSize:15, marginBottom:10}}>Writer: {this.props.movieDetails.Writer}</Text>
+
+                          <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.movieDetails.Actors}</Text>
+
+                          <Text style={{fontSize:15, marginBottom:100}}>Released: {this.props.movieDetails.Released}</Text>
+
                           <VideoApplication url={this.props.post.sources[0].replace("http", "vlc")} applicationName="VLC" />
                       
                           <VideoApplication url={this.props.post.sources[0].replace("http", "infuse")} applicationName="Infuse" />
@@ -33,7 +45,7 @@ var MovieDetails = React.createClass({
                       </View>
                   </View>    
                   <Text/>
-                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.movieDetails.Title} [{this.props.movieDetails.Year}]</Text>
+                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.movieDetails.Title}</Text>
                   <Text/>
                   <Text>{this.props.movieDetails.Plot}</Text>
                 </View>          
