@@ -22,7 +22,7 @@ var Settings = React.createClass({
 
 var Menu = React.createClass({
 
-  openSettings: function(e) {
+  openSettings: function(e) { 
      this.props.nav().push({
             title: "Settings",
             component: Settings

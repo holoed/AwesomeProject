@@ -11,6 +11,7 @@ var {
   Image
 } = React;
 
+var MovieCache = {};
 
 var MovieDetails = require('../MovieDetails');
 
@@ -28,9 +29,19 @@ var PostCell = React.createClass({
     },
 
   fetchData: function() {
+      var key = this.props.post.title + this.props.post.year;
+      if (MovieCache[key] != undefined) {
+          this.setState({
+            movieDetails: MovieCache[key],
+            loaded: true
+          });
+          return;
+      }
+
       fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=" + this.props.post.year + "&plot=full&type=movie&r=json")
         .then((response) => response.json())
         .then((responseData) => {
+          MovieCache[key] = responseData;
           this.setState({
             movieDetails: responseData,
             loaded: true
