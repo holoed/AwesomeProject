@@ -11,51 +11,15 @@ var {
   Image
 } = React;
 
-var MovieCache = {};
-
 var MovieDetails = require('../MovieDetails');
 
 var PostCell = React.createClass({
 
-  getInitialState: function() {
-      return {
-        movieDetails: {},
-        loaded: false
-      };
-    },
-
-  componentDidMount: function() {
-      this.fetchData();
-    },
-
-  fetchData: function() {
-      var key = this.props.post.title + this.props.post.year;
-      if (MovieCache[key] != undefined) {
-          this.setState({
-            movieDetails: MovieCache[key],
-            loaded: true
-          });
-          return;
-      }
-
-      fetch("http://www.omdbapi.com/?t=" + (this.props.post.title.replace(" ", "+")) + "&y=" + this.props.post.year + "&plot=full&type=movie&r=json")
-        .then((response) => response.json())
-        .then((responseData) => {
-          MovieCache[key] = responseData;
-          this.setState({
-            movieDetails: responseData,
-            loaded: true
-          });
-        })
-        .done();
-    },
-
   onPress: function() {
         this.props.navigator.push({
-            title: this.state.title,
+            title: this.props.post.Title,
             component: MovieDetails,
-            passProps: { movieDetails : this.state.movieDetails, 
-                         post: this.props.post },
+            passProps: { post: this.props.post },
         });
     },
 
@@ -64,20 +28,16 @@ var PostCell = React.createClass({
       <View>
         <TouchableHighlight onPress={this.onPress}>
           <View style={styles.row}>
-            {this.state.loaded ?
-            (<Image
-              source={{uri: this.state.movieDetails.Poster}}
-              style={styles.cellImage}/>)
-            : (<Image
-              source={{uri: this.props.post["image-480x270"]}}
-              style={styles.cellImage}/>)}
-
+            <Image
+              source={{uri: this.props.post.Poster}}
+              style={styles.cellImage}/>
+        
             <View style={styles.textContainer}>
               <Text style={styles.movieTitle} numberOfLines={2}>
-                {this.state.loaded ? this.state.movieDetails.Title : this.props.post.title}
+                {this.props.post.Title}
               </Text>
               <Text>
-                {this.state.loaded ? this.state.movieDetails.Plot : "loading plot..."}
+                {this.props.post.Plot}
               </Text>
             </View>
           </View>

@@ -18,21 +18,21 @@ var MovieDetails = React.createClass({
     render: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
                    <View style={styles.container}>
-                      <Image source={{uri:this.props.movieDetails.Poster}}
+                      <Image source={{uri:this.props.post.Poster}}
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
-                          <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.movieDetails.imdbRating}</Text>
+                          <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.imdbRating}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>{this.props.movieDetails.Rated} | {this.props.movieDetails.Runtime} | {this.props.movieDetails.Genre}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Director: {this.props.movieDetails.Director}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Director: {this.props.post.Director}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Writer: {this.props.movieDetails.Writer}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Writer: {this.props.post.Writer}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.movieDetails.Actors}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.Actors}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:100}}>Released: {this.props.movieDetails.Released}</Text>
+                          <Text style={{fontSize:15, marginBottom:100}}>Released: {this.props.post.Released}</Text>
 
                           <VideoApplication url={this.props.post.sources[0].replace("http", "vlc")} applicationName="VLC" />
                       
@@ -45,9 +45,9 @@ var MovieDetails = React.createClass({
                       </View>
                   </View>    
                   <Text/>
-                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.movieDetails.Title}</Text>
+                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.Title}</Text>
                   <Text/>
-                  <Text>{this.props.movieDetails.Plot}</Text>
+                  <Text>{this.props.post.Plot}</Text>
                 </View>          
         );
     }

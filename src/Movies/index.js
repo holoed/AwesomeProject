@@ -12,6 +12,8 @@ var {
   TextInput
 } = React;
 
+var Engine = require('Main');
+
 var TimerMixin = require('react-timer-mixin');
 
 var SearchBar = React.createClass({
@@ -41,7 +43,8 @@ var Movies = React.createClass({
   getInitialState: function() {
     return {
       dataSource: [],
-      filteredDataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2 }),
+      filteredDataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1.Title != row2.Title && 
+                                                                                  row1.Year != row2.Year }),
       loaded: false
     };
   },
@@ -51,21 +54,51 @@ var Movies = React.createClass({
   getDataSource: function(original) {
       var source = {};
       for (var i = 0; i < original.length; i++) {
-           source[original[i].title] = original[i];
+           source[original[i].Title] = original[i];
       }; 
       return source;
+  },
+
+  createIndex: function(items) {
+      var source = [];
+      for (var i = 0; i < items.length; i++) {
+           source.push(items[i].Title + " " + 
+                       items[i].Genre + " " +
+                       items[i].Actors + " " + 
+                       items[i].Director);
+      }; 
+      return Engine.createIndex(source);
   },
 
   fetchData: function() {
     fetch("http://192.168.0.9:8000/Catalog")
       .then((response) => response.json())
       .then((responseData) => {
-        var original = responseData.categories[0].videos;
-        this.setState({
-          dataSource: original,
-          filteredDataSource: this.state.filteredDataSource.cloneWithRows(this.getDataSource(original)),
-          loaded: true
-        });
+        var videos = responseData.categories[0].videos;
+        for (var i = 0 ; i < videos.length; i++) {
+           var item = videos[i]  
+           fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=movie&r=json")
+          .then((response) => response.json())
+          .then((responseData) => {
+            responseData.sources = item.sources;
+            var updatedSource = this.state.dataSource.concat([responseData]);
+            this.setState({
+                dataSource: updatedSource,
+                filteredDataSource: this.state.filteredDataSource.cloneWithRows(this.getDataSource(updatedSource)),
+                loaded: this.state.dataSource.length == videos.length - 1
+              });   
+
+            if (this.state.loaded) {
+              this.setState({
+                dataSource : this.state.dataSource,
+                filteredDataSource: this.state.filteredDataSource,
+                loaded: this.state.loaded,
+                index: this.createIndex(this.state.dataSource)
+              })
+            }
+
+          }).done();
+        };
       })
       .done();
   },
@@ -91,7 +124,16 @@ var Movies = React.createClass({
 
 
   searchMovies: function(filter) {
-    var filteredData = this.getDataSource(this.state.dataSource.filter(item => item.title.toLowerCase().indexOf(filter) > -1));
+
+    var foundMovies = []    
+    if (filter != undefined && filter != "") { 
+      var foundItems = Engine.search(this.state.index)(filter);
+      for (var i = foundItems.length - 1; i >= 0; i--) {
+        foundMovies.push(this.state.dataSource[foundItems[i] - 1]);
+      };
+    } else foundMovies = this.state.dataSource; 
+
+    var filteredData = this.getDataSource(foundMovies);
     this.setState({
           dataSource: this.state.dataSource,
           filteredDataSource: this.state.filteredDataSource.cloneWithRows(filteredData),
