@@ -75,30 +75,33 @@ var Movies = React.createClass({
       .then((response) => response.json())
       .then((responseData) => {
         var videos = responseData.categories[0].videos;
+        var _this = this;
         for (var i = 0 ; i < videos.length; i++) {
-           var item = videos[i]  
-           fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=movie&r=json")
-          .then((response) => response.json())
-          .then((responseData) => {
-            responseData.sources = item.sources;
-            var updatedSource = this.state.dataSource.concat([responseData]);
-            this.setState({
-                dataSource: updatedSource,
-                filteredDataSource: this.state.filteredDataSource.cloneWithRows(this.getDataSource(updatedSource)),
-                loaded: this.state.dataSource.length == videos.length - 1
-              });   
+           (function() {
+               var item = videos[i]; 
+               fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=movie&r=json")
+              .then((response) => response.json())
+              .then((responseData) => {
+                responseData.sources = item.sources;
+                var updatedSource = _this.state.dataSource.concat([responseData]);
+                _this.setState({
+                    dataSource: updatedSource,
+                    filteredDataSource: _this.state.filteredDataSource.cloneWithRows(_this.getDataSource(updatedSource)),
+                    loaded: _this.state.dataSource.length == videos.length - 1
+                  });   
 
-            if (this.state.loaded) {
-              this.setState({
-                dataSource : this.state.dataSource,
-                filteredDataSource: this.state.filteredDataSource,
-                loaded: this.state.loaded,
-                index: this.createIndex(this.state.dataSource)
-              })
-            }
+                if (_this.state.loaded) {
+                  _this.setState({
+                    dataSource : _this.state.dataSource,
+                    filteredDataSource: _this.state.filteredDataSource,
+                    loaded: _this.state.loaded,
+                    index: _this.createIndex(_this.state.dataSource)
+                  })
+                }
 
-          }).done();
-        };
+              }).done(); 
+            })(); 
+         };
       })
       .done();
   },
