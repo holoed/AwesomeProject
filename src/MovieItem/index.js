@@ -13,7 +13,7 @@ var {
 
 var MovieDetails = require('../MovieDetails');
 
-var PostCell = React.createClass({
+var MovieItem = React.createClass({
 
   onPress: function() {
         this.props.navigator.push({
@@ -77,4 +77,4 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports = PostCell;
+module.exports = MovieItem;

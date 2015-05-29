@@ -1,38 +1,12 @@
 'use strict';
 
 var React = require('react-native');
-var {
-  PixelRatio,
-  View,
-  Text,
-  ListView,
-  StyleSheet,
-  TouchableHighlight,
-  Image,
-  TextInput
-} = React;
+var { PixelRatio, View, Text, ListView, StyleSheet } = React;
 
 var Engine = require('Main');
-
 var TimerMixin = require('react-timer-mixin');
-
-var SearchBar = React.createClass({
-  render: function() {
-    return (
-      <View style={styles.searchBar}>
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChange={this.props.onSearchChange}
-          placeholder="Search a movie..."
-          onFocus={this.props.onFocus}
-          style={styles.searchBarInput} />
-      </View>
-    );
-  }
-});
-
 var MovieItem = require('../MovieItem');
+var SearchBar = require('../SearchBar');
 
 var Movies = React.createClass({
 
@@ -222,18 +196,6 @@ var styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: '500',
     marginBottom: 2,
-  },
-  searchBar: {
-    marginTop: 64,
-    padding: 3,
-    paddingLeft: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  searchBarInput: {
-    fontSize: 15,
-    flex: 1,
-    height: 30,
   },
   separator: {
     height: 1,

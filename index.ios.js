@@ -1,16 +1,8 @@
 'use strict';
 
 var React = require('react-native');
-var {
-  AppRegistry,
-  StyleSheet,
-  NavigatorIOS,
-  Text,
-  View,
-} = React;
+var { AppRegistry } = React;
 
-var navigation = require('./src/Main');
-
-
+var navigation = require('./src/Navigation');
 
 AppRegistry.registerComponent('MyMovies', () => navigation);
