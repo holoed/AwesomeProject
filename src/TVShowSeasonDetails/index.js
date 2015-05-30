@@ -3,16 +3,9 @@
 var React = require('react-native');
 var { PixelRatio, View, Text, ListView, StyleSheet } = React;
 
-var Engine = require('Main');
-var TimerMixin = require('react-timer-mixin');
-var TVShowItem = require('../TVShowItem');
-var SearchBar = require('../SearchBar');
+var MovieItem = require('../MovieItem');
 
-var Movies = React.createClass({
-
-  mixins: [TimerMixin],
-
-  timeoutID: null,
+var TVShowSeasonDetails = React.createClass({
 
   getInitialState: function() {
     return {
@@ -33,58 +26,32 @@ var Movies = React.createClass({
       return source;
   },
 
-  createIndex: function(items) {
-      var source = [];
-      for (var i = 0; i < items.length; i++) {
-           source.push(items[i].Title + " " + 
-                       items[i].Genre + " " +
-                       items[i].Actors + " " + 
-                       items[i].Director);
-      }; 
-      return Engine.createIndex(source);
-  },
-
   fetchData: function() {
-    fetch("http://192.168.0.9:8000/Catalog")
-      .then((response) => response.json())
-      .then((responseData) => {
-        var videos = responseData.tvshows;
-        var _this = this;
-        for (var i = 0 ; i < videos.length; i++) {
+     for (var i = 0 ; i < this.props.post.episodes.length; i++) {
+           var _this = this;
            (function() {
-               var item = videos[i]; 
-               fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=series&r=json")
+               var item = _this.props.post.episodes[i]; 
+               console.log(item);
+               fetch("http://www.omdbapi.com/?t=" + (item.series.replace(" ", "+")) + "&Season=" + item.season + "&Episode=" + item.episode + "&plot=full&type=series&r=json")
               .then((response) => response.json())
               .then((responseData) => {
-                responseData.seasons = item.seasons;
+                responseData.source = item.source;
                 var updatedSource = _this.state.dataSource.concat([responseData]);
                 _this.setState({
                     dataSource: updatedSource,
                     filteredDataSource: _this.state.filteredDataSource.cloneWithRows(_this.getDataSource(updatedSource)),
-                    loaded: _this.state.dataSource.length == videos.length - 1
+                    loaded: _this.state.dataSource.length == _this.props.post.episodes.length - 1
                   });   
-
-                if (_this.state.loaded) {
-                  _this.setState({
-                    dataSource : _this.state.dataSource,
-                    filteredDataSource: _this.state.filteredDataSource,
-                    loaded: _this.state.loaded,
-                    index: _this.createIndex(_this.state.dataSource)
-                  })
-                }
-
               }).done(); 
             })(); 
          };
-      })
-      .done();
   },
   render: function() {
     if(!this.state.loaded){
       return (
         <View style={styles.wrapper}>
         <Text style={styles.welcome}>
-          Loading tv shows list ...
+          Loading movies list ...
         </Text>
       </View>
       );
@@ -93,38 +60,10 @@ var Movies = React.createClass({
       this.renderListView()
     );
   },
-  onSearchChange: function(event) {
-    var filter = event.nativeEvent.text.toLowerCase(); 
-    this.clearTimeout(this.timeoutID);
-    this.timeoutID = this.setTimeout(() => this.searchMovies(filter), 100);
-  },
-
-
-  searchMovies: function(filter) {
-
-    var foundMovies = []    
-    if (filter != undefined && filter != "") { 
-      var foundItems = Engine.search(this.state.index)(filter);
-      for (var i = foundItems.length - 1; i >= 0; i--) {
-        foundMovies.push(this.state.dataSource[foundItems[i] - 1]);
-      };
-    } else foundMovies = this.state.dataSource; 
-
-    var filteredData = this.getDataSource(foundMovies);
-    this.setState({
-          dataSource: this.state.dataSource,
-          filteredDataSource: this.state.filteredDataSource.cloneWithRows(filteredData),
-          loaded: this.state.loaded,
-        });
-  },
-
 
   renderListView: function(){
     return(
-      <View style={{ flex: 1 }}>
-        <SearchBar onSearchChange={this.onSearchChange}
-          onFocus={() => this.refs.listview.getScrollResponder().scrollTo(0, 0)} />
-        <View style={styles.separator} />
+      <View style={{ flex: 1, marginTop:60 }}>  
         <ListView
             ref="listview"
             automaticallyAdjustContentInsets={false}
@@ -140,7 +79,7 @@ var Movies = React.createClass({
   },
   renderPostCell: function(post){
     return(
-      <TVShowItem post={post} navigator={this.props.navigator}/>
+      <MovieItem post={post} navigator={this.props.navigator}/>
     );
   }
 });
@@ -203,5 +142,4 @@ var styles = StyleSheet.create({
   },
 });
 
-
-module.exports = Movies;
+module.exports = TVShowSeasonDetails;

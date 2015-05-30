@@ -8,12 +8,20 @@ var {
   StyleSheet,
   TouchableHighlight,
   LinkingIOS,
-  AlertIOS
+  AlertIOS,
+  ListView
 } = React;
+
+var TVShowDetailsItem = require('../TVShowDetailsItem');
 
 var TVShowDetails = React.createClass({
 
-    render: function() {
+  getDataSource: function() {
+    var dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2 });
+    return dataSource.cloneWithRows(this.props.post.seasons);
+  },
+  
+  render: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
                    <View style={styles.container}>
                       <Image source={{uri:this.props.post.Poster}}
@@ -28,8 +36,16 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:100}}>Years: {this.props.post.Year}</Text>
-                                            
+                          <Text style={{fontSize:15, marginBottom:10}}>Years: {this.props.post.Year}</Text>
+                          
+                          <ListView
+                            automaticallyAdjustContentInsets={false}
+                            keyboardDismissMode="onDrag"
+                            keyboardShouldPersistTaps={true}
+                            showsVerticalScrollIndicator={false}
+                            dataSource={this.getDataSource()}
+                            renderRow={this.renderPostCell}
+                            style={{marginBottom:100, marginTop:20, backgroundColor: 'transparent'}} />                 
                       </View>
                   </View>    
                   <Text/>
@@ -38,7 +54,13 @@ var TVShowDetails = React.createClass({
                   <Text>{this.props.post.Plot}</Text>
                 </View>          
         );
-    }
+    },
+  
+  renderPostCell: function(post){
+    return(
+      <TVShowDetailsItem post={post} navigator={this.props.navigator}/>
+    );
+  }
 });
 
 var styles = StyleSheet.create({
@@ -51,6 +73,12 @@ var styles = StyleSheet.create({
   },
   rightContainer: {
     flex: 1,
+  },
+  row: {
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    flexDirection: 'row',
+    padding: 5,
   },
   cellImage: {
     backgroundColor: '#dddddd',
