@@ -4,7 +4,8 @@ var React = require('react-native');
 var {
   View,
   StyleSheet,
-  TextInput
+  TextInput,
+  Image
 } = React;
 
 var SearchBar = React.createClass({
@@ -18,6 +19,7 @@ var SearchBar = React.createClass({
           placeholder="Search a movie..."
           onFocus={this.props.onFocus}
           style={styles.searchBarInput} />
+          <Image source={require('image!ios7-search-tab')} />
       </View>
     );
   }

@@ -2,14 +2,9 @@
 
 var React = require('react-native');
 
-var {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  Image
-} = React;
+var { StyleSheet, View, Text, ScrollView, Image } = React;
 
+var window = require('Dimensions').get('window');
 
 var Menu = React.createClass({
 
