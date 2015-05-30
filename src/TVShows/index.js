@@ -5,7 +5,7 @@ var { PixelRatio, View, Text, ListView, StyleSheet } = React;
 
 var Engine = require('Main');
 var TimerMixin = require('react-timer-mixin');
-var MovieItem = require('../MovieItem');
+var TVShowItem = require('../TVShowItem');
 var SearchBar = require('../SearchBar');
 
 var Movies = React.createClass({
@@ -48,15 +48,14 @@ var Movies = React.createClass({
     fetch("http://192.168.0.9:8000/Catalog")
       .then((response) => response.json())
       .then((responseData) => {
-        var videos = responseData.movies;
+        var videos = responseData.tvshows;
         var _this = this;
         for (var i = 0 ; i < videos.length; i++) {
            (function() {
                var item = videos[i]; 
-               fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=movie&r=json")
+               fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=series&r=json")
               .then((response) => response.json())
               .then((responseData) => {
-                responseData.source = item.source;
                 var updatedSource = _this.state.dataSource.concat([responseData]);
                 _this.setState({
                     dataSource: updatedSource,
@@ -84,7 +83,7 @@ var Movies = React.createClass({
       return (
         <View style={styles.wrapper}>
         <Text style={styles.welcome}>
-          Loading movies list ...
+          Loading tv shows list ...
         </Text>
       </View>
       );
@@ -140,7 +139,7 @@ var Movies = React.createClass({
   },
   renderPostCell: function(post){
     return(
-      <MovieItem post={post} navigator={this.props.navigator}/>
+      <TVShowItem post={post} navigator={this.props.navigator}/>
     );
   }
 });

@@ -11,9 +11,7 @@ var {
   AlertIOS
 } = React;
 
-var VideoApplication = require('../VideoApplication');
-
-var MovieDetails = React.createClass({
+var TVShowDetails = React.createClass({
 
     render: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
@@ -26,22 +24,12 @@ var MovieDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Director: {this.props.post.Director}</Text>
-
-                          <Text style={{fontSize:15, marginBottom:10}}>Writer: {this.props.post.Writer}</Text>
-
                           <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.Actors}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:100}}>Released: {this.props.post.Released}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
 
-                          <VideoApplication url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
-                      
-                          <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-                      
-                          <VideoApplication url={this.props.post.source} applicationName="Safari" />
-
-                          <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
-                                               
+                          <Text style={{fontSize:15, marginBottom:100}}>Years: {this.props.post.Year}</Text>
+                                            
                       </View>
                   </View>    
                   <Text/>
@@ -98,4 +86,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = MovieDetails;
+module.exports = TVShowDetails;

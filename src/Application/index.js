@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Movies = require('../Movies');
+var TVShows = require('../TVShows');
 
 var { StyleSheet, TabBarIOS, View } = React;
 
@@ -12,13 +13,6 @@ var Application = React.createClass({
     	selectedTab: "Movies"
     };
   },
-
-  _renderContent: function() {
-    return (
-      <Movies navigator={this.props.navigator}/>
-    );
-  },
-
 
   render: function() {
     return (
@@ -32,7 +26,7 @@ var Application = React.createClass({
               selectedTab: 'Movies',
             });
           }}>
-        	   {this._renderContent()}
+        	   <Movies navigator={this.props.navigator}/>
         </TabBarIOS.Item>
          <TabBarIOS.Item 
          	selected={this.state.selectedTab == "TV Shows"} 
@@ -43,7 +37,7 @@ var Application = React.createClass({
               selectedTab: 'TV Shows',
             });
           }}>
-        	   <View></View>
+        	   <TVShows navigator={this.props.navigator}/>
         </TabBarIOS.Item>
      </TabBarIOS>
         

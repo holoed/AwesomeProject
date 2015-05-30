@@ -26,7 +26,7 @@ var Navigation = React.createClass ({
                                   leftButtonIcon: require('image!navicon-round'),
                                   onLeftButtonPress: () => this.refs.sideMenu.toggleMenu() ,
                                   component: Application,
-                                  title: 'Movies',
+                                  title: 'Movies & TV Shows',
                           }}/>
              </SideMenu>);
   },
