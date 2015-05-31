@@ -56,6 +56,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     padding: 5,
+    backgroundColor: '#F5FCFF',
   },
   cellImage: {
     height: 323,
