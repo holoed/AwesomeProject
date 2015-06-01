@@ -6,7 +6,8 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
-    "react-native": "^0.4.4"
+    "react-native": "^0.4.4",
+    "react-native-video": "^0.4.1"
   },
   "devDependencies": {
     "react-native-side-menu": "^0.5.3"

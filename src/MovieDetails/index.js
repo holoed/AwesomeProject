@@ -12,8 +12,18 @@ var {
 } = React;
 
 var VideoApplication = require('../VideoApplication');
+var NativeVideo = require('../NativeVideo');
+
 
 var MovieDetails = React.createClass({
+
+    onPress: function() {
+        this.props.navigator.push({
+            title: this.props.post.Title,
+            component: NativeVideo,
+            passProps: { post: this.props.post },
+        });
+    },
 
     render: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
@@ -41,6 +51,10 @@ var MovieDetails = React.createClass({
                           <VideoApplication url={this.props.post.source} applicationName="Safari" />
 
                           <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
+
+                          <TouchableHighlight onPress={this.onPress} style={styles.button}>
+                            <Text style={styles.buttonText}>Native video</Text>
+                          </TouchableHighlight>
                                                
                       </View>
                   </View>    
