@@ -42,12 +42,14 @@ var MovieDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.Actors}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:100}}>Released: {this.props.post.Released}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
 
                           <VideoApplication url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
                       
                           <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
                       
+                          <VideoApplication url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
+
                           <VideoApplication url={this.props.post.source} applicationName="Safari" />
 
                           <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
@@ -106,7 +108,7 @@ var styles = StyleSheet.create({
     borderColor: '#32394A',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 10,
+    marginBottom: 0,
     alignSelf: 'stretch',
     justifyContent: 'center'
   }
