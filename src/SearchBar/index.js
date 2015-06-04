@@ -12,14 +12,15 @@ var SearchBar = React.createClass({
   render: function() {
     return (
       <View style={styles.searchBar}>
+        <Image source={require('image!ios7-search-tab')} />
         <TextInput
+          clearButtonMode="always"
           autoCapitalize="none"
           autoCorrect={false}
           onChange={this.props.onSearchChange}
           placeholder="Search a movie..."
           onFocus={this.props.onFocus}
           style={styles.searchBarInput} />
-          <Image source={require('image!ios7-search-tab')} />
       </View>
     );
   }
@@ -32,6 +33,7 @@ var styles = StyleSheet.create({
     paddingLeft: 8,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor:'#F5FCFF'
   },
   searchBarInput: {
     fontSize: 15,

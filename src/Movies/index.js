@@ -96,9 +96,13 @@ var Movies = React.createClass({
   onSearchChange: function(event) {
     var filter = event.nativeEvent.text.toLowerCase(); 
     this.clearTimeout(this.timeoutID);
-    this.timeoutID = this.setTimeout(() => this.searchMovies(filter), 100);
+    this.timeoutID = this.setTimeout(() => this.searchMovies(filter), 10);
   },
 
+  clearSearch: function(event) {
+    this.clearTimeout(this.timeoutID);
+    this.timeoutID = this.setTimeout(() => this.searchMovies(""), 10);
+  },
 
   searchMovies: function(filter) {
 
@@ -122,8 +126,9 @@ var Movies = React.createClass({
   renderListView: function(){
     return(
       <View style={{ flex: 1 }}>
-        <SearchBar onSearchChange={this.onSearchChange}
-          onFocus={() => this.refs.listview.getScrollResponder().scrollTo(0, 0)} />
+        <SearchBar onSearchChange={this.onSearchChange} 
+                   clearSearch={this.clearSearch}
+                   onFocus={() => this.refs.listview.getScrollResponder().scrollTo(0, 0)} />
         <View style={styles.separator} />
         <ListView
             ref="listview"

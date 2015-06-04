@@ -6,6 +6,8 @@ var { StyleSheet, View, Text, ScrollView, Image } = React;
 
 var window = require('Dimensions').get('window');
 
+var Settings = require('../Settings')
+
 var Menu = React.createClass({
 
   openSettings: function(e) { 
@@ -18,21 +20,20 @@ var Menu = React.createClass({
   render: function() {
     return (
       <ScrollView style={styles.menu}>
-        <View style={styles.avatarContainer}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: 'http://pickaface.net/includes/themes/clean/img/slide2.png'
-            }}/>
-          <Text style={{ position: 'absolute', left: 70, top: 20, color:'white' }}>Edmondo Pentangelo</Text>
-        </View>
-
-        <Text style={styles.end}/>
-        <Text style={styles.item} onPress={this.openSettings}>Settings</Text>
-        <Text style={styles.item}>About</Text>
-        <Text style={styles.item}>Contacts</Text>
-        <Text style={styles.item}>Credits</Text>
-        <Text style={styles.end}/>
+          <View style={styles.avatarContainer}>
+            <Image
+              style={styles.avatar}
+              source={{
+                uri: 'http://pickaface.net/includes/themes/clean/img/slide2.png'
+              }}/>
+            <Text style={{ position: 'absolute', left: 70, top: 20, color:'white' }}>Edmondo Pentangelo</Text>
+          </View>
+          <Text style={styles.end}/>
+          <Text style={styles.item} onPress={this.openSettings}>Settings</Text>
+          <Text style={styles.item}>About</Text>
+          <Text style={styles.item}>Contacts</Text>
+          <Text style={styles.item}>Credits</Text>
+          <Text style={styles.end}/>
       </ScrollView>
     );
   }
@@ -43,6 +44,7 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#32394A',
     padding: 0,
+    paddingTop: 20,
     width: window.width,
     height: window.height
   },
@@ -57,8 +59,7 @@ var styles = StyleSheet.create({
     flex: 1
   },
   item: {
-    fontSize: 18,
-    fontWeight: '300',
+    fontSize: 14,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft:10,
