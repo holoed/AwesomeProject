@@ -45,8 +45,8 @@ var styles = StyleSheet.create({
     backgroundColor: '#32394A',
     padding: 0,
     paddingTop: 20,
-    width: window.width,
-    height: window.height
+    width: 1024,
+    height: 1024
   },
   avatarContainer: {
     marginBottom: 20,
