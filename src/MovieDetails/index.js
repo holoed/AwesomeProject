@@ -103,24 +103,24 @@ var MovieDetails = React.createClass({
           return ( <View style={{marginLeft:10, marginRight:10}}>
                      <View style={styles.container}>
                         <Image source={{uri:this.props.post.Poster}}
-                               style={styles.cellImage} />
+                               style={styles.cellImageLandscape} />
                         <View style={styles.rightContainer}>
 
-                            <Text style={{fontWeight: 'bold', fontSize:35}}>{this.props.post.Title}</Text>
+                            <Text style={{fontWeight: 'bold', fontSize:25, marginTop:20, marginBottom:8}}>{this.props.post.Title}</Text>
 
-                            <Text style={{fontSize:20, marginBottom:10}}>Rating: {this.props.post.imdbRating}</Text>
+                            <Text style={{fontSize:20, marginBottom:8}}>Rating: {this.props.post.imdbRating}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Director: {this.props.post.Director}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Director: {this.props.post.Director}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Writer: {this.props.post.Writer}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Writer: {this.props.post.Writer}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.Actors}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Stars: {this.props.post.Actors}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Released: {this.props.post.Released}</Text>
 
-                            <Text style={{marginBottom:10}}>{this.props.post.Plot}</Text>    
+                            <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>    
 
                             <VideoApplication url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
                         
@@ -157,6 +157,13 @@ var styles = StyleSheet.create({
   cellImage: {
     backgroundColor: '#dddddd',
     marginTop: 100,
+    height: 600,
+    marginRight: 10,
+    width: 410,
+  },
+  cellImageLandscape: {
+    backgroundColor: '#dddddd',
+    marginTop: 90,
     height: 600,
     marginRight: 10,
     width: 410,
