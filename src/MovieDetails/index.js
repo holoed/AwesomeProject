@@ -27,14 +27,15 @@ var MovieDetails = React.createClass({
     componentWillMount: function () {
       var _this = this;
       Viewport.getDimensions(function (args) {
+        if (args.orientation == 5 || args.orientation == 6) return;
         if (args.orientation == 1 || args.orientation == 2)
           _this.setState({ orientation: 'portrait' });
         else if (args.orientation == 3 || args.orientation == 4)
           _this.setState({ orientation: 'landscape' });
       });
 
-
       Viewport.addEventListener(Viewport.events.DEVICE_DIMENSIONS_EVENT, function(args) {
+        if (args.orientation == 5 || args.orientation == 6) return;
         if (args.orientation == 1 || args.orientation == 2)
           _this.setState({ orientation: 'portrait' });
         else if (args.orientation == 3 || args.orientation == 4)
@@ -51,8 +52,9 @@ var MovieDetails = React.createClass({
     },
 
     render: function() {
-        if (this.state.orientation == 'portrait') return this.renderPortrait(); 
-        else if (this.state.orientation == 'landscape') return this.renderLandscape();
+        if (this.state.orientation == 'portrait') return this.renderPortrait();  
+        if (this.state.orientation == 'landscape') return this.renderLandscape();
+        return (<View><Text>{"Orientation: " + this.state.orientation}</Text></View>);
     },
 
     renderPortrait: function() {
