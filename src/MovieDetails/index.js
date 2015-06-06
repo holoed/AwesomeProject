@@ -31,8 +31,6 @@ var MovieDetails = React.createClass({
           _this.setState({ orientation: 'portrait' });
         else if (args.orientation == 3 || args.orientation == 4)
           _this.setState({ orientation: 'landscape' });
-        else
-          _this.setState({ orientation: ":" + args.orientation });
       });
 
 
@@ -41,8 +39,6 @@ var MovieDetails = React.createClass({
           _this.setState({ orientation: 'portrait' });
         else if (args.orientation == 3 || args.orientation == 4)
           _this.setState({ orientation: 'landscape' });
-        else 
-          _this.setState({ orientation: ":" + args.orientation });
       });
     },
 
@@ -57,7 +53,6 @@ var MovieDetails = React.createClass({
     render: function() {
         if (this.state.orientation == 'portrait') return this.renderPortrait(); 
         else if (this.state.orientation == 'landscape') return this.renderLandscape();
-        else return <View><Text style={{fontSize:30, marginTop:100}}>{this.state.orientation}</Text></View>;
     },
 
     renderPortrait: function() {
