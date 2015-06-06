@@ -11,10 +11,11 @@ var Settings = require('../Settings')
 var Menu = React.createClass({
 
   openSettings: function(e) { 
-     this.props.nav().push({
-            title: "Settings",
-            component: Settings
-        });
+       this.props.nav().popToTop();
+       this.props.nav().push({
+              title: "Settings",
+              component: Settings
+          });
   },
 
   render: function() {
