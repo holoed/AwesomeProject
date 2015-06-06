@@ -24,21 +24,25 @@ var TVShowDetails = React.createClass({
 
 
   componentWillMount: function () {
-    var _this = this;
-    Viewport.getDimensions(function (args) {
-      if (args.orientation == 1 || args.orientation == 2)
-        _this.setState({ orientation: 'portrait' });
-      if (args.orientation == 3 || args.orientation == 4)
-        _this.setState({ orientation: 'landscape' });
-    });
+      var _this = this;
+      Viewport.getDimensions(function (args) {
+        if (args.orientation == 1 || args.orientation == 2)
+          _this.setState({ orientation: 'portrait' });
+        else if (args.orientation == 3 || args.orientation == 4)
+          _this.setState({ orientation: 'landscape' });
+        else
+          _this.setState({ orientation: ":" + args.orientation });
+      });
 
 
-    Viewport.addEventListener(Viewport.events.DEVICE_DIMENSIONS_EVENT, function(args) {
-      if (args.orientation == 1 || args.orientation == 2)
-        _this.setState({ orientation: 'portrait' });
-      if (args.orientation == 3 || args.orientation == 4)
-        _this.setState({ orientation: 'landscape' });
-    });
+      Viewport.addEventListener(Viewport.events.DEVICE_DIMENSIONS_EVENT, function(args) {
+        if (args.orientation == 1 || args.orientation == 2)
+          _this.setState({ orientation: 'portrait' });
+        else if (args.orientation == 3 || args.orientation == 4)
+          _this.setState({ orientation: 'landscape' });
+        else 
+          _this.setState({ orientation: ":" + args.orientation });
+      });
   },
 
   getDataSource: function() {
@@ -49,7 +53,7 @@ var TVShowDetails = React.createClass({
   render: function() {
       if (this.state.orientation == 'portrait') return this.renderPortrait(); 
         else if (this.state.orientation == 'landscape') return this.renderLandscape();
-        else return <View></View>;
+        else return <View><Text style={{fontSize:30, marginTop:100}}>{this.state.orientation}</Text></View>;
   },
 
   renderPortrait: function() {
