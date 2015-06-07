@@ -11,8 +11,8 @@ var {
   AlertIOS
 } = React;
 
+var Window = require('Dimensions').get('window');
 var Viewport = require('react-native-viewport');
-
 var VideoApplication = require('../VideoApplication');
 var NativeVideo = require('../NativeVideo');
 
@@ -22,7 +22,6 @@ var MovieDetails = React.createClass({
     getInitialState: function() {
       return { orientation: null };
     },
-
 
     componentWillMount: function () {
       var _this = this;
@@ -54,7 +53,7 @@ var MovieDetails = React.createClass({
     render: function() {
         if (this.state.orientation == 'portrait') return this.renderPortrait();  
         if (this.state.orientation == 'landscape') return this.renderLandscape();
-        console.log("unknown orientation, defaulting to portrait");
+        if (Window.width > Window.height) return this.renderLandscape();
         return this.renderPortrait();
     },
 

@@ -12,8 +12,8 @@ var {
   ListView
 } = React;
 
+var Window = require('Dimensions').get('window');
 var Viewport = require('react-native-viewport');
-
 var TVShowDetailsItem = require('../TVShowDetailsItem');
 
 var TVShowDetails = React.createClass({
@@ -51,7 +51,7 @@ var TVShowDetails = React.createClass({
   render: function() {
       if (this.state.orientation == 'portrait') return this.renderPortrait(); 
       if (this.state.orientation == 'landscape') return this.renderLandscape();
-      console.log("unknown orientation, defaulting to portrait");
+       if (Window.width > Window.height) return this.renderLandscape();
       return this.renderPortrait();
   },
 
