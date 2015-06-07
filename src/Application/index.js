@@ -26,7 +26,7 @@ var Application = React.createClass({
               selectedTab: 'Movies',
             });
           }}>
-        	   <Movies navigator={this.props.navigator}/>
+        	   <Movies navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar}/>
         </TabBarIOS.Item>
          <TabBarIOS.Item 
          	selected={this.state.selectedTab == "TV Shows"} 
@@ -37,7 +37,7 @@ var Application = React.createClass({
               selectedTab: 'TV Shows',
             });
           }}>
-        	   <TVShows navigator={this.props.navigator}/>
+        	   <TVShows navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar}/>
         </TabBarIOS.Item>
      </TabBarIOS>
         

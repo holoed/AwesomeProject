@@ -52,13 +52,13 @@ var styles = StyleSheet.create({
   button: {
     height: 36,
     flex: 1,
-    flexDirection: 'row',
     backgroundColor: '#32394A',
     borderColor: '#32394A',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
-    alignSelf: 'stretch',
+    marginLeft:10,
+    marginRight:10,
     justifyContent: 'center'
   }
 });

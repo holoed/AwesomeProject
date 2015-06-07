@@ -13,6 +13,11 @@ var {
 var Video = require('react-native-video');
 
 var VideoPlayer = React.createClass({
+
+  componentWillMount() {
+     this.props.toggleMenuBar(true);
+  },
+
   getInitialState() {
     return {
       rate: 1,
@@ -117,6 +122,18 @@ var VideoPlayer = React.createClass({
               {this.renderResizeModeControl('contain')}
               {this.renderResizeModeControl('stretch')}
             </View>
+
+             <View style={styles.resizeModeControl}>
+               <TouchableOpacity onPress={() => { 
+                    this.setState({paused: true});
+                    this.props.toggleMenuBar(false);
+                    this.props.popAndRefresh();
+                     }}>
+                <Text style={styles.exitControlOption}>
+                  Exit
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <View style={styles.trackingControls}>
@@ -166,7 +183,7 @@ var styles = StyleSheet.create({
   },
   innerProgressRemaining: {
     height: 20,
-    backgroundColor: '#2C2C2C',
+    backgroundColor: 'transparent',
   },
   generalControls: {
     flex: 1,
@@ -198,6 +215,14 @@ var styles = StyleSheet.create({
     paddingLeft: 2,
     paddingRight: 2,
     lineHeight: 12,
+  },
+  exitControlOption: {
+    alignSelf: 'center',
+    fontSize: 18,
+    color: "white",
+    paddingLeft: 2,
+    paddingRight: 2,
+    lineHeight: 19,
   },
 });
 

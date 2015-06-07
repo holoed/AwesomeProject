@@ -145,7 +145,7 @@ var Movies = React.createClass({
   },
   renderPostCell: function(post){
     return(
-      <MovieItem post={post} navigator={this.props.navigator}/>
+      <MovieItem post={post} navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar}/>
     );
   }
 });

@@ -15,11 +15,19 @@ var MovieDetails = require('../MovieDetails');
 
 var MovieItem = React.createClass({
 
+  popAndRefresh: function() {
+        this.props.navigator.replacePreviousAndPop({
+            title: this.props.post.Title,
+            component: MovieDetails,
+            passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.popAndRefresh },
+        });
+  },
+
   onPress: function() {
         this.props.navigator.push({
             title: this.props.post.Title,
             component: MovieDetails,
-            passProps: { post: this.props.post },
+            passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.popAndRefresh },
         });
     },
 

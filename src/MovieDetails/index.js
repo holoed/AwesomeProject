@@ -47,14 +47,15 @@ var MovieDetails = React.createClass({
         this.props.navigator.push({
             title: this.props.post.Title,
             component: NativeVideo,
-            passProps: { post: this.props.post },
+            passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.props.popAndRefresh },
         });
     },
 
     render: function() {
         if (this.state.orientation == 'portrait') return this.renderPortrait();  
         if (this.state.orientation == 'landscape') return this.renderLandscape();
-        return (<View><Text>{"Orientation: " + this.state.orientation}</Text></View>);
+        console.log("unknown orientation, defaulting to portrait");
+        return this.renderPortrait();
     },
 
     renderPortrait: function() {
@@ -121,21 +122,24 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontSize:15, marginBottom:8}}>Released: {this.props.post.Released}</Text>
 
-                            <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>    
+                            <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>  
 
-                            <VideoApplication url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
-                        
-                            <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-                        
-                            <VideoApplication url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
+                            <View style={{flex: 1, flexDirection: 'row'}}>  
+                              <VideoApplication style={{width:100}} url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />                          
+                              <VideoApplication style={{width:100}} url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
+                            </View>
 
-                            <VideoApplication url={this.props.post.source} applicationName="Safari" />
+                            <View style={{flex: 1, flexDirection: 'row'}}>  
+                              <VideoApplication style={{width:100}} url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
+                              <VideoApplication style={{width:100}} url={this.props.post.source} applicationName="Safari" />
+                            </View>
 
-                            <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
-
-                            <TouchableHighlight onPress={this.onPress} style={styles.button}>
-                              <Text style={styles.buttonText}>Native video</Text>
-                            </TouchableHighlight>    
+                            <View style={{flex: 1, flexDirection: 'row'}}>  
+                              <VideoApplication style={{width:100}} url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
+                              <TouchableHighlight onPress={this.onPress} style={styles.button}>
+                                <Text style={styles.buttonText}>Native video</Text>
+                              </TouchableHighlight>    
+                            </View>
           
                         </View>
                     </View>    
@@ -191,7 +195,8 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 0,
-    alignSelf: 'stretch',
+    marginLeft:10,
+    marginRight:10,
     justifyContent: 'center'
   }
 });

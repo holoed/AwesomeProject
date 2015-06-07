@@ -51,7 +51,8 @@ var TVShowDetails = React.createClass({
   render: function() {
       if (this.state.orientation == 'portrait') return this.renderPortrait(); 
       if (this.state.orientation == 'landscape') return this.renderLandscape();
-      return (<View><Text>{"Orientation: " + this.state.orientation}</Text></View>);
+      console.log("unknown orientation, defaulting to portrait");
+      return this.renderPortrait();
   },
 
   renderPortrait: function() {
@@ -96,19 +97,19 @@ var TVShowDetails = React.createClass({
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
-                          <Text style={{fontWeight: 'bold', fontSize:30, marginBottom:10}}>{this.props.post.Title}</Text>
+                          <Text style={{fontWeight: 'bold', fontSize:30, marginBottom:6 }}>{this.props.post.Title}</Text>
 
-                          <Text style={{fontSize:20, marginBottom:10}}>Rating: {this.props.post.imdbRating}</Text>
+                          <Text style={{fontSize:20, marginBottom:6}}>Rating: {this.props.post.imdbRating}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.Actors}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>Stars: {this.props.post.Actors}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>Released: {this.props.post.Released}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Years: {this.props.post.Year}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>Years: {this.props.post.Year}</Text>
              
-                          <Text style={{marginBottom:10}}>{this.props.post.Plot}</Text>
+                          <Text style={{marginBottom:6}}>{this.props.post.Plot}</Text>
 
                           <ListView
                             automaticallyAdjustContentInsets={false}
@@ -117,7 +118,7 @@ var TVShowDetails = React.createClass({
                             showsVerticalScrollIndicator={false}
                             dataSource={this.getDataSource()}
                             renderRow={this.renderPostCell}
-                            style={{marginBottom:100, marginTop:20, backgroundColor: 'transparent'}} />                 
+                            style={{marginBottom:80, marginTop:20, backgroundColor: 'transparent'}} />                 
                       </View>
                   </View>           
                 </View>          
@@ -126,7 +127,7 @@ var TVShowDetails = React.createClass({
   
   renderPostCell: function(post){
     return(
-      <TVShowDetailsItem post={post} navigator={this.props.navigator}/>
+      <TVShowDetailsItem post={post} navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar} />
     );
   }
 });

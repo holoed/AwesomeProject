@@ -9,9 +9,17 @@ var window = require('Dimensions').get('window');
 var { StyleSheet, NavigatorIOS } = React;
 
 var Navigation = React.createClass ({
+
+  getInitialState: function() {
+    return { hideMenu: false };
+  },
   
   getNav: function() {
      return this.refs.nav;
+  },
+
+  toggleMenuBar : function(hide) {
+    this.setState({ hideMenu: hide })
   },
 
   render: function() {
@@ -20,6 +28,7 @@ var Navigation = React.createClass ({
                  <NavigatorIOS  ref="nav"
                                 barTintColor= '#46629D'
                                 tintColor= '#ffffff'
+                                navigationBarHidden={this.state.hideMenu}
                                 titleTextColor= '#ffffff'
                                 style={styles.container}
                                 initialRoute={{
@@ -27,6 +36,7 @@ var Navigation = React.createClass ({
                                   onLeftButtonPress: () => this.refs.sideMenu.toggleMenu() ,
                                   component: Application,
                                   title: 'Movies & TV Shows',
+                                  passProps: { toggleMenuBar: this.toggleMenuBar }
                           }}/>
              </SideMenu>);
   },
