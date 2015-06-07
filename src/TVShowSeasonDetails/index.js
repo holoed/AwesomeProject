@@ -51,7 +51,7 @@ var TVShowSeasonDetails = React.createClass({
       return (
         <View style={styles.wrapper}>
         <Text style={styles.welcome}>
-          Loading movies list ...
+          Loading episodes ...
         </Text>
       </View>
       );

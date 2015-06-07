@@ -16,15 +16,15 @@ var Movies = React.createClass({
 
   getInitialState: function() {
     return {
-      dataSource: [],
       filteredDataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1.Title != row2.Title && 
                                                                                   row1.Year != row2.Year }),
-      loaded: false
     };
   },
-  componentDidMount: function() {
-    this.fetchData();
+
+  componentWillMount: function() {
+    this.setState({filteredDataSource: this.state.filteredDataSource.cloneWithRows(this.props.dataSource)});
   },
+
   getDataSource: function(original) {
       var source = {};
       for (var i = 0; i < original.length; i++) {
@@ -33,91 +33,35 @@ var Movies = React.createClass({
       return source;
   },
 
-  createIndex: function(items) {
-      var source = [];
-      for (var i = 0; i < items.length; i++) {
-           source.push(items[i].Title + " " + 
-                       items[i].Genre + " " +
-                       items[i].Actors + " " + 
-                       items[i].Director);
-      }; 
-      return Engine.createIndex(source);
-  },
-
-  fetchData: function() {
-    fetch("http://192.168.0.9:8000/Catalog")
-      .then((response) => response.json())
-      .then((responseData) => {
-        var videos = responseData.tvshows;
-        var _this = this;
-        for (var i = 0 ; i < videos.length; i++) {
-           (function() {
-               var item = videos[i]; 
-               fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=series&r=json")
-              .then((response) => response.json())
-              .then((responseData) => {
-                responseData.seasons = item.seasons;
-                var updatedSource = _this.state.dataSource.concat([responseData]);
-                _this.setState({
-                    dataSource: updatedSource,
-                    filteredDataSource: _this.state.filteredDataSource.cloneWithRows(_this.getDataSource(updatedSource)),
-                    loaded: _this.state.dataSource.length == videos.length - 1
-                  });   
-
-                if (_this.state.loaded) {
-                  _this.setState({
-                    dataSource : _this.state.dataSource,
-                    filteredDataSource: _this.state.filteredDataSource,
-                    loaded: _this.state.loaded,
-                    index: _this.createIndex(_this.state.dataSource)
-                  })
-                }
-
-              }).done(); 
-            })(); 
-         };
-      })
-      .done();
-  },
   render: function() {
-    if(!this.state.loaded){
-      return (
-        <View style={styles.wrapper}>
-        <Text style={styles.welcome}>
-          Loading tv shows list ...
-        </Text>
-      </View>
-      );
-    }
     return (
       this.renderListView()
     );
   },
+
   onSearchChange: function(event) {
     var filter = event.nativeEvent.text.toLowerCase(); 
     this.clearTimeout(this.timeoutID);
     this.timeoutID = this.setTimeout(() => this.searchMovies(filter), 100);
   },
 
-
   searchMovies: function(filter) {
 
     var foundMovies = []    
     if (filter != undefined && filter != "") { 
-      var foundItems = Engine.search(this.state.index)(filter);
+      var foundItems = Engine.search(this.props.index)(filter);
       for (var i = foundItems.length - 1; i >= 0; i--) {
-        foundMovies.push(this.state.dataSource[foundItems[i] - 1]);
+        foundMovies.push(this.props.dataSource[foundItems[i] - 1]);
       };
-    } else foundMovies = this.state.dataSource; 
+    } else foundMovies = this.props.dataSource; 
 
     var filteredData = this.getDataSource(foundMovies);
     this.setState({
-          dataSource: this.state.dataSource,
+          dataSource: this.props.dataSource,
           filteredDataSource: this.state.filteredDataSource.cloneWithRows(filteredData),
           loaded: this.state.loaded,
         });
   },
-
 
   renderListView: function(){
     return(
