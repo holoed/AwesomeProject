@@ -27,24 +27,15 @@ var TVShowSeasonDetails = React.createClass({
   },
 
   fetchData: function() {
+     var updatedSource = [];
      for (var i = 0 ; i < this.props.post.episodes.length; i++) {
-           var _this = this;
-           (function() {
-               var item = _this.props.post.episodes[i]; 
-               console.log(item);
-               fetch("http://www.omdbapi.com/?t=" + (item.series.replace(" ", "+")) + "&Season=" + item.season + "&Episode=" + item.episode + "&plot=full&type=series&r=json")
-              .then((response) => response.json())
-              .then((responseData) => {
-                responseData.source = item.source;
-                var updatedSource = _this.state.dataSource.concat([responseData]);
-                _this.setState({
-                    dataSource: updatedSource,
-                    filteredDataSource: _this.state.filteredDataSource.cloneWithRows(_this.getDataSource(updatedSource)),
-                    loaded: _this.state.dataSource.length == _this.props.post.episodes.length - 1
-                  });   
-              }).done(); 
-            })(); 
-         };
+          updatedSource.push(this.props.post.episodes[i].data);
+        };
+      this.setState({
+          dataSource: updatedSource,
+          filteredDataSource: this.state.filteredDataSource.cloneWithRows(this.getDataSource(updatedSource)),
+          loaded: true
+    });     
   },
   render: function() {
     if(!this.state.loaded){

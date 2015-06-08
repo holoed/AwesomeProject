@@ -85,6 +85,7 @@ var Application = React.createClass({
                fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=series&r=json")
               .then((response) => response.json())
               .then((responseData) => {
+                _this.fetchTVShowsSeasons(item.seasons);
                 responseData.seasons = item.seasons;
                 var updatedSource = _this.state.tvshows.concat([responseData]);
                 _this.setState({
@@ -104,6 +105,24 @@ var Application = React.createClass({
               }).done(); 
             })(); 
          };
+  },
+
+  fetchTVShowsSeasons: function(seasons) {
+      for (var i = 0 ; i < seasons.length; i++) {
+         for (var j = 0; j < seasons[i].episodes.length; j++) {
+           var _this = this;
+           (function() {
+               var item = seasons[i].episodes[j]; 
+               console.log(item);
+               fetch("http://www.omdbapi.com/?t=" + (item.series.replace(" ", "+")) + "&Season=" + item.season + "&Episode=" + item.episode + "&plot=full&type=series&r=json")
+              .then((response) => response.json())
+              .then((responseData) => {
+                responseData.source = item.source;
+                item.data = responseData;  
+              }).done(); 
+            })(); 
+         }
+      };
   },
 
   render: function() {
