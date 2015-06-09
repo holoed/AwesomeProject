@@ -29,7 +29,7 @@ var TVShowSeasonDetails = React.createClass({
   fetchData: function() {
      var updatedSource = [];
      for (var i = 0 ; i < this.props.post.episodes.length; i++) {
-          updatedSource.push(this.props.post.episodes[i].data);
+          updatedSource.push(this.props.post.episodes[i]);
         };
       this.setState({
           dataSource: updatedSource,

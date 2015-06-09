@@ -9,7 +9,8 @@
     "react-native": "^0.5.0",
     "react-native-side-menu": "^0.8.2",
     "react-native-video": "^0.4.1",
-    "react-native-viewport": "0.0.2"
+    "react-native-viewport": "0.0.2",
+    "rx": "^2.5.3"
   },
   "devDependencies": {
     "react-native-side-menu": "^0.5.3"

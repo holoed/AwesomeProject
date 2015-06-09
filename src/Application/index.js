@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Rx = require('rx');
 var Movies = require('../Movies');
 var TVShows = require('../TVShows');
 
@@ -17,8 +18,6 @@ var Application = React.createClass({
       loadedMovies: false,
       loadedTVShows: false,
     	selectedTab: "Movies",
-      totalMoviesCount:1,
-      totalTVShowsCount:1
     };
   },
 
@@ -38,91 +37,86 @@ var Application = React.createClass({
   },
 
   fetchData: function() {
-    fetch("http://192.168.0.9:8000/Catalog")
-      .then((response) => response.json())
-      .then((responseData) => { 
-        this.fetchMovies(responseData);
-        this.fetchTVShows(responseData); })
-      .done();
+    var _this = this;
+    Rx.Observable.fromPromise(fetch("http://192.168.0.9:8000/Catalog").then((response) => response.json()))
+    .selectMany(responseData => {
+      return _this.sequence(responseData.movies.map(function (movie) { 
+         return _this.fetchMovie(movie).select(function (data) { 
+          data.source = movie.source; 
+          return data; 
+        })
+       }));
+    }, (rs, movies) => [rs, movies])
+    .doAction((p) => { 
+      console.log("loaded movies.");
+      _this.setState({ movies: p[1], loadedMovies: true }); 
+    }).select(p => p[0])
+
+    .selectMany(responseData => {
+      return _this.sequence(responseData.tvshows.map(function (tvshow) { 
+         return _this.fetchTVShow(tvshow).selectMany(function (data) { 
+          return _this.sequence(tvshow.seasons.map(function (season) {
+            return _this.sequence(season.episodes.map(function (episode) {
+              return _this.fetchEpisode(episode).select(function (episodeData) {
+                episodeData.source = episode.source;
+                return episodeData;
+              })
+            }))
+          }))
+        }, (rs, tvshow) => [rs, tvshow])
+       }));
+    }, (rs, tvshows) => [rs, tvshows])
+    .doAction((p) => { 
+      console.log("loaded tv shows.");
+      _this.setState({ tvshows: p[1].map(xs => {
+        xs[0].seasons = xs[1].map(function(x) { return { season: "Season " + x[0].Season, episodes: x }; });
+        return xs[0];
+      }), loadedTVShows: true }); 
+    }).select(p => p[0])
+
+    .subscribe();
+
+
   },
 
-  fetchMovies: function(responseData) {
-        var videos = responseData.movies;
-        var _this = this;
-        for (var i = 0 ; i < videos.length; i++) {
-           (function() {
-               var item = videos[i]; 
-               fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=movie&r=json")
-              .then((response) => response.json())
-              .then((responseData) => {
-                responseData.source = item.source;
-                var updatedSource = _this.state.movies.concat([responseData]);
-                _this.setState({
-                    movies: updatedSource,
-                    loadedMovies: _this.state.movies.length == videos.length - 1,
-                    totalMoviesCount: videos.length
-                  });   
-
-                if (_this.state.loadedMovies) {
-                  _this.setState({
-                    movies : _this.state.movies,
-                    loadedMovies: _this.state.loadedMovies,
-                    indexMovies: _this.createIndex(_this.state.movies)
-                  })
-                }
-
-              }).done(); 
-            })(); 
-         };
-  },
-
-  fetchTVShows: function(responseData) {
-        var videos = responseData.tvshows;
-        var _this = this;
-        for (var i = 0 ; i < videos.length; i++) {
-           (function() {
-               var item = videos[i]; 
-               fetch("http://www.omdbapi.com/?t=" + (item.title.replace(" ", "+")) + "&y=" + item.year + "&plot=full&type=series&r=json")
-              .then((response) => response.json())
-              .then((responseData) => {
-                _this.fetchTVShowsSeasons(item.seasons);
-                responseData.seasons = item.seasons;
-                var updatedSource = _this.state.tvshows.concat([responseData]);
-                _this.setState({
-                    tvshows: updatedSource,
-                    loadedTVShows: _this.state.tvshows.length == videos.length - 1,
-                    totalTVShowsCount: videos.length
-                  });   
-
-                if (_this.state.loadedTVShows) {
-                  _this.setState({
-                    tvshows : _this.state.tvshows,
-                    loadedTVShows: _this.state.loadedTVShows,
-                    indexTVShows: _this.createIndex(_this.state.tvshows)
-                  })
-                }
-
-              }).done(); 
-            })(); 
-         };
-  },
-
-  fetchTVShowsSeasons: function(seasons) {
-      for (var i = 0 ; i < seasons.length; i++) {
-         for (var j = 0; j < seasons[i].episodes.length; j++) {
-           var _this = this;
-           (function() {
-               var item = seasons[i].episodes[j]; 
-               console.log(item);
-               fetch("http://www.omdbapi.com/?t=" + (item.series.replace(" ", "+")) + "&Season=" + item.season + "&Episode=" + item.episode + "&plot=full&type=series&r=json")
-              .then((response) => response.json())
-              .then((responseData) => {
-                responseData.source = item.source;
-                item.data = responseData;  
-              }).done(); 
-            })(); 
-         }
+  // [Observable a] -> Observable [a]
+  sequence: function(xs, reportProgress) {
+    if (xs.length == 0) { 
+      return Rx.Observable.returnValue([]);
+    }
+    return Rx.Observable.create((obs) => {
+      var count = 0
+      var data = [];
+      var disposables = new Rx.CompositeDisposable();
+      for (var i = 0; i <   xs.length; i++) {
+          disposables.add(xs[i].take(1).subscribe((x) => { 
+            data.push(x);
+            count++; 
+            if (count == xs.length) {
+             obs.onNext(data);
+             obs.onCompleted();
+           }
+          }, er => obs.onError(er), () => {}));
       };
+      return disposables;
+    });
+  },
+
+  fetchMovie: function(movie) {
+      return Rx.Observable.fromPromise(
+        fetch("http://www.omdbapi.com/?t=" + (movie.title.replace(" ", "+")) + "&y=" + movie.year + "&plot=full&type=movie&r=json")
+              .then((response) => response.json()));
+  },  
+
+  fetchTVShow: function(tvshow) {
+      return Rx.Observable.fromPromise(
+        fetch("http://www.omdbapi.com/?t=" + (tvshow.title.replace(" ", "+")) + "&y=" + tvshow.year + "&plot=full&type=series&r=json")
+              .then((response) => response.json()));
+  }, 
+
+  fetchEpisode: function(item) {
+      return Rx.Observable.fromPromise(fetch("http://www.omdbapi.com/?t=" + (item.series.replace(" ", "+")) + "&Season=" + item.season + "&Episode=" + item.episode + "&plot=full&type=series&r=json")
+              .then((response) => response.json()));
   },
 
   render: function() {
@@ -130,7 +124,7 @@ var Application = React.createClass({
       return (
         <View style={styles.wrapper}>
         <Text style={styles.welcome}>
-          Loading { Math.round((this.state.movies.length + this.state.tvshows.length) / (this.state.totalMoviesCount + this.state.totalTVShowsCount) * 100) + '%'}
+          Loading Movies and TV Shows...
         </Text>
       </View>
       );
