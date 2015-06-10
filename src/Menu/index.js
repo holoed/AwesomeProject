@@ -2,11 +2,14 @@
 
 var React = require('react-native');
 
-var { StyleSheet, View, Text, ScrollView, Image } = React;
+var { AsyncStorage, StyleSheet, View, Text, ScrollView, Image } = React;
 
 var window = require('Dimensions').get('window');
 
-var Settings = require('../Settings')
+var Settings = require('../Settings');
+
+//TODO: Move to common location
+var STORAGE_KEY = '@MyMoviesState:key';
 
 var Menu = React.createClass({
 
@@ -16,6 +19,13 @@ var Menu = React.createClass({
               title: "Settings",
               component: Settings
           });
+  },
+
+  clearCache: function() {
+    AsyncStorage.removeItem(STORAGE_KEY)
+    .then((_) => console.log("Cleared application cache."))
+    .catch((error) => console.log("Failed to clear application cache: " + error))
+    .done();
   },
 
   render: function() {
@@ -34,6 +44,7 @@ var Menu = React.createClass({
           <Text style={styles.item}>About</Text>
           <Text style={styles.item}>Contacts</Text>
           <Text style={styles.item}>Credits</Text>
+          <Text style={styles.item} onPress={this.clearCache}>Clear Cache</Text>
           <Text style={styles.end}/>
       </ScrollView>
     );

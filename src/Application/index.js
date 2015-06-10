@@ -5,9 +5,11 @@ var Rx = require('rx');
 var Movies = require('../Movies');
 var TVShows = require('../TVShows');
 
-var { StyleSheet, TabBarIOS, View, Text } = React;
+var { AsyncStorage, StyleSheet, TabBarIOS, View, Text } = React;
 
 var Engine = require('Main');
+
+var STORAGE_KEY = '@MyMoviesState:key';
 
 var Application = React.createClass({
 
@@ -33,7 +35,21 @@ var Application = React.createClass({
   },
 
   componentDidMount: function() {
-    this.fetchData();
+    AsyncStorage.getItem(STORAGE_KEY)
+      .then((value) => {
+        if (value !== null) {
+            this.setState(JSON.parse(value));
+            console.log("State loaded from disk");
+          } else {
+            console.log("Loading state from web");
+            this.fetchData();
+        }
+      })
+      .catch((error) => {
+        console.log("An error occurred while attempting to load state from dist: " + error)
+        this.fetchData();
+      })
+      .done();
   },
 
   fetchData: function() {
@@ -69,14 +85,23 @@ var Application = React.createClass({
     .doAction((p) => { 
       console.log("loaded tv shows.");
       _this.setState({ tvshows: p[1].map(xs => {
-        xs[0].seasons = xs[1].map(function(x) { return { season: "Season " + x[0].Season, episodes: x }; });
+        xs[0].seasons = xs[1].map(function(x) { 
+          x.sort((a, b) => parseInt(a.Episode) - parseInt(b.Episode));
+          return { season: "Season " + x[0].Season, episodes: x }; 
+        });
+        xs[0].seasons.sort((a, b) => parseInt(a.Season) - parseInt(b.Season));
         return xs[0];
       }), loadedTVShows: true }); 
     }).select(p => p[0])
-
+    .doAction((_) => _this.saveState())
     .subscribe();
+  },
 
-
+  saveState : function() {
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.state))
+      .then(() => console.log('Saved state to disk.'))
+      .catch((error) => console.log('Error saving state to disk: ' + error.message))
+      .done();
   },
 
   // [Observable a] -> Observable [a]
