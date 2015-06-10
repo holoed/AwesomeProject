@@ -35,19 +35,23 @@ var Application = React.createClass({
   },
 
   componentDidMount: function() {
+    var _this = this;
     AsyncStorage.getItem(STORAGE_KEY)
       .then((value) => {
         if (value !== null) {
-            this.setState(JSON.parse(value));
+            var saved_state = JSON.parse(value);
+            saved_state.indexMovies = _this.createIndex(saved_state.movies);
+            saved_state.indexTVShows = _this.createIndex(saved_state.tvshows);
+            this.setState(saved_state);
             console.log("State loaded from disk");
           } else {
             console.log("Loading state from web");
-            this.fetchData();
+            _this.fetchData();
         }
       })
       .catch((error) => {
         console.log("An error occurred while attempting to load state from dist: " + error)
-        this.fetchData();
+        _this.fetchData();
       })
       .done();
   },
@@ -65,7 +69,10 @@ var Application = React.createClass({
     }, (rs, movies) => [rs, movies])
     .doAction((p) => { 
       console.log("loaded movies.");
-      _this.setState({ movies: p[1], loadedMovies: true }); 
+      var movies_result = p[1];
+      _this.setState({ movies: movies_result, 
+                       indexMovies: _this.createIndex(movies_result), 
+                       loadedMovies: true }); 
     }).select(p => p[0])
 
     .selectMany(responseData => {
@@ -84,14 +91,19 @@ var Application = React.createClass({
     }, (rs, tvshows) => [rs, tvshows])
     .doAction((p) => { 
       console.log("loaded tv shows.");
-      _this.setState({ tvshows: p[1].map(xs => {
+
+      var tvshows_result = p[1].map(xs => {
         xs[0].seasons = xs[1].map(function(x) { 
           x.sort((a, b) => parseInt(a.Episode) - parseInt(b.Episode));
           return { season: "Season " + x[0].Season, episodes: x }; 
         });
         xs[0].seasons.sort((a, b) => parseInt(a.Season) - parseInt(b.Season));
         return xs[0];
-      }), loadedTVShows: true }); 
+      });
+
+      _this.setState({ tvshows: tvshows_result, 
+                       indexTVShows: _this.createIndex(tvshows_result), 
+                       loadedTVShows: true }); 
     }).select(p => p[0])
     .doAction((_) => _this.saveState())
     .subscribe();
