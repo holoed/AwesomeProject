@@ -30,8 +30,7 @@ var Application = React.createClass({
            source.push(items[i].Title + " " + 
                        items[i].Genre + " " +
                        items[i].Actors + " " + 
-                       items[i].Director + " " +
-                       items[i].Plot);
+                       items[i].Director);
       }; 
       return Engine.createIndex(source);
   },
