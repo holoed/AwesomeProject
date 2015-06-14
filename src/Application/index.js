@@ -8,7 +8,7 @@ var Utils = require('../Utils');
 
 var { AsyncStorage, StyleSheet, TabBarIOS, View, Text } = React;
 
-var Engine = require('Main');
+var Engine = require('SearchEngine');
 
 var STORAGE_KEY = '@MyMoviesState:key';
 
@@ -30,7 +30,8 @@ var Application = React.createClass({
            source.push(items[i].Title + " " + 
                        items[i].Genre + " " +
                        items[i].Actors + " " + 
-                       items[i].Director);
+                       items[i].Director + " " +
+                       items[i].Plot);
       }; 
       return Engine.createIndex(source);
   },

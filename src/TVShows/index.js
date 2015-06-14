@@ -3,7 +3,7 @@
 var React = require('react-native');
 var { PixelRatio, View, Text, ListView, StyleSheet } = React;
 
-var Engine = require('Main');
+var Engine = require('SearchEngine');
 var TimerMixin = require('react-timer-mixin');
 var TVShowItem = require('../TVShowItem');
 var SearchBar = require('../SearchBar');
@@ -49,9 +49,9 @@ var Movies = React.createClass({
 
     var foundMovies = []    
     if (filter != undefined && filter != "") { 
-      var foundItems = Engine.search(this.props.index)(filter);
+      var foundItems = Engine.searchLineNumbers(this.props.index)(filter);
       for (var i = foundItems.length - 1; i >= 0; i--) {
-        foundMovies.push(this.props.dataSource[foundItems[i] - 1]);
+        foundMovies.push(this.props.dataSource[foundItems[i]]);
       };
     } else foundMovies = this.props.dataSource; 
 
