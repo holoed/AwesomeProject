@@ -4,6 +4,7 @@ var React = require('react-native');
 var Rx = require('rx');
 var Movies = require('../Movies');
 var TVShows = require('../TVShows');
+var Utils = require('../Utils');
 
 var { AsyncStorage, StyleSheet, TabBarIOS, View, Text } = React;
 
@@ -60,12 +61,12 @@ var Application = React.createClass({
     var _this = this;
     Rx.Observable.fromPromise(fetch("http://192.168.0.9:8000/Catalog").then((response) => response.json()))
     .selectMany(responseData => {
-      return _this.sequence(responseData.movies.map(function (movie) { 
+      return responseData.movies.map(function (movie) { 
          return _this.fetchMovie(movie).select(function (data) { 
           data.source = movie.source; 
           return data; 
         })
-       }));
+       }).sequence();
     }, (rs, movies) => [rs, movies])
     .doAction((p) => { 
       console.log("loaded movies.");
@@ -76,18 +77,18 @@ var Application = React.createClass({
     }).select(p => p[0])
 
     .selectMany(responseData => {
-      return _this.sequence(responseData.tvshows.map(function (tvshow) { 
+      return responseData.tvshows.map(function (tvshow) { 
          return _this.fetchTVShow(tvshow).selectMany(function (data) { 
-          return _this.sequence(tvshow.seasons.map(function (season) {
-            return _this.sequence(season.episodes.map(function (episode) {
+          return tvshow.seasons.map(function (season) {
+            return season.episodes.map(function (episode) {
               return _this.fetchEpisode(episode).select(function (episodeData) {
                 episodeData.source = episode.source;
                 return episodeData;
               })
-            }))
-          }))
+            }).sequence()
+          }).sequence()
         }, (rs, tvshow) => [rs, tvshow])
-       }));
+       }).sequence();
     }, (rs, tvshows) => [rs, tvshows])
     .doAction((p) => { 
       console.log("loaded tv shows.");
@@ -114,29 +115,6 @@ var Application = React.createClass({
       .then(() => console.log('Saved state to disk.'))
       .catch((error) => console.log('Error saving state to disk: ' + error.message))
       .done();
-  },
-
-  // [Observable a] -> Observable [a]
-  sequence: function(xs, reportProgress) {
-    if (xs.length == 0) { 
-      return Rx.Observable.returnValue([]);
-    }
-    return Rx.Observable.create((obs) => {
-      var count = 0
-      var data = [];
-      var disposables = new Rx.CompositeDisposable();
-      for (var i = 0; i <   xs.length; i++) {
-          disposables.add(xs[i].take(1).subscribe((x) => { 
-            data.push(x);
-            count++; 
-            if (count == xs.length) {
-             obs.onNext(data);
-             obs.onCompleted();
-           }
-          }, er => obs.onError(er), () => {}));
-      };
-      return disposables;
-    });
   },
 
   fetchMovie: function(movie) {
