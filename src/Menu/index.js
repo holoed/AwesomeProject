@@ -21,6 +21,10 @@ var Menu = React.createClass({
           });
   },
 
+  goHome: function(e) { 
+       this.props.nav().popToTop();
+  },
+
   clearCache: function() {
     AsyncStorage.removeItem(STORAGE_KEY)
     .then((_) => console.log("Cleared application cache."))
@@ -40,6 +44,7 @@ var Menu = React.createClass({
             <Text style={{ position: 'absolute', left: 70, top: 20, color:'white' }}>Edmondo Pentangelo</Text>
           </View>
           <Text style={styles.end}/>
+           <Text style={styles.item} onPress={this.goHome}>Home</Text>
           <Text style={styles.item} onPress={this.openSettings}>Settings</Text>
           <Text style={styles.item}>About</Text>
           <Text style={styles.item}>Contacts</Text>
