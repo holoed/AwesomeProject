@@ -12,7 +12,12 @@ var Engine = require('SearchEngine');
 
 var STORAGE_KEY = '@MyMoviesState:key';
 
+var SETTINGS_KEY = '@MyMoviesSettings:key';
+
 var Application = React.createClass({
+
+  //TODO: Remove duplication with Settings. Move defaults to config file.
+  defaultSettings : { "SourceURL": "http://192.168.0.12:8005/Top500.json" },
 
   getInitialState: function() {
     return {
@@ -59,10 +64,13 @@ var Application = React.createClass({
 
   fetchData: function() {
     var _this = this;
-    // "http://192.168.0.12:8005/Top500.json"
-    // 
-    Rx.Observable.fromPromise(fetch("http://192.168.0.9:8000/Catalog").then((response) => response.json()))
+    Rx.Observable.fromPromise(AsyncStorage.getItem(SETTINGS_KEY))
+    .select(settings => 
+      (settings == null) ? _this.defaultSettings : JSON.parse(settings))
+    .selectMany(settings =>
+    Rx.Observable.fromPromise(fetch(settings.SourceURL).then((response) => response.json())), (sett, res) => res)
     .selectMany(responseData => {
+      console.log("loading " + responseData.movies.length + " movies");
       return responseData.movies.map(function (movie) { 
          return _this.fetchMovie(movie).select(function (data) { 
           data.source = movie.source; 
@@ -79,6 +87,7 @@ var Application = React.createClass({
     }).select(p => p[0])
 
     .selectMany(responseData => {
+      console.log("loading " + responseData.tvshows.length + " tvshows");
       return responseData.tvshows.map(function (tvshow) { 
          return _this.fetchTVShow(tvshow).selectMany(function (data) { 
           return tvshow.seasons.map(function (season) {

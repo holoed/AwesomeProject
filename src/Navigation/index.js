@@ -18,12 +18,16 @@ var Navigation = React.createClass ({
      return this.refs.nav;
   },
 
+  getSideMenu: function() {
+     return this.refs.sideMenu;
+  },
+
   toggleMenuBar : function(hide) {
     this.setState({ hideMenu: hide })
   },
 
   render: function() {
-    var menu = <Menu nav={this.getNav}/>;
+    var menu = <Menu nav={this.getNav} sideMenu={this.getSideMenu}/>;
     return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 3}>
                  <NavigatorIOS  ref="nav"
                                 barTintColor= '#46629D'

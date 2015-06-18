@@ -14,18 +14,22 @@ var STORAGE_KEY = '@MyMoviesState:key';
 var Menu = React.createClass({
 
   openSettings: function(e) { 
+       this.props.sideMenu().toggleMenu();
        this.props.nav().popToTop();
        this.props.nav().push({
               title: "Settings",
-              component: Settings
+              component: Settings,
+              passProps: { nav: this.props.nav }
           });
   },
 
   goHome: function(e) { 
-       this.props.nav().popToTop();
+      this.props.sideMenu().toggleMenu();
+      this.props.nav().popToTop();
   },
 
   clearCache: function() {
+    this.props.sideMenu().toggleMenu();
     AsyncStorage.removeItem(STORAGE_KEY)
     .then((_) => console.log("Cleared application cache."))
     .catch((error) => console.log("Failed to clear application cache: " + error))
@@ -36,12 +40,7 @@ var Menu = React.createClass({
     return (
       <ScrollView style={styles.menu}>
           <View style={styles.avatarContainer}>
-            <Image
-              style={styles.avatar}
-              source={{
-                uri: 'http://pickaface.net/includes/themes/clean/img/slide2.png'
-              }}/>
-            <Text style={{ position: 'absolute', left: 70, top: 20, color:'white' }}>Edmondo Pentangelo</Text>
+           
           </View>
           <Text style={styles.end}/>
            <Text style={styles.item} onPress={this.goHome}>Home</Text>
@@ -76,7 +75,7 @@ var styles = StyleSheet.create({
     flex: 1
   },
   item: {
-    fontSize: 14,
+    fontSize: 20,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft:10,

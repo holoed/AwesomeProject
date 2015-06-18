@@ -36,7 +36,7 @@ var styles = StyleSheet.create({
     backgroundColor:'#F5FCFF'
   },
   searchBarInput: {
-    fontSize: 15,
+    fontSize: 20,
     flex: 1,
     height: 30,
   }
