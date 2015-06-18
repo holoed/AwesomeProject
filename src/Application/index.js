@@ -131,18 +131,42 @@ var Application = React.createClass({
   fetchMovie: function(movie) {
       return Rx.Observable.fromPromise(
         fetch("http://www.omdbapi.com/?t=" + (movie.title.replace(" ", "+")) + "&y=" + movie.year + "&plot=full&type=movie&r=json")
-              .then((response) => response.json()));
+        .then((response) => response.json()))
+        .select(rs => { 
+          if (rs.Response == "True") 
+            return rs  
+          else { 
+             console.log("movie " + movie.title + " " + movie.year + " not found.");
+            return { "Title":movie.title, "Year":movie.year };
+          }
+        });
   },  
 
   fetchTVShow: function(tvshow) {
       return Rx.Observable.fromPromise(
         fetch("http://www.omdbapi.com/?t=" + (tvshow.title.replace(" ", "+")) + "&y=" + tvshow.year + "&plot=full&type=series&r=json")
-              .then((response) => response.json()));
+              .then((response) => response.json()))
+              .select(rs => { 
+          if (rs.Response == "True") 
+            return rs  
+          else { 
+             console.log("movie " + tvshow.title + " " + tvshow.year + " not found.");
+            return { "Title":tvshow.title, "Year":tvshow.year };
+          }
+        });
   }, 
 
   fetchEpisode: function(item) {
       return Rx.Observable.fromPromise(fetch("http://www.omdbapi.com/?t=" + (item.series.replace(" ", "+")) + "&Season=" + item.season + "&Episode=" + item.episode + "&plot=full&type=series&r=json")
-              .then((response) => response.json()));
+              .then((response) => response.json()))
+              .select(rs => { 
+          if (rs.Response == "True") 
+            return rs  
+          else { 
+             console.log("series: " + item.series + " season:" + item.season + " episode:" +  item.episode + " not found.");
+            return { "Title":item.series, "Season":item.season, "Episode": item.episode };
+          }
+        });
   },
 
   render: function() {
