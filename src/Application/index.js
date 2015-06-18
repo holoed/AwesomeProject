@@ -59,6 +59,8 @@ var Application = React.createClass({
 
   fetchData: function() {
     var _this = this;
+    // "http://192.168.0.12:8005/Top500.json"
+    // 
     Rx.Observable.fromPromise(fetch("http://192.168.0.9:8000/Catalog").then((response) => response.json()))
     .selectMany(responseData => {
       return responseData.movies.map(function (movie) { 

@@ -76,19 +76,25 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
 
-                            <VideoApplication url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
-                        
-                            <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-                        
-                            <VideoApplication url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
+                            {
+                              (this.props.post.source != undefined && this.props.post.source != null) ?
+                               (<View>
+                                          <VideoApplication url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
+                                      
+                                          <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
+                                      
+                                          <VideoApplication url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
 
-                            <VideoApplication url={this.props.post.source} applicationName="Safari" />
+                                          <VideoApplication url={this.props.post.source} applicationName="Safari" />
 
-                            <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
+                                          <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
 
-                            <TouchableHighlight onPress={this.onPress} style={styles.button}>
-                              <Text style={styles.buttonText}>Native video</Text>
-                            </TouchableHighlight>
+                                          <TouchableHighlight onPress={this.onPress} style={styles.button}>
+                                            <Text style={styles.buttonText}>Native video</Text>
+                                          </TouchableHighlight>
+                                        </View>): (<View></View>)
+                          
+                          }
                                                  
                         </View>
                     </View>    
