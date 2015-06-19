@@ -51,7 +51,7 @@ var MovieDetails = React.createClass({
     },
 
     render: function() {
-        if (this.state.orientation == 'portrait') return this.renderPortrait();  
+        if (this.state.orientation == 'portrait') return this.renderPortrait();
         if (this.state.orientation == 'landscape') return this.renderLandscape();
         if (Window.width > Window.height) return this.renderLandscape();
         return this.renderPortrait();
@@ -80,9 +80,9 @@ var MovieDetails = React.createClass({
                               (this.props.post.source != undefined && this.props.post.source != null) ?
                                (<View>
                                           <VideoApplication url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
-                                      
+
                                           <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-                                      
+
                                           <VideoApplication url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
 
                                           <VideoApplication url={this.props.post.source} applicationName="Safari" />
@@ -93,16 +93,16 @@ var MovieDetails = React.createClass({
                                             <Text style={styles.buttonText}>Native video</Text>
                                           </TouchableHighlight>
                                         </View>): (<View></View>)
-                          
+
                           }
-                                                 
+
                         </View>
-                    </View>    
+                    </View>
                     <Text/>
                     <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.Title}</Text>
                     <Text/>
                     <Text>{this.props.post.Plot}</Text>
-                  </View>          
+                  </View>
           );
     },
 
@@ -127,28 +127,33 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontSize:15, marginBottom:8}}>Released: {this.props.post.Released}</Text>
 
-                            <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>  
+                            <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>
 
-                            <View style={{flex: 1, flexDirection: 'row'}}>  
-                              <VideoApplication style={{width:100}} url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />                          
-                              <VideoApplication style={{width:100}} url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-                            </View>
+                          {
+                            (this.props.post.source != undefined && this.props.post.source != null) ?
+                             (<View>
+                                <View style={{flex: 1, flexDirection: 'row'}}>
+                                  <VideoApplication style={{width:100}} url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
+                                  <VideoApplication style={{width:100}} url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
+                                </View>
 
-                            <View style={{flex: 1, flexDirection: 'row'}}>  
-                              <VideoApplication style={{width:100}} url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
-                              <VideoApplication style={{width:100}} url={this.props.post.source} applicationName="Safari" />
-                            </View>
+                                <View style={{flex: 1, flexDirection: 'row'}}>
+                                  <VideoApplication style={{width:100}} url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
+                                  <VideoApplication style={{width:100}} url={this.props.post.source} applicationName="Safari" />
+                                </View>
 
-                            <View style={{flex: 1, flexDirection: 'row'}}>  
-                              <VideoApplication style={{width:100}} url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
-                              <TouchableHighlight onPress={this.onPress} style={styles.button}>
-                                <Text style={styles.buttonText}>Native video</Text>
-                              </TouchableHighlight>    
-                            </View>
-          
+                                <View style={{flex: 1, flexDirection: 'row'}}>
+                                  <VideoApplication style={{width:100}} url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
+                                  <TouchableHighlight onPress={this.onPress} style={styles.button}>
+                                    <Text style={styles.buttonText}>Native video</Text>
+                                  </TouchableHighlight>
+                                </View>
+                              </View>): (<View></View>)
+                          }
+
                         </View>
-                    </View>    
-                  </View>          
+                    </View>
+                  </View>
           );
     },
 });
