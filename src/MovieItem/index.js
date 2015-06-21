@@ -44,6 +44,15 @@ var MovieItem = React.createClass({
               <Text style={styles.movieTitle} numberOfLines={2}>
                 {this.props.post.Title}
               </Text>
+               <View style={{flex: 1, flexDirection: 'row'}}>
+                            {(this.props.post.Season != undefined && this.props.post.Season != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:8}}>Season: {this.props.post.Season}</Text>) :
+                                 (<View></View>)}
+
+                            {(this.props.post.Episode != undefined && this.props.post.Episode != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:8, marginLeft:10}}>Episode: {this.props.post.Episode}</Text>) :
+                                 (<View></View>)}
+              </View>
               <Text>
                 {this.props.post.Plot}
               </Text>

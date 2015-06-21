@@ -60,6 +60,9 @@ var Application = React.createClass({
         _this.fetchData();
       })
       .done();
+    this.props.refresh.doAction(_ => { 
+      _this.setState(_this.getInitialState());
+      _this.fetchData(); }).subscribe();
   },
 
   fetchData: function() {
@@ -92,7 +95,7 @@ var Application = React.createClass({
          return _this.fetchTVShow(tvshow).selectMany(function (data) { 
           return tvshow.seasons.map(function (season) {
             return season.episodes.map(function (episode) {
-              return _this.fetchEpisode(episode).select(function (episodeData) {
+              return _this.fetchEpisode(episode, data).select(function (episodeData) {
                 episodeData.source = episode.source;
                 return episodeData;
               })
@@ -156,7 +159,7 @@ var Application = React.createClass({
         });
   }, 
 
-  fetchEpisode: function(item) {
+  fetchEpisode: function(item, tvshowData) {
       return Rx.Observable.fromPromise(fetch("http://www.omdbapi.com/?t=" + (item.series.replace(" ", "+")) + "&Season=" + item.season + "&Episode=" + item.episode + "&plot=full&type=series&r=json")
               .then((response) => response.json()))
               .select(rs => { 
@@ -164,7 +167,7 @@ var Application = React.createClass({
             return rs  
           else { 
              console.log("series: " + item.series + " season:" + item.season + " episode:" +  item.episode + " not found.");
-            return { "Title":item.series, "Season":item.season, "Episode": item.episode };
+            return { "Title":item.series, "Season":item.season, "Episode": item.episode, "Poster": tvshowData.Poster };
           }
         });
   },

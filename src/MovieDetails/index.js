@@ -76,6 +76,16 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
 
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                            {(this.props.post.Season != undefined && this.props.post.Season != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:10}}>Season: {this.props.post.Season}</Text>) :
+                                 (<View></View>)}
+
+                            {(this.props.post.Episode != undefined && this.props.post.Episode != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:10, marginLeft:10}}>Episode: {this.props.post.Episode}</Text>) :
+                                 (<View></View>)}
+                            </View>
+
                             {
                               (this.props.post.source != undefined && this.props.post.source != null) ?
                                (<View>
@@ -83,15 +93,14 @@ var MovieDetails = React.createClass({
 
                                           <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
 
-                                          <VideoApplication url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
+                                          <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
 
                                           <VideoApplication url={this.props.post.source} applicationName="Safari" />
-
-                                          <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
 
                                           <TouchableHighlight onPress={this.onPress} style={styles.button}>
                                             <Text style={styles.buttonText}>Native video</Text>
                                           </TouchableHighlight>
+
                                         </View>): (<View></View>)
 
                           }
@@ -127,6 +136,16 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontSize:15, marginBottom:8}}>Released: {this.props.post.Released}</Text>
 
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                            {(this.props.post.Season != undefined && this.props.post.Season != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:8}}>Season: {this.props.post.Season}</Text>) :
+                                 (<View></View>)}
+
+                            {(this.props.post.Episode != undefined && this.props.post.Episode != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:8, marginLeft:10}}>Episode: {this.props.post.Episode}</Text>) :
+                                 (<View></View>)}
+                            </View>
+
                             <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>
 
                           {
@@ -138,16 +157,14 @@ var MovieDetails = React.createClass({
                                 </View>
 
                                 <View style={{flex: 1, flexDirection: 'row'}}>
-                                  <VideoApplication style={{width:100}} url={"AVPlayer://" + this.props.post.source} applicationName="AVPlayer" />
-                                  <VideoApplication style={{width:100}} url={this.props.post.source} applicationName="Safari" />
+                                  <VideoApplication style={{width:100}} url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
+                                  <VideoApplication style={{width:50}} url={this.props.post.source} applicationName="Safari" />
                                 </View>
 
-                                <View style={{flex: 1, flexDirection: 'row'}}>
-                                  <VideoApplication style={{width:100}} url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
-                                  <TouchableHighlight onPress={this.onPress} style={styles.button}>
+                                <TouchableHighlight onPress={this.onPress} style={styles.button}>
                                     <Text style={styles.buttonText}>Native video</Text>
-                                  </TouchableHighlight>
-                                </View>
+                                </TouchableHighlight>
+                                
                               </View>): (<View></View>)
                           }
 

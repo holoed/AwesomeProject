@@ -19,21 +19,13 @@ var Menu = React.createClass({
        this.props.nav().push({
               title: "Settings",
               component: Settings,
-              passProps: { nav: this.props.nav }
+              passProps: { nav: this.props.nav, refresh: this.props.refresh }
           });
   },
 
   goHome: function(e) { 
       this.props.sideMenu().toggleMenu();
       this.props.nav().popToTop();
-  },
-
-  clearCache: function() {
-    this.props.sideMenu().toggleMenu();
-    AsyncStorage.removeItem(STORAGE_KEY)
-    .then((_) => console.log("Cleared application cache."))
-    .catch((error) => console.log("Failed to clear application cache: " + error))
-    .done();
   },
 
   render: function() {
@@ -46,9 +38,7 @@ var Menu = React.createClass({
            <Text style={styles.item} onPress={this.goHome}>Home</Text>
           <Text style={styles.item} onPress={this.openSettings}>Settings</Text>
           <Text style={styles.item}>About</Text>
-          <Text style={styles.item}>Contacts</Text>
           <Text style={styles.item}>Credits</Text>
-          <Text style={styles.item} onPress={this.clearCache}>Clear Cache</Text>
           <Text style={styles.end}/>
       </ScrollView>
     );

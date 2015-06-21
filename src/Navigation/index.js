@@ -5,10 +5,13 @@ var SideMenu = require('react-native-side-menu');
 var Application = require('../Application');
 var Menu = require('../Menu');
 var window = require('Dimensions').get('window');
+var Rx = require('rx');
 
 var { StyleSheet, NavigatorIOS } = React;
 
 var Navigation = React.createClass ({
+
+  refresh: new Rx.Subject(),
 
   getInitialState: function() {
     return { hideMenu: false };
@@ -27,7 +30,7 @@ var Navigation = React.createClass ({
   },
 
   render: function() {
-    var menu = <Menu nav={this.getNav} sideMenu={this.getSideMenu}/>;
+    var menu = <Menu nav={this.getNav} sideMenu={this.getSideMenu} refresh={this.refresh}/>;
     return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 3}>
                  <NavigatorIOS  ref="nav"
                                 barTintColor= '#46629D'
@@ -40,7 +43,7 @@ var Navigation = React.createClass ({
                                   onLeftButtonPress: () => this.refs.sideMenu.toggleMenu() ,
                                   component: Application,
                                   title: 'Movies & TV Shows',
-                                  passProps: { toggleMenuBar: this.toggleMenuBar }
+                                  passProps: { toggleMenuBar: this.toggleMenuBar, refresh: this.refresh }
                           }}/>
              </SideMenu>);
   },

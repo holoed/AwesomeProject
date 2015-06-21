@@ -50,6 +50,7 @@ var Settings = React.createClass({
       .catch((error) => console.log('Error saving movies and tv-shows url to disk: ' + error.message))
       .done();
       this.props.nav().popToTop();
+      this.props.refresh.onNext({});
   },
 
   render: function() {
