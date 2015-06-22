@@ -20,7 +20,7 @@ var WithLabel = React.createClass({
 
 var Settings = React.createClass({
 
-  defaultSettings : { SourceURL: "http://192.168.0.12:8005/Top500.json" },
+  defaultSettings : { SourceURL: "http://holoed.github.io/top500.json" },
 
   getInitialState: function() {
   	return this.defaultSettings;

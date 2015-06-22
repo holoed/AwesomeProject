@@ -17,7 +17,7 @@ var SETTINGS_KEY = '@MyMoviesSettings:key';
 var Application = React.createClass({
 
   //TODO: Remove duplication with Settings. Move defaults to config file.
-  defaultSettings : { "SourceURL": "http://192.168.0.12:8005/Top500.json" },
+  defaultSettings : { "SourceURL": "http://holoed.github.io/top500.json" },
 
   getInitialState: function() {
     return {
