@@ -8,7 +8,8 @@ var {
   StyleSheet,
   TouchableHighlight,
   LinkingIOS,
-  AlertIOS
+  AlertIOS,
+  ScrollView
 } = React;
 
 var Window = require('Dimensions').get('window');
@@ -107,10 +108,10 @@ var MovieDetails = React.createClass({
 
                         </View>
                     </View>
-                    <Text/>
                     <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.Title}</Text>
-                    <Text/>
-                    <Text>{this.props.post.Plot}</Text>
+                    <ScrollView  contentInset={{top: -40}}>
+                      <Text>{this.props.post.Plot}</Text>
+                    </ScrollView>
                   </View>
           );
     },
@@ -146,8 +147,9 @@ var MovieDetails = React.createClass({
                                  (<View></View>)}
                             </View>
 
-                            <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>
-
+                            <ScrollView  contentInset={{top: -40}}>
+                              <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>
+                            </ScrollView>
                           {
                             (this.props.post.source != undefined && this.props.post.source != null) ?
                              (<View>
