@@ -8,6 +8,10 @@ var window = require('Dimensions').get('window');
 
 var Settings = require('../Settings');
 
+var Credits = require('../Credits');
+
+var About = require('../About');
+
 //TODO: Move to common location
 var STORAGE_KEY = '@MyMoviesState:key';
 
@@ -20,6 +24,24 @@ var Menu = React.createClass({
               title: "Settings",
               component: Settings,
               passProps: { nav: this.props.nav, refresh: this.props.refresh }
+          });
+  },
+
+  openCredits: function(e) { 
+       this.props.sideMenu().toggleMenu();
+       this.props.nav().popToTop();
+       this.props.nav().push({
+              title: "Credits",
+              component: Credits
+          });
+  },
+
+  openAbout: function(e) { 
+       this.props.sideMenu().toggleMenu();
+       this.props.nav().popToTop();
+       this.props.nav().push({
+              title: "About",
+              component: About
           });
   },
 
@@ -37,8 +59,8 @@ var Menu = React.createClass({
           <Text style={styles.end}/>
            <Text style={styles.item} onPress={this.goHome}>Home</Text>
           <Text style={styles.item} onPress={this.openSettings}>Settings</Text>
-          <Text style={styles.item}>About</Text>
-          <Text style={styles.item}>Credits</Text>
+          <Text style={styles.item} onPress={this.openAbout}>About</Text>
+          <Text style={styles.item} onPress={this.openCredits}>Credits</Text>
           <Text style={styles.end}/>
       </ScrollView>
     );
