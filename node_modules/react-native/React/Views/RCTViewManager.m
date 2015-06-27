@@ -102,10 +102,7 @@ RCT_REMAP_VIEW_PROPERTY(shadowOffset, layer.shadowOffset, CGSize);
 RCT_REMAP_VIEW_PROPERTY(shadowOpacity, layer.shadowOpacity, float)
 RCT_REMAP_VIEW_PROPERTY(shadowRadius, layer.shadowRadius, CGFloat)
 RCT_REMAP_VIEW_PROPERTY(transformMatrix, layer.transform, CATransform3D)
-RCT_CUSTOM_VIEW_PROPERTY(overflow, css_overflow, RCTView)
-{
-  view.clipsToBounds = json ? ![RCTConvert css_overflow:json] : defaultView.clipsToBounds;
-}
+RCT_REMAP_VIEW_PROPERTY(overflow, clipsToBounds, css_clip_t)
 RCT_CUSTOM_VIEW_PROPERTY(pointerEvents, RCTPointerEvents, RCTView)
 {
   if ([view respondsToSelector:@selector(setPointerEvents:)]) {
@@ -228,37 +225,39 @@ RCT_VIEW_BORDER_RADIUS_PROPERTY(BottomRight)
 
 #pragma mark - ShadowView properties
 
-RCT_EXPORT_SHADOW_PROPERTY(top, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(right, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(bottom, CGFloat);
+RCT_EXPORT_SHADOW_PROPERTY(backgroundColor, UIColor)
+
+RCT_EXPORT_SHADOW_PROPERTY(top, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(right, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(bottom, CGFloat)
 RCT_EXPORT_SHADOW_PROPERTY(left, CGFloat);
 
-RCT_EXPORT_SHADOW_PROPERTY(width, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(height, CGFloat);
+RCT_EXPORT_SHADOW_PROPERTY(width, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(height, CGFloat)
 
-RCT_EXPORT_SHADOW_PROPERTY(borderTopWidth, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(borderRightWidth, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(borderBottomWidth, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(borderLeftWidth, CGFloat);
+RCT_EXPORT_SHADOW_PROPERTY(borderTopWidth, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(borderRightWidth, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(borderBottomWidth, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(borderLeftWidth, CGFloat)
 RCT_CUSTOM_SHADOW_PROPERTY(borderWidth, CGFloat, RCTShadowView) {
   [view setBorderWidth:[RCTConvert CGFloat:json]];
 }
 
-RCT_EXPORT_SHADOW_PROPERTY(marginTop, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(marginRight, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(marginBottom, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(marginLeft, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(marginVertical, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(marginHorizontal, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(margin, CGFloat);
+RCT_EXPORT_SHADOW_PROPERTY(marginTop, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(marginRight, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(marginBottom, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(marginLeft, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(marginVertical, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(marginHorizontal, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(margin, CGFloat)
 
-RCT_EXPORT_SHADOW_PROPERTY(paddingTop, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(paddingRight, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(paddingBottom, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(paddingLeft, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(paddingVertical, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(paddingHorizontal, CGFloat);
-RCT_EXPORT_SHADOW_PROPERTY(padding, CGFloat);
+RCT_EXPORT_SHADOW_PROPERTY(paddingTop, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(paddingRight, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(paddingBottom, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(paddingLeft, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(paddingVertical, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(paddingHorizontal, CGFloat)
+RCT_EXPORT_SHADOW_PROPERTY(padding, CGFloat)
 
 RCT_EXPORT_SHADOW_PROPERTY(flex, CGFloat)
 RCT_EXPORT_SHADOW_PROPERTY(flexDirection, css_flex_direction_t)
@@ -267,12 +266,6 @@ RCT_EXPORT_SHADOW_PROPERTY(justifyContent, css_justify_t)
 RCT_EXPORT_SHADOW_PROPERTY(alignItems, css_align_t)
 RCT_EXPORT_SHADOW_PROPERTY(alignSelf, css_align_t)
 RCT_REMAP_SHADOW_PROPERTY(position, positionType, css_position_type_t)
-
-RCT_CUSTOM_SHADOW_PROPERTY(backgroundColor, UIColor, RCTShadowView)
-{
-  view.backgroundColor = json ? [RCTConvert UIColor:json] : defaultView.backgroundColor;
-  view.isBGColorExplicitlySet = json ? YES : defaultView.isBGColorExplicitlySet;
-}
 
 RCT_REMAP_SHADOW_PROPERTY(onLayout, hasOnLayout, BOOL)
 
