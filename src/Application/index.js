@@ -9,6 +9,7 @@ var Utils = require('../Utils');
 var { AsyncStorage, StyleSheet, TabBarIOS, View, Text } = React;
 
 var Engine = require('SearchEngine');
+var Http = require('HttpClient');
 var Loader = require('MetadataLoader');
 
 var STORAGE_KEY = '@MyMoviesState:key';
@@ -68,6 +69,8 @@ var Application = React.createClass({
 
   fetchData: function() {
     var _this = this;
+    this.setState({ count: 0 });
+    var disposable = Http.loadNotification.subscribe(x => _this.setState({ count: this.state.count + 1 }));
     Rx.Observable.fromPromise(AsyncStorage.getItem(SETTINGS_KEY))
     .select(settings => 
       (settings == null) ? _this.defaultSettings : JSON.parse(settings))
@@ -85,6 +88,7 @@ var Application = React.createClass({
           };
           _this.setState (newState);
           _this.saveState();
+          disposable.dispose();
         })
     });
   },
@@ -102,7 +106,7 @@ var Application = React.createClass({
       return (
         <View style={styles.wrapper}>
         <Text style={styles.welcome}>
-          Loading Movies and TV Shows...
+          Loading Movies and TV Shows...  {this.state.count}
         </Text>
       </View>
       );
