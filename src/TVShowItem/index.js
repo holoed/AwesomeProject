@@ -17,7 +17,7 @@ var TVShowItem = React.createClass({
 
   onPress: function() {
         this.props.navigator.push({
-            title: this.props.post.Title,
+            title: this.props.post.title,
             component: TVShowDetails,
             passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar },
         });
@@ -29,15 +29,15 @@ var TVShowItem = React.createClass({
         <TouchableHighlight onPress={this.onPress}>
           <View style={styles.row}>
             <Image
-              source={{uri: this.props.post.Poster}}
+              source={{uri: this.props.post.poster}}
               style={styles.cellImage}/>
         
             <View style={styles.textContainer}>
               <Text style={styles.movieTitle} numberOfLines={2}>
-                {this.props.post.Title}
+                {this.props.post.title}
               </Text>
               <Text>
-                {this.props.post.Plot}
+                {this.props.post.plot}
               </Text>
             </View>
           </View>

@@ -17,7 +17,7 @@ var MovieItem = React.createClass({
 
   popAndRefresh: function() {
         this.props.navigator.replacePreviousAndPop({
-            title: this.props.post.Title,
+            title: this.props.post.title,
             component: MovieDetails,
             passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.popAndRefresh },
         });
@@ -25,7 +25,7 @@ var MovieItem = React.createClass({
 
   onPress: function() {
         this.props.navigator.push({
-            title: this.props.post.Title,
+            title: this.props.post.title,
             component: MovieDetails,
             passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.popAndRefresh },
         });
@@ -37,24 +37,24 @@ var MovieItem = React.createClass({
         <TouchableHighlight onPress={this.onPress}>
           <View style={styles.row}>
             <Image
-              source={{uri: this.props.post.Poster}}
+              source={{uri: this.props.post.poster}}
               style={styles.cellImage}/>
         
             <View style={styles.textContainer}>
               <Text style={styles.movieTitle} numberOfLines={2}>
-                {this.props.post.Title}
+                {this.props.post.title}
               </Text>
                <View style={{flex: 1, flexDirection: 'row'}}>
-                            {(this.props.post.Season != undefined && this.props.post.Season != null) ?
-                                 (<Text style={{fontSize:15, marginBottom:8}}>Season: {this.props.post.Season}</Text>) :
+                            {(this.props.post.season != undefined && this.props.post.season != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:8}}>Season: {this.props.post.season}</Text>) :
                                  (<View></View>)}
 
-                            {(this.props.post.Episode != undefined && this.props.post.Episode != null) ?
-                                 (<Text style={{fontSize:15, marginBottom:8, marginLeft:10}}>Episode: {this.props.post.Episode}</Text>) :
+                            {(this.props.post.episode != undefined && this.props.post.episode != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:8, marginLeft:10}}>Episode: {this.props.post.episode}</Text>) :
                                  (<View></View>)}
               </View>
               <Text>
-                {this.props.post.Plot}
+                {this.props.post.plot}
               </Text>
             </View>
           </View>

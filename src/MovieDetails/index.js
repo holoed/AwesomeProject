@@ -61,29 +61,29 @@ var MovieDetails = React.createClass({
     renderPortrait: function() {
            return ( <View style={{marginLeft:10, marginRight:10}}>
                      <View style={styles.container}>
-                        <Image source={{uri:this.props.post.Poster}}
+                        <Image source={{uri:this.props.post.poster}}
                                style={styles.cellImage} />
                         <View style={styles.rightContainer}>
 
                             <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.imdbRating}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
+                            <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Director: {this.props.post.Director}</Text>
+                            <Text style={{fontSize:15, marginBottom:10}}>Director: {this.props.post.director}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Writer: {this.props.post.Writer}</Text>
+                            <Text style={{fontSize:15, marginBottom:10}}>Writer: {this.props.post.writer}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.Actors}</Text>
+                            <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.actors}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
+                            <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.released}</Text>
 
                             <View style={{flex: 1, flexDirection: 'row'}}>
-                            {(this.props.post.Season != undefined && this.props.post.Season != null) ?
-                                 (<Text style={{fontSize:15, marginBottom:10}}>Season: {this.props.post.Season}</Text>) :
+                            {(this.props.post.season != undefined && this.props.post.season != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:10}}>Season: {this.props.post.season}</Text>) :
                                  (<View></View>)}
 
-                            {(this.props.post.Episode != undefined && this.props.post.Episode != null) ?
-                                 (<Text style={{fontSize:15, marginBottom:10, marginLeft:10}}>Episode: {this.props.post.Episode}</Text>) :
+                            {(this.props.post.episode != undefined && this.props.post.episode != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:10, marginLeft:10}}>Episode: {this.props.post.episode}</Text>) :
                                  (<View></View>)}
                             </View>
 
@@ -108,9 +108,9 @@ var MovieDetails = React.createClass({
 
                         </View>
                     </View>
-                    <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.Title}</Text>
+                    <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.title}</Text>
                     <ScrollView  contentInset={{top: -40}}>
-                      <Text>{this.props.post.Plot}</Text>
+                      <Text>{this.props.post.plot}</Text>
                     </ScrollView>
                   </View>
           );
@@ -119,36 +119,36 @@ var MovieDetails = React.createClass({
     renderLandscape: function() {
           return ( <View style={{marginLeft:10, marginRight:10}}>
                      <View style={styles.container}>
-                        <Image source={{uri:this.props.post.Poster}}
+                        <Image source={{uri:this.props.post.poster}}
                                style={styles.cellImageLandscape} />
                         <View style={styles.rightContainer}>
 
-                            <Text style={{fontWeight: 'bold', fontSize:25, marginTop:20, marginBottom:8}}>{this.props.post.Title}</Text>
+                            <Text style={{fontWeight: 'bold', fontSize:25, marginTop:20, marginBottom:8}}>{this.props.post.title}</Text>
 
                             <Text style={{fontSize:20, marginBottom:8}}>Rating: {this.props.post.imdbRating}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:8}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:8}}>Director: {this.props.post.Director}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Director: {this.props.post.director}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:8}}>Writer: {this.props.post.Writer}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Writer: {this.props.post.writer}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:8}}>Stars: {this.props.post.Actors}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Stars: {this.props.post.actors}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:8}}>Released: {this.props.post.Released}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Released: {this.props.post.released}</Text>
 
                             <View style={{flex: 1, flexDirection: 'row'}}>
-                            {(this.props.post.Season != undefined && this.props.post.Season != null) ?
-                                 (<Text style={{fontSize:15, marginBottom:8}}>Season: {this.props.post.Season}</Text>) :
+                            {(this.props.post.season != undefined && this.props.post.season != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:8}}>Season: {this.props.post.season}</Text>) :
                                  (<View></View>)}
 
-                            {(this.props.post.Episode != undefined && this.props.post.Episode != null) ?
-                                 (<Text style={{fontSize:15, marginBottom:8, marginLeft:10}}>Episode: {this.props.post.Episode}</Text>) :
+                            {(this.props.post.episode != undefined && this.props.post.episode != null) ?
+                                 (<Text style={{fontSize:15, marginBottom:8, marginLeft:10}}>Episode: {this.props.post.episode}</Text>) :
                                  (<View></View>)}
                             </View>
 
                             <ScrollView  contentInset={{top: -40}}>
-                              <Text style={{marginBottom:5}}>{this.props.post.Plot}</Text>
+                              <Text style={{marginBottom:5}}>{this.props.post.plot}</Text>
                             </ScrollView>
                           {
                             (this.props.post.source != undefined && this.props.post.source != null) ?

@@ -16,8 +16,8 @@ var Movies = React.createClass({
 
   getInitialState: function() {
     return {
-      filteredDataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1.Title != row2.Title && 
-                                                                                  row1.Year != row2.Year }),
+      filteredDataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1.title != row2.title && 
+                                                                                  row1.year != row2.year }),
     };
   },
 
@@ -28,7 +28,7 @@ var Movies = React.createClass({
   getDataSource: function(original) {
       var source = {};
       for (var i = 0; i < original.length; i++) {
-           source[original[i].Title] = original[i];
+           source[original[i].title] = original[i];
       }; 
       return source;
   },

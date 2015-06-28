@@ -58,19 +58,19 @@ var TVShowDetails = React.createClass({
   renderPortrait: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
                    <View style={styles.container}>
-                      <Image source={{uri:this.props.post.Poster}}
+                      <Image source={{uri:this.props.post.poster}}
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
                           <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.imdbRating}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.Actors}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.actors}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.Released}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.released}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Years: {this.props.post.Year}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Years: {this.props.post.year}</Text>
                           
                           <ListView
                             automaticallyAdjustContentInsets={false}
@@ -83,9 +83,9 @@ var TVShowDetails = React.createClass({
                       </View>
                   </View>    
                   <Text/>
-                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.Title}</Text>
+                  <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.title}</Text>
                   <Text/>
-                  <Text>{this.props.post.Plot}</Text>
+                  <Text>{this.props.post.plot}</Text>
                 </View>          
         );
   },
@@ -93,23 +93,23 @@ var TVShowDetails = React.createClass({
   renderLandscape: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
                    <View style={styles.container}>
-                      <Image source={{uri:this.props.post.Poster}}
+                      <Image source={{uri:this.props.post.poster}}
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
-                          <Text style={{fontWeight: 'bold', fontSize:30, marginBottom:6 }}>{this.props.post.Title}</Text>
+                          <Text style={{fontWeight: 'bold', fontSize:30, marginBottom:6 }}>{this.props.post.title}</Text>
 
                           <Text style={{fontSize:20, marginBottom:6}}>Rating: {this.props.post.imdbRating}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:6}}>{this.props.post.Rated} | {this.props.post.Runtime} | {this.props.post.Genre}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:6}}>Stars: {this.props.post.Actors}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>Stars: {this.props.post.actors}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:6}}>Released: {this.props.post.Released}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>Released: {this.props.post.released}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:6}}>Years: {this.props.post.Year}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>Years: {this.props.post.year}</Text>
              
-                          <Text style={{marginBottom:6}}>{this.props.post.Plot}</Text>
+                          <Text style={{marginBottom:6}}>{this.props.post.plot}</Text>
 
                           <ListView
                             automaticallyAdjustContentInsets={false}
