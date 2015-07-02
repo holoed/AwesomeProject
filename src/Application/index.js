@@ -10,7 +10,7 @@ var { AsyncStorage, StyleSheet, TabBarIOS, View, Text } = React;
 
 var Engine = require('SearchEngine');
 var Http = require('HttpClient');
-var Loader = require('MetadataLoader');
+var Loader = require('TMDBMetadataLoader');
 
 var STORAGE_KEY = '@MyMoviesState:key';
 

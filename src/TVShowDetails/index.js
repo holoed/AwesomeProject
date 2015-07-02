@@ -9,7 +9,8 @@ var {
   TouchableHighlight,
   LinkingIOS,
   AlertIOS,
-  ListView
+  ListView,
+  ScrollView
 } = React;
 
 var Window = require('Dimensions').get('window');
@@ -82,10 +83,10 @@ var TVShowDetails = React.createClass({
                             style={{marginBottom:100, marginTop:20, backgroundColor: 'transparent'}} />                 
                       </View>
                   </View>    
-                  <Text/>
                   <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.title}</Text>
-                  <Text/>
-                  <Text>{this.props.post.plot}</Text>
+                  <ScrollView  contentInset={{top: -40}}>
+                      <Text>{this.props.post.plot}</Text>
+                    </ScrollView>
                 </View>          
         );
   },
@@ -109,7 +110,9 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:6}}>Years: {this.props.post.year}</Text>
              
-                          <Text style={{marginBottom:6}}>{this.props.post.plot}</Text>
+                          <ScrollView  contentInset={{top: -40}}>
+                              <Text style={{marginBottom:5}}>{this.props.post.plot}</Text>
+                          </ScrollView>
 
                           <ListView
                             automaticallyAdjustContentInsets={false}
