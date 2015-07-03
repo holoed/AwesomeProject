@@ -65,7 +65,7 @@ var MovieDetails = React.createClass({
                                style={styles.cellImage} />
                         <View style={styles.rightContainer}>
 
-                            <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.imdbRating}</Text>
+                            <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.popularity}</Text>
 
                             <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
@@ -109,7 +109,7 @@ var MovieDetails = React.createClass({
                         </View>
                     </View>
                     <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.title}</Text>
-                    <ScrollView  contentInset={{top: -40}}>
+                    <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
                       <Text>{this.props.post.plot}</Text>
                     </ScrollView>
                   </View>
@@ -125,7 +125,7 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontWeight: 'bold', fontSize:25, marginTop:20, marginBottom:8}}>{this.props.post.title}</Text>
 
-                            <Text style={{fontSize:20, marginBottom:8}}>Rating: {this.props.post.imdbRating}</Text>
+                            <Text style={{fontSize:20, marginBottom:8}}>Rating: {this.props.post.popularity}</Text>
 
                             <Text style={{fontSize:15, marginBottom:8}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
@@ -147,7 +147,7 @@ var MovieDetails = React.createClass({
                                  (<View></View>)}
                             </View>
 
-                            <ScrollView  contentInset={{top: -40}}>
+                            <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
                               <Text style={{marginBottom:5}}>{this.props.post.plot}</Text>
                             </ScrollView>
                           {

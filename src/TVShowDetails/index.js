@@ -63,7 +63,7 @@ var TVShowDetails = React.createClass({
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
-                          <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.imdbRating}</Text>
+                          <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.popularity}</Text>
 
                           <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
@@ -84,7 +84,7 @@ var TVShowDetails = React.createClass({
                       </View>
                   </View>    
                   <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.title}</Text>
-                  <ScrollView  contentInset={{top: -40}}>
+                  <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
                       <Text>{this.props.post.plot}</Text>
                     </ScrollView>
                 </View>          
@@ -110,7 +110,7 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:6}}>Years: {this.props.post.year}</Text>
              
-                          <ScrollView  contentInset={{top: -40}}>
+                          <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
                               <Text style={{marginBottom:5}}>{this.props.post.plot}</Text>
                           </ScrollView>
 
