@@ -75,7 +75,7 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.actors}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.released}</Text>
+                            <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.release}</Text>
 
                             <View style={{flex: 1, flexDirection: 'row'}}>
                             {(this.props.post.season != undefined && this.props.post.season != null) ?
@@ -135,7 +135,7 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontSize:15, marginBottom:8}}>Stars: {this.props.post.actors}</Text>
 
-                            <Text style={{fontSize:15, marginBottom:8}}>Released: {this.props.post.released}</Text>
+                            <Text style={{fontSize:15, marginBottom:8}}>Released: {this.props.post.release}</Text>
 
                             <View style={{flex: 1, flexDirection: 'row'}}>
                             {(this.props.post.season != undefined && this.props.post.season != null) ?
