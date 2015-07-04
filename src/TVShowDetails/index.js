@@ -65,7 +65,7 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.popularity}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.rating == "" ? "-" : this.props.post.rating} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
                           <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.actors}</Text>
 
@@ -99,9 +99,9 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontWeight: 'bold', fontSize:30, marginBottom:6 }}>{this.props.post.title}</Text>
 
-                          <Text style={{fontSize:20, marginBottom:6}}>Rating: {this.props.post.imdbRating}</Text>
+                          <Text style={{fontSize:20, marginBottom:6}}>Rating: {this.props.post.popularity}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:6}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>{this.props.post.rating == "" ? "-" : this.props.post.rating} | {this.props.post.runtime} | {this.props.post.genre}</Text>
 
                           <Text style={{fontSize:15, marginBottom:6}}>Stars: {this.props.post.actors}</Text>
 
