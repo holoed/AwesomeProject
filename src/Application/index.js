@@ -6,7 +6,7 @@ var Movies = require('../Movies');
 var TVShows = require('../TVShows');
 var Utils = require('../Utils');
 
-var { AsyncStorage, StyleSheet, TabBarIOS, View, Text } = React;
+var { AsyncStorage, StyleSheet, TabBarIOS, View, Text, NetInfo } = React;
 
 var Engine = require('SearchEngine');
 var Http = require('HttpClient');
@@ -28,6 +28,7 @@ var Application = React.createClass({
       loadedMovies: false,
       loadedTVShows: false,
     	selectedTab: "Movies",
+      isConnected: null,
     };
   },
 
@@ -42,8 +43,37 @@ var Application = React.createClass({
       return Engine.createIndex(source);
   },
 
+
+  wireConnected: function() {
+    NetInfo.isConnected.addEventListener(
+      'change',
+      this._handleConnectivityChange
+    );
+    return NetInfo.isConnected.fetch().then(
+      (isConnected) => { this.setState({isConnected}); }
+    );
+  },
+
+  UnwireConnected: function() {
+    NetInfo.isConnected.removeEventListener(
+      'change',
+      this._handleConnectivityChange
+    );
+  },
+
+  _handleConnectivityChange: function(isConnected) {
+    this.setState({
+      isConnected,
+    });
+  },
+
+  componentWillUnmount: function() {
+    UnwireConnected();
+  },
+
   componentDidMount: function() {
     var _this = this;
+    this.wireConnected().then(_ => 
     AsyncStorage.getItem(STORAGE_KEY)
       .then((value) => {
         if (value !== null) {
@@ -54,17 +84,26 @@ var Application = React.createClass({
             console.log("State loaded from disk");
           } else {
             console.log("Loading state from web");
-            _this.fetchData();
+            _this.fetchIfConnected();
         }
-      })
+      }))
       .catch((error) => {
         console.log("An error occurred while attempting to load state from dist: " + error)
-        _this.fetchData();
+        _this.fetchIfConnected();
       })
       .done();
     this.props.refresh.doAction(_ => { 
       _this.setState(_this.getInitialState());
-      _this.fetchData(); }).subscribe();
+      _this.fetchIfConnected();
+    }).subscribe();
+  },
+
+  fetchIfConnected: function() {
+    var _this = this;
+    NetInfo.isConnected.fetch().done(connected => {
+              if (connected) _this.fetchData();
+              _this.setState({isConnected:connected});
+          });
   },
 
   fetchData: function() {
@@ -103,7 +142,16 @@ var Application = React.createClass({
 
   render: function() {
      if(!this.state.loadedMovies || !this.state.loadedTVShows){
-      return (
+       if (!this.state.isConnected) {
+        return (
+          <View style={styles.wrapper}>
+          <Text style={styles.welcome}>
+            No Internet connection.
+          </Text>
+        </View>
+        );
+       }
+      else return (
         <View style={styles.wrapper}>
         <Text style={styles.welcome}>
           Loading Movies and TV Shows...  {this.state.count}
