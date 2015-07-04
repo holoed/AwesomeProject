@@ -69,9 +69,8 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:10}}>Stars: {this.props.post.actors}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.released}</Text>
+                          <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.year}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:10}}>Years: {this.props.post.year}</Text>
                           
                           <ListView
                             automaticallyAdjustContentInsets={false}
@@ -106,9 +105,8 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:6}}>Stars: {this.props.post.actors}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:6}}>Released: {this.props.post.released}</Text>
+                          <Text style={{fontSize:15, marginBottom:6}}>Released: {this.props.post.year}</Text>
 
-                          <Text style={{fontSize:15, marginBottom:6}}>Years: {this.props.post.year}</Text>
              
                           <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
                               <Text style={{marginBottom:5}}>{this.props.post.plot}</Text>

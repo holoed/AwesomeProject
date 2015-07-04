@@ -65,9 +65,15 @@ var MovieDetails = React.createClass({
                                style={styles.cellImage} />
                         <View style={styles.rightContainer}>
 
-                            <Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.popularity}</Text>
+                            {(this.props.post.popularity != undefined && this.props.post.popularity != null) ?
+                                (<Text style={{fontSize:30, marginBottom:10}}>Rating: {this.props.post.popularity}</Text>) :
+                                (<View></View>)}
 
-                            <Text style={{fontSize:15, marginBottom:10}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
+                            {(this.props.post.rated != undefined && this.props.post.rated != null &&
+                              this.props.post.runtime != undefined && this.props.post.runtime != null &&
+                              this.props.post.genre != undefined && this.props.post.genre != null) ?
+                                (<Text style={{fontSize:15, marginBottom:10}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>) :
+                                (<View></View>)}
 
                             <Text style={{fontSize:15, marginBottom:10}}>Director: {this.props.post.director}</Text>
 
@@ -125,9 +131,15 @@ var MovieDetails = React.createClass({
 
                             <Text style={{fontWeight: 'bold', fontSize:25, marginTop:20, marginBottom:8}}>{this.props.post.title}</Text>
 
-                            <Text style={{fontSize:20, marginBottom:8}}>Rating: {this.props.post.popularity}</Text>
+                             {(this.props.post.popularity != undefined && this.props.post.popularity != null) ?
+                                (<Text style={{fontSize:20, marginBottom:8}}>Rating: {this.props.post.popularity}</Text>) :
+                                (<View></View>)}
 
-                            <Text style={{fontSize:15, marginBottom:8}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>
+                             {(this.props.post.rated != undefined && this.props.post.rated != null &&
+                              this.props.post.runtime != undefined && this.props.post.runtime != null &&
+                              this.props.post.genre != undefined && this.props.post.genre != null) ?
+                                (<Text style={{fontSize:15, marginBottom:8}}>{this.props.post.rated} | {this.props.post.runtime} | {this.props.post.genre}</Text>) :
+                                (<View></View>)}
 
                             <Text style={{fontSize:15, marginBottom:8}}>Director: {this.props.post.director}</Text>
 
