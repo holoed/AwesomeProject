@@ -83,7 +83,7 @@ var TVShowDetails = React.createClass({
                       </View>
                   </View>    
                   <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.title}</Text>
-                  <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
+                  <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10, height:260, showsVerticalScrollIndicator: true}}>
                       <Text>{this.props.post.plot}</Text>
                     </ScrollView>
                 </View>          
@@ -108,7 +108,7 @@ var TVShowDetails = React.createClass({
                           <Text style={{fontSize:15, marginBottom:6}}>Released: {this.props.post.year}</Text>
 
              
-                          <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
+                          <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10, height:200, showsVerticalScrollIndicator: true}}>
                               <Text style={{marginBottom:5}}>{this.props.post.plot}</Text>
                           </ScrollView>
 

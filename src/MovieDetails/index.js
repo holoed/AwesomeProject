@@ -115,7 +115,7 @@ var MovieDetails = React.createClass({
                         </View>
                     </View>
                     <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.title}</Text>
-                    <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
+                    <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10, height:260}}>
                       <Text>{this.props.post.plot}</Text>
                     </ScrollView>
                   </View>
@@ -159,7 +159,7 @@ var MovieDetails = React.createClass({
                                  (<View></View>)}
                             </View>
 
-                            <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10}}>
+                            <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10, height:200}}>
                               <Text style={{marginBottom:5}}>{this.props.post.plot}</Text>
                             </ScrollView>
                           {
