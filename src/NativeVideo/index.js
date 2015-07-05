@@ -45,42 +45,6 @@ var VideoPlayer = React.createClass({
     }
   },
 
-  renderRateControl(rate) {
-    var isSelected = (this.state.rate == rate);
-
-    return (
-      <TouchableOpacity onPress={() => { this.setState({rate: rate}) }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {rate}x
-        </Text>
-      </TouchableOpacity>
-    )
-  },
-
-  renderResizeModeControl(resizeMode) {
-    var isSelected = (this.state.resizeMode == resizeMode);
-
-    return (
-      <TouchableOpacity onPress={() => { this.setState({resizeMode: resizeMode}) }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {resizeMode}
-        </Text>
-      </TouchableOpacity>
-    )
-  },
-
-  renderVolumeControl(volume) {
-    var isSelected = (this.state.volume == volume);
-
-    return (
-      <TouchableOpacity onPress={() => { this.setState({volume: volume}) }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {volume * 100}%
-        </Text>
-      </TouchableOpacity>
-    )
-  },
-
   render() {
     var flexCompleted = this.getCurrentTimePercentage() * 100;
     var flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
@@ -98,32 +62,13 @@ var VideoPlayer = React.createClass({
                  onLoad={this.onLoad}
                  onProgress={this.onProgress}
                  onEnd={() => { AlertIOS.alert('Done!') }}
-                 repeat={true} />
+                 repeat={false} />
         </TouchableOpacity>
 
         <View style={styles.controls}>
           <View style={styles.generalControls}>
-            <View style={styles.rateControl}>
-              {this.renderRateControl(0.25)}
-              {this.renderRateControl(0.5)}
-              {this.renderRateControl(1.0)}
-              {this.renderRateControl(1.5)}
-              {this.renderRateControl(2.0)}
-            </View>
-
-            <View style={styles.volumeControl}>
-              {this.renderVolumeControl(0.5)}
-              {this.renderVolumeControl(1)}
-              {this.renderVolumeControl(1.5)}
-            </View>
-
-            <View style={styles.resizeModeControl}>
-              {this.renderResizeModeControl('cover')}
-              {this.renderResizeModeControl('contain')}
-              {this.renderResizeModeControl('stretch')}
-            </View>
-
-             <View style={styles.resizeModeControl}>
+            {(this.state.paused) ?
+             (<View style={styles.resizeModeControl}>
                <TouchableOpacity onPress={() => { 
                     this.setState({paused: true});
                     this.props.toggleMenuBar(false);
@@ -133,14 +78,15 @@ var VideoPlayer = React.createClass({
                   Exit
                 </Text>
               </TouchableOpacity>
-            </View>
+            </View>) : (<View></View>)}
           </View>
 
           <View style={styles.trackingControls}>
-            <View style={styles.progress}>
+            {(this.state.paused) ?
+             (<View style={styles.progress}>
               <View style={[styles.innerProgressCompleted, {flex: flexCompleted}]} />
               <View style={[styles.innerProgressRemaining, {flex: flexRemaining}]} />
-            </View>
+            </View>) : (<View></View>)}
           </View>
         </View>
       </View>
