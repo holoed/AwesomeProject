@@ -18,6 +18,7 @@ var Window = require('Dimensions').get('window');
 var Viewport = require('react-native-viewport');
 var VideoApplication = require('../VideoApplication');
 var NativeVideo = require('../NativeVideo');
+var WebVideo = require('../WebVideo');
 
 
 var MovieDetails = React.createClass({
@@ -48,7 +49,7 @@ var MovieDetails = React.createClass({
     onPress: function() {
         this.props.navigator.push({
             title: this.props.post.Title,
-            component: NativeVideo,
+            component: WebVideo,
             passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.props.popAndRefresh },
         });
     },

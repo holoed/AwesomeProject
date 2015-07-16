@@ -69,7 +69,7 @@ var VideoPlayer = React.createClass({
           <View style={styles.generalControls}>
             {(this.state.paused) ?
              (<View style={styles.resizeModeControl}>
-               <TouchableOpacity onPress={() => { 
+               <TouchableOpacity onPress={() => {
                     this.setState({paused: true});
                     this.props.toggleMenuBar(false);
                     this.props.popAndRefresh();
