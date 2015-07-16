@@ -23,7 +23,7 @@ var TVShowDetailsItem = React.createClass({
             passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar },
         });
   },
-  
+
   render: function() {
      return(
           <View>
@@ -32,7 +32,7 @@ var TVShowDetailsItem = React.createClass({
                 <Text style={{fontSize:20}}>{this.props.post.season}</Text>
               </View>
             </TouchableHighlight>
-          </View> 
+          </View>
         );
     }
 });

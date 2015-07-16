@@ -10,7 +10,7 @@ var TVShowSeasonDetails = React.createClass({
   getInitialState: function() {
     return {
       dataSource: [],
-      filteredDataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1.title != row2.title && 
+      filteredDataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1.title != row2.title &&
                                                                                   row1.year != row2.year }),
       loaded: false
     };
@@ -22,7 +22,7 @@ var TVShowSeasonDetails = React.createClass({
       var source = {};
       for (var i = 0; i < original.length; i++) {
            source[original[i].title] = original[i];
-      }; 
+      };
       return source;
   },
 
@@ -35,7 +35,7 @@ var TVShowSeasonDetails = React.createClass({
           dataSource: updatedSource,
           filteredDataSource: this.state.filteredDataSource.cloneWithRows(this.getDataSource(updatedSource)),
           loaded: true
-    });     
+    });
   },
   render: function() {
     if(!this.state.loaded){
@@ -54,7 +54,7 @@ var TVShowSeasonDetails = React.createClass({
 
   renderListView: function(){
     return(
-      <View style={{ flex: 1, marginTop:60 }}>  
+      <View style={{ flex: 1, marginTop:60 }}>
         <ListView
             ref="listview"
             automaticallyAdjustContentInsets={false}
@@ -65,7 +65,7 @@ var TVShowSeasonDetails = React.createClass({
             renderRow={this.renderPostCell}
             style={styles.postsListView}/>
       </View>
-      
+
     );
   },
   renderPostCell: function(post){

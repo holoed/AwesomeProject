@@ -1,5 +1,7 @@
 'use strict';
 
+var Http = require('HttpClient');
+
 var React = require('react-native');
 var {
   View,
@@ -61,7 +63,7 @@ var MovieDetails = React.createClass({
     renderPortrait: function() {
            return ( <View style={{marginLeft:10, marginRight:10}}>
                      <View style={styles.container}>
-                        <Image source={{uri:this.props.post.poster}}
+                        <Image source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
                                style={styles.cellImage} />
                         <View style={styles.rightContainer}>
 
@@ -125,7 +127,7 @@ var MovieDetails = React.createClass({
     renderLandscape: function() {
           return ( <View style={{marginLeft:10, marginRight:10}}>
                      <View style={styles.container}>
-                        <Image source={{uri:this.props.post.poster}}
+                        <Image source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
                                style={styles.cellImageLandscape} />
                         <View style={styles.rightContainer}>
 
@@ -178,7 +180,7 @@ var MovieDetails = React.createClass({
                                 <TouchableHighlight onPress={this.onPress} style={styles.button}>
                                     <Text style={styles.buttonText}>Native video</Text>
                                 </TouchableHighlight>
-                                
+
                               </View>): (<View></View>)
                           }
 

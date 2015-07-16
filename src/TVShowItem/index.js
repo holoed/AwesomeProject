@@ -1,5 +1,7 @@
 'use strict';
 
+var Http = require('HttpClient');
+
 var React = require('react-native');
 var {
   PixelRatio,
@@ -29,9 +31,9 @@ var TVShowItem = React.createClass({
         <TouchableHighlight onPress={this.onPress}>
           <View style={styles.row}>
             <Image
-              source={{uri: this.props.post.poster}}
+              source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
               style={styles.cellImage}/>
-        
+
             <View style={styles.textContainer}>
               <Text style={styles.movieTitle} numberOfLines={2}>
                 {this.props.post.title}

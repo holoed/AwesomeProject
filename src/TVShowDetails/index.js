@@ -1,5 +1,7 @@
 'use strict';
 
+var Http = require('HttpClient');
+
 var React = require('react-native');
 var {
   View,
@@ -48,9 +50,9 @@ var TVShowDetails = React.createClass({
     var dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2 });
     return dataSource.cloneWithRows(this.props.post.seasons);
   },
-  
+
   render: function() {
-      if (this.state.orientation == 'portrait') return this.renderPortrait(); 
+      if (this.state.orientation == 'portrait') return this.renderPortrait();
       if (this.state.orientation == 'landscape') return this.renderLandscape();
        if (Window.width > Window.height) return this.renderLandscape();
       return this.renderPortrait();
@@ -59,7 +61,7 @@ var TVShowDetails = React.createClass({
   renderPortrait: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
                    <View style={styles.container}>
-                      <Image source={{uri:this.props.post.poster}}
+                      <Image source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
@@ -71,7 +73,7 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:10}}>Released: {this.props.post.year}</Text>
 
-                          
+
                           <ListView
                             automaticallyAdjustContentInsets={false}
                             keyboardDismissMode="onDrag"
@@ -79,21 +81,21 @@ var TVShowDetails = React.createClass({
                             showsVerticalScrollIndicator={false}
                             dataSource={this.getDataSource()}
                             renderRow={this.renderPostCell}
-                            style={{marginBottom:100, marginTop:20, backgroundColor: 'transparent'}} />                 
+                            style={{marginBottom:100, marginTop:20, backgroundColor: 'transparent'}} />
                       </View>
-                  </View>    
+                  </View>
                   <Text style={{fontWeight: 'bold', fontSize:30}}>{this.props.post.title}</Text>
                   <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10, height:260, showsVerticalScrollIndicator: true}}>
                       <Text>{this.props.post.plot}</Text>
                     </ScrollView>
-                </View>          
+                </View>
         );
   },
 
   renderLandscape: function() {
         return ( <View style={{marginLeft:10, marginRight:10}}>
                    <View style={styles.container}>
-                      <Image source={{uri:this.props.post.poster}}
+                      <Image source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
                              style={styles.cellImage} />
                       <View style={styles.rightContainer}>
 
@@ -107,7 +109,7 @@ var TVShowDetails = React.createClass({
 
                           <Text style={{fontSize:15, marginBottom:6}}>Released: {this.props.post.year}</Text>
 
-             
+
                           <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10, height:200, showsVerticalScrollIndicator: true}}>
                               <Text style={{marginBottom:5}}>{this.props.post.plot}</Text>
                           </ScrollView>
@@ -119,13 +121,13 @@ var TVShowDetails = React.createClass({
                             showsVerticalScrollIndicator={false}
                             dataSource={this.getDataSource()}
                             renderRow={this.renderPostCell}
-                            style={{marginBottom:80, marginTop:20, backgroundColor: 'transparent'}} />                 
+                            style={{marginBottom:80, marginTop:20, backgroundColor: 'transparent'}} />
                       </View>
-                  </View>           
-                </View>          
+                  </View>
+                </View>
         );
   },
-  
+
   renderPostCell: function(post){
     return(
       <TVShowDetailsItem post={post} navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar} />

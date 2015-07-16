@@ -35,11 +35,11 @@ var Application = React.createClass({
   createIndex: function(items) {
       var source = [];
       for (var i = 0; i < items.length; i++) {
-           source.push(items[i].title + " " + 
+           source.push(items[i].title + " " +
                        items[i].genre + " " +
-                       items[i].actors + " " + 
+                       items[i].actors + " " +
                        items[i].director);
-      }; 
+      };
       return Engine.createIndex(source);
   },
 
@@ -73,7 +73,7 @@ var Application = React.createClass({
 
   componentDidMount: function() {
     var _this = this;
-    this.wireConnected().then(_ => 
+    this.wireConnected().then(_ =>
     AsyncStorage.getItem(STORAGE_KEY)
       .then((value) => {
         if (value !== null) {
@@ -92,7 +92,7 @@ var Application = React.createClass({
         _this.fetchIfConnected();
       })
       .done();
-    this.props.refresh.doAction(_ => { 
+    this.props.refresh.doAction(_ => {
       _this.setState(_this.getInitialState());
       _this.fetchIfConnected();
     }).subscribe();
@@ -111,7 +111,7 @@ var Application = React.createClass({
     this.setState({ count: 0 });
     var disposable = Http.loadNotification.subscribe(x => _this.setState({ count: this.state.count + 1 }));
     Rx.Observable.fromPromise(AsyncStorage.getItem(SETTINGS_KEY))
-    .select(settings => 
+    .select(settings =>
       (settings == null) ? _this.defaultSettings : JSON.parse(settings))
     .subscribe((settings) => {
         Loader.getState(settings.SourceURL)(function (data) {
@@ -128,6 +128,7 @@ var Application = React.createClass({
           _this.setState (newState);
           _this.saveState();
           disposable.dispose();
+          console.log("Last download: " + Http.lastDownloadDate);
         })
     });
   },
@@ -162,9 +163,9 @@ var Application = React.createClass({
 
     return (
     <TabBarIOS>
-         <TabBarIOS.Item 
-         	selected={this.state.selectedTab == "Movies"} 
-         	title="Movies" 
+         <TabBarIOS.Item
+         	selected={this.state.selectedTab == "Movies"}
+         	title="Movies"
          	icon={require('image!ios7-film-outline-small')}
          	onPress={() => {
             this.setState({
@@ -173,9 +174,9 @@ var Application = React.createClass({
           }}>
         	   <Movies navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar} dataSource={this.state.movies} index={this.state.indexMovies} />
         </TabBarIOS.Item>
-         <TabBarIOS.Item 
-         	selected={this.state.selectedTab == "TV Shows"} 
-         	title="TV Shows" 
+         <TabBarIOS.Item
+         	selected={this.state.selectedTab == "TV Shows"}
+         	title="TV Shows"
          	icon={require('image!ios7-monitor-tab')}
          	onPress={() => {
             this.setState({
@@ -185,7 +186,7 @@ var Application = React.createClass({
         	   <TVShows navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar} dataSource={this.state.tvshows} index={this.state.indexTVShows} />
         </TabBarIOS.Item>
      </TabBarIOS>
-        
+
     );
   }
 });
