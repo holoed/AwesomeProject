@@ -7,9 +7,8 @@
   },
   "dependencies": {
     "react-native": "^0.6.0",
+    "react-native-orientation": "^1.1.1",
     "react-native-side-menu": "^0.8.2",
-    "react-native-video": "^0.4.9",
-    "react-native-viewport": "0.0.2",
     "rx": "^2.5.3"
   }
 }

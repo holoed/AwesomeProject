@@ -17,7 +17,6 @@ var {
 var Window = require('Dimensions').get('window');
 var Viewport = require('react-native-viewport');
 var VideoApplication = require('../VideoApplication');
-var NativeVideo = require('../NativeVideo');
 var WebVideo = require('../WebVideo');
 
 

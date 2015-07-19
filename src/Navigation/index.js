@@ -16,7 +16,7 @@ var Navigation = React.createClass ({
   getInitialState: function() {
     return { hideMenu: false };
   },
-  
+
   getNav: function() {
      return this.refs.nav;
   },
@@ -31,7 +31,7 @@ var Navigation = React.createClass ({
 
   render: function() {
     var menu = <Menu nav={this.getNav} sideMenu={this.getSideMenu} refresh={this.refresh}/>;
-    return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 3}>
+    return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 5}>
                  <NavigatorIOS  ref="nav"
                                 barTintColor= '#46629D'
                                 tintColor= '#ffffff'
