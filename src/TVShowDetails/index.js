@@ -130,7 +130,7 @@ var TVShowDetails = React.createClass({
 
   renderPostCell: function(post){
     return(
-      <TVShowDetailsItem post={post} navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar} />
+      <TVShowDetailsItem post={post} navigator={this.props.navigator} hideSideMenu={this.props.hideSideMenu} />
     );
   }
 });

@@ -21,7 +21,7 @@ var MovieItem = React.createClass({
         this.props.navigator.replacePreviousAndPop({
             title: this.props.post.title,
             component: MovieDetails,
-            passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.popAndRefresh },
+            passProps: { post: this.props.post, hideSideMenu: this.props.hideSideMenu, popAndRefresh: this.popAndRefresh },
         });
   },
 
@@ -29,7 +29,7 @@ var MovieItem = React.createClass({
         this.props.navigator.push({
             title: this.props.post.title,
             component: MovieDetails,
-            passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.popAndRefresh },
+            passProps: { post: this.props.post, hideSideMenu: this.props.hideSideMenu, popAndRefresh: this.popAndRefresh },
         });
     },
 

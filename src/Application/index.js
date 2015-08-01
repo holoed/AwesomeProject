@@ -172,7 +172,7 @@ var Application = React.createClass({
               selectedTab: 'Movies',
             });
           }}>
-        	   <Movies navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar} dataSource={this.state.movies} index={this.state.indexMovies} />
+        	   <Movies navigator={this.props.navigator} hideSideMenu={this.props.hideSideMenu} dataSource={this.state.movies} index={this.state.indexMovies} />
         </TabBarIOS.Item>
          <TabBarIOS.Item
          	selected={this.state.selectedTab == "TV Shows"}
@@ -183,7 +183,7 @@ var Application = React.createClass({
               selectedTab: 'TV Shows',
             });
           }}>
-        	   <TVShows navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar} dataSource={this.state.tvshows} index={this.state.indexTVShows} />
+        	   <TVShows navigator={this.props.navigator} hideSideMenu={this.props.hideSideMenu} dataSource={this.state.tvshows} index={this.state.indexTVShows} />
         </TabBarIOS.Item>
      </TabBarIOS>
 

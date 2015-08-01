@@ -46,10 +46,11 @@ var MovieDetails = React.createClass({
     },
 
     onPress: function() {
+        this.props.hideSideMenu(true);
         this.props.navigator.push({
             title: this.props.post.Title,
             component: WebVideo,
-            passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar, popAndRefresh: this.props.popAndRefresh },
+            passProps: { post: this.props.post, hideSideMenu: this.props.hideSideMenu, popAndRefresh: this.props.popAndRefresh }
         });
     },
 

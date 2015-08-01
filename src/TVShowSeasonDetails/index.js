@@ -70,7 +70,7 @@ var TVShowSeasonDetails = React.createClass({
   },
   renderPostCell: function(post){
     return(
-      <MovieItem post={post} navigator={this.props.navigator} toggleMenuBar={this.props.toggleMenuBar}/>
+      <MovieItem post={post} navigator={this.props.navigator} hideSideMenu={this.props.hideSideMenu} />
     );
   }
 });

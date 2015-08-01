@@ -21,7 +21,7 @@ var TVShowItem = React.createClass({
         this.props.navigator.push({
             title: this.props.post.title,
             component: TVShowDetails,
-            passProps: { post: this.props.post, toggleMenuBar : this.props.toggleMenuBar },
+            passProps: { post: this.props.post, hideSideMenu: this.props.hideSideMenu },
         });
     },
 

@@ -14,7 +14,7 @@ var Navigation = React.createClass ({
   refresh: new Rx.Subject(),
 
   getInitialState: function() {
-    return { hideMenu: false };
+    return { hideMenu: false, isMenuEnabled: true };
   },
 
   getNav: function() {
@@ -25,13 +25,13 @@ var Navigation = React.createClass ({
      return this.refs.sideMenu;
   },
 
-  toggleMenuBar : function(hide) {
-    this.setState({ hideMenu: hide })
+  hideSideMenu: function(hide) {
+    this.setState({ isMenuEnabled: !hide });
   },
 
   render: function() {
     var menu = <Menu nav={this.getNav} sideMenu={this.getSideMenu} refresh={this.refresh}/>;
-    return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 5}>
+    return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 5} isMenuEnabled={this.state.isMenuEnabled}>
                  <NavigatorIOS  ref="nav"
                                 barTintColor= '#46629D'
                                 tintColor= '#ffffff'
@@ -43,7 +43,7 @@ var Navigation = React.createClass ({
                                   onLeftButtonPress: () => this.refs.sideMenu.toggleMenu() ,
                                   component: Application,
                                   title: 'Movies & TV Shows',
-                                  passProps: { toggleMenuBar: this.toggleMenuBar, refresh: this.refresh }
+                                  passProps: { refresh: this.refresh, hideSideMenu: this.hideSideMenu }
                           }}/>
              </SideMenu>);
   },

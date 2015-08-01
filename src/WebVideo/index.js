@@ -10,6 +10,10 @@ var {
 
 var WebVideo = React.createClass({
 
+  componentWillUnmount() {
+    this.props.hideSideMenu(false);
+  },
+
   render() {
     return (
 
