@@ -12,9 +12,11 @@
 
 #import "Layout.h"
 #import "RCTAnimationType.h"
+#import "RCTTextDecorationLineType.h"
 #import "RCTDefines.h"
 #import "RCTLog.h"
 #import "RCTPointerEvents.h"
+
 
 /**
  * This class provides a collection of conversion functions for mapping
@@ -37,6 +39,7 @@
 + (NSUInteger)NSUInteger:(id)json;
 
 + (NSArray *)NSArray:(id)json;
++ (NSSet *)NSSet:(id)json;
 + (NSDictionary *)NSDictionary:(id)json;
 + (NSString *)NSString:(id)json;
 + (NSNumber *)NSNumber:(id)json;
@@ -54,6 +57,7 @@ typedef NSURL RCTFileURL;
 + (NSTimeInterval)NSTimeInterval:(id)json;
 
 + (NSTextAlignment)NSTextAlignment:(id)json;
++ (NSUnderlineStyle)NSUnderlineStyle:(id)json;
 + (NSWritingDirection)NSWritingDirection:(id)json;
 + (UITextAutocapitalizationType)UITextAutocapitalizationType:(id)json;
 + (UITextFieldViewMode)UITextFieldViewMode:(id)json;
@@ -126,6 +130,7 @@ typedef BOOL css_clip_t;
 
 + (RCTPointerEvents)RCTPointerEvents:(id)json;
 + (RCTAnimationType)RCTAnimationType:(id)json;
++ (RCTTextDecorationLineType)RCTTextDecorationLineType:(id)json;
 
 @end
 

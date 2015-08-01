@@ -6,7 +6,7 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
-    "react-native": "^0.6.0",
+    "react-native": "^0.8.0",
     "react-native-orientation": "^1.1.1",
     "react-native-side-menu": "^0.8.2",
     "rx": "^2.5.3"
