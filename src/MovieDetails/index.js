@@ -18,6 +18,7 @@ var Window = require('Dimensions').get('window');
 var Viewport = require('react-native-viewport');
 var VideoApplication = require('../VideoApplication');
 var WebVideo = require('../WebVideo');
+var Chromecast = require('../Chromecast');
 
 
 var MovieDetails = React.createClass({
@@ -99,17 +100,15 @@ var MovieDetails = React.createClass({
                             {
                               (this.props.post.source != undefined && this.props.post.source != null) ?
                                (<View>
-                                          <VideoApplication url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
-
                                           <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-
-                                          <VideoApplication url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
 
                                           <VideoApplication url={this.props.post.source} applicationName="Safari" />
 
                                           <TouchableHighlight onPress={this.onPress} style={styles.button}>
                                             <Text style={styles.buttonText}>Native video</Text>
                                           </TouchableHighlight>
+
+                                          <Chromecast {...this.props.post} />
 
                                         </View>): (<View></View>)
 
@@ -168,19 +167,15 @@ var MovieDetails = React.createClass({
                           {
                             (this.props.post.source != undefined && this.props.post.source != null) ?
                              (<View>
-                                <View style={{flex: 1, flexDirection: 'row'}}>
-                                  <VideoApplication style={{width:100}} url={this.props.post.source.replace("http", "vlc")} applicationName="VLC" />
-                                  <VideoApplication style={{width:100}} url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-                                </View>
+                                <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
 
-                                <View style={{flex: 1, flexDirection: 'row'}}>
-                                  <VideoApplication style={{width:100}} url={"goodplayer://" + this.props.post.source} applicationName="Good Player" />
-                                  <VideoApplication style={{width:50}} url={this.props.post.source} applicationName="Safari" />
-                                </View>
+                                <VideoApplication url={this.props.post.source} applicationName="Safari" />
 
                                 <TouchableHighlight onPress={this.onPress} style={styles.button}>
                                     <Text style={styles.buttonText}>Native video</Text>
                                 </TouchableHighlight>
+
+                                <Chromecast {...this.props.post} />
 
                               </View>): (<View></View>)
                           }
