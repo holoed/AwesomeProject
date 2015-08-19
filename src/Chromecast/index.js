@@ -16,19 +16,31 @@ var {
 var Chromecast = React.createClass({
 
   componentDidMount: function() {
-    this.setState({ subscription: DeviceEventEmitter.addListener('DeviceListChanged', this._deviceListChangedHandler) });
+    this.setState({ listChangedSubscription: DeviceEventEmitter.addListener('DeviceListChanged', this._deviceListChangedHandler),
+                    deviceConnectedSubscription: DeviceEventEmitter.addListener('DeviceConnected', this._deviceConnectedHandler) });
     NativeModules.ChromecastManager.startScan();
   },
 
   componentWillUnmount: function() {
-    this.state.subscription.remove();
-    this.setState({ subscription: null });
+    this.state.listChangedSubscription.remove();
+    this.state.deviceConnectedSubscription.remove();
+    this.setState({ listChangedSubscription: null,
+                    deviceConnectedSubscription: null });
     NativeModules.ChromecastManager.stopScan();
   },
 
   _deviceListChangedHandler: function (data) {
     console.log(data);
     this.setState({ devices: data.Devices })
+  },
+
+  _deviceConnectedHandler: function (data) {
+    console.log(data);
+    NativeModules.ChromecastManager.castVideo(
+      this.props.source,
+      this.props.title,
+      this.props.plot,
+      this.props.poster);
   },
 
   getInitialState: function() {
@@ -45,14 +57,6 @@ var Chromecast = React.createClass({
 
   castVideo: function(deviceName) {
     this.connectToDevice(deviceName);
-    var _this = this;
-    setTimeout(function () {
-      NativeModules.ChromecastManager.castVideo(
-        _this.props.source,
-        _this.props.title,
-        _this.props.plot,
-        _this.props.poster)
-      }, 5000);
   },
 
   render: function() {
@@ -62,6 +66,11 @@ var Chromecast = React.createClass({
                (<TouchableHighlight onPress={() => this.castVideo(d)} style={styles.button}>
                     <Text style={styles.buttonText}>Cast to {d}</Text>
                </TouchableHighlight>)))}
+           {(this.state.devices.length > 0) ?
+             (<TouchableHighlight onPress={this.disconnect} style={[styles.button, {backgroundColor: 'darkred'}]}>
+                  <Text style={[styles.buttonText, {color: 'white'}]}>Disconnect</Text>
+             </TouchableHighlight>) :
+             (<View></View>)}
       </View>
     );
   }

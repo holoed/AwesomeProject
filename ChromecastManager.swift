@@ -131,6 +131,7 @@ class ChromecastManager: NSObject, GCKDeviceScannerListener, GCKDeviceManagerDel
       mediaControlChannel!.delegate = self
       deviceManager.addChannel(mediaControlChannel)
       mediaControlChannel!.requestStatus()
+      self.emitDeviceConnected(["DeviceName": deviceManager.device.friendlyName])
   }
   
   func deviceDidComeOnline(device: GCKDevice!) {
@@ -146,5 +147,9 @@ class ChromecastManager: NSObject, GCKDeviceScannerListener, GCKDeviceManagerDel
   
   private func emitDeviceListChanged(data: AnyObject) {
     self.bridge.eventDispatcher.sendDeviceEventWithName("DeviceListChanged", body: data)
+  }
+  
+  private func emitDeviceConnected(data: AnyObject) {
+    self.bridge.eventDispatcher.sendDeviceEventWithName("DeviceConnected", body: data)
   }
 }
