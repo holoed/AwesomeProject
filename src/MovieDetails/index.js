@@ -100,15 +100,15 @@ var MovieDetails = React.createClass({
                             {
                               (this.props.post.source != undefined && this.props.post.source != null) ?
                                (<View>
-                                          <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-
                                           <VideoApplication url={this.props.post.source} applicationName="Safari" />
 
-                                          <TouchableHighlight onPress={this.onPress} style={styles.button}>
-                                            <Text style={styles.buttonText}>Native video</Text>
-                                          </TouchableHighlight>
-
-                                          <Chromecast {...this.props.post} />
+                                          {(this.props.post.source.toLowerCase().contains("netflix")) ?
+                                           (<View><Text>Netflix movie available only through Safari</Text></View>) :
+                                           (this.props.post.source.toLowerCase().contains("amazon")) ?
+                                           (<View><Text>Amazon movie available only through Safari</Text></View>) :
+                                           (this.props.post.source.toLowerCase().contains("youtube")) ?
+                                           (<View><Text>YouTube movie available only through Safari</Text></View>) :
+                                           this.players()}
 
                                         </View>): (<View></View>)
 
@@ -122,6 +122,18 @@ var MovieDetails = React.createClass({
                     </ScrollView>
                   </View>
           );
+    },
+
+    players : function() {
+      return  (<View>
+                <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
+
+                <TouchableHighlight onPress={this.onPress} style={styles.button}>
+                    <Text style={styles.buttonText}>Native video</Text>
+                </TouchableHighlight>
+
+                <Chromecast {...this.props.post} />
+              </View>)
     },
 
     renderLandscape: function() {
@@ -167,15 +179,15 @@ var MovieDetails = React.createClass({
                           {
                             (this.props.post.source != undefined && this.props.post.source != null) ?
                              (<View>
-                                <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-
                                 <VideoApplication url={this.props.post.source} applicationName="Safari" />
 
-                                <TouchableHighlight onPress={this.onPress} style={styles.button}>
-                                    <Text style={styles.buttonText}>Native video</Text>
-                                </TouchableHighlight>
-
-                                <Chromecast {...this.props.post} />
+                                {(this.props.post.source.toLowerCase().contains("netflix")) ?
+                                 (<View><Text>Netflix movie available only through Safari</Text></View>) :
+                                 (this.props.post.source.toLowerCase().contains("amazon")) ?
+                                 (<View><Text>Amazon movie available only through Safari</Text></View>) :
+                                 (this.props.post.source.toLowerCase().contains("youtube")) ?
+                                 (<View><Text>YouTube movie available only through Safari</Text></View>) :
+                                 this.players()}
 
                               </View>): (<View></View>)
                           }
