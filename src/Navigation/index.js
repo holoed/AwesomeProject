@@ -31,7 +31,7 @@ var Navigation = React.createClass ({
 
   render: function() {
     var menu = <Menu nav={this.getNav} sideMenu={this.getSideMenu} refresh={this.refresh}/>;
-    return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 5} isMenuEnabled={this.state.isMenuEnabled}>
+    return (<SideMenu ref="sideMenu" menu={menu} openMenuOffset={window.width * 1 / 4} isMenuEnabled={this.state.isMenuEnabled}>
                  <NavigatorIOS  ref="nav"
                                 barTintColor= '#46629D'
                                 tintColor= '#ffffff'

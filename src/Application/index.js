@@ -29,6 +29,8 @@ var Application = React.createClass({
       loadedTVShows: false,
     	selectedTab: "Movies",
       isConnected: null,
+      count: 0,
+      size: 0
     };
   },
 
@@ -71,7 +73,7 @@ var Application = React.createClass({
     UnwireConnected();
   },
 
-  componentDidMount: function() {
+  componentWillMount: function() {
     var _this = this;
     this.wireConnected().then(_ =>
     AsyncStorage.getItem(STORAGE_KEY)
@@ -106,10 +108,20 @@ var Application = React.createClass({
           });
   },
 
+  updateStats: function(x) {
+    if (this.state.count == 0) {
+      var data = JSON.stringify(x);
+      var size = data.match(/"source"/g).length * 1.7;
+      console.log("call count" + size);
+      this.setState({ size: size, count: this.state.count + 1 })
+    }
+    this.setState({ count: this.state.count + 1 })
+  },
+
   fetchData: function() {
     var _this = this;
     this.setState({ count: 0 });
-    var disposable = Http.loadNotification.subscribe(x => _this.setState({ count: this.state.count + 1 }));
+    var disposable = Http.loadNotification.subscribe(this.updateStats);
     Rx.Observable.fromPromise(AsyncStorage.getItem(SETTINGS_KEY))
     .select(settings =>
       (settings == null) ? _this.defaultSettings : JSON.parse(settings))
@@ -140,6 +152,10 @@ var Application = React.createClass({
       .done();
   },
 
+  renderPercentage: function() {
+    if (this.state.count == 0) return "";
+    return Math.round((this.state.count / this.state.size) * 100) + "%"
+  },
 
   render: function() {
      if(!this.state.loadedMovies || !this.state.loadedTVShows){
@@ -155,7 +171,7 @@ var Application = React.createClass({
       else return (
         <View style={styles.wrapper}>
         <Text style={styles.welcome}>
-          Loading Movies and TV Shows...  {this.state.count}
+          Loading Movies and TV Shows...  {this.renderPercentage()}
         </Text>
       </View>
       );
