@@ -46,13 +46,36 @@ var MovieDetails = React.createClass({
       });
     },
 
-    onPress: function() {
+    openWebVideo: function() {
         this.props.hideSideMenu(true);
         this.props.navigator.push({
-            title: this.props.post.Title,
+            title: this.props.post.title,
             component: WebVideo,
             passProps: { post: this.props.post, hideSideMenu: this.props.hideSideMenu, popAndRefresh: this.props.popAndRefresh }
         });
+    },
+
+    openChromecast: function() {
+        this.props.hideSideMenu(true);
+        this.props.navigator.push({
+            title: this.props.post.title,
+            component: Chromecast,
+            passProps: { post: this.props.post, hideSideMenu: this.props.hideSideMenu, popAndRefresh: this.props.popAndRefresh }
+        });
+    },
+
+    players : function() {
+      return  (<View>
+                <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
+
+                <TouchableHighlight onPress={this.openWebVideo} style={styles.button}>
+                    <Text style={styles.buttonText}>Native video</Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight onPress={this.openChromecast} style={styles.button}>
+                    <Text style={styles.buttonText}>Chromecast</Text>
+                </TouchableHighlight>
+              </View>)
     },
 
     render: function() {
@@ -122,18 +145,6 @@ var MovieDetails = React.createClass({
                     </ScrollView>
                   </View>
           );
-    },
-
-    players : function() {
-      return  (<View>
-                <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-
-                <TouchableHighlight onPress={this.onPress} style={styles.button}>
-                    <Text style={styles.buttonText}>Native video</Text>
-                </TouchableHighlight>
-
-                <Chromecast {...this.props.post} />
-              </View>)
     },
 
     renderLandscape: function() {
@@ -245,7 +256,7 @@ var styles = StyleSheet.create({
     borderColor: '#32394A',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 0,
+    marginBottom: 10,
     marginLeft:10,
     marginRight:10,
     justifyContent: 'center'
