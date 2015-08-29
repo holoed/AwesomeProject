@@ -4,7 +4,6 @@ var React = require('react-native');
 var Rx = require('rx');
 var Movies = require('../Movies');
 var TVShows = require('../TVShows');
-var Utils = require('../Utils');
 
 var { AsyncStorage, StyleSheet, TabBarIOS, View, Text, NetInfo } = React;
 

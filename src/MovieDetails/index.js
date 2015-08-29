@@ -51,7 +51,9 @@ var MovieDetails = React.createClass({
         this.props.navigator.push({
             title: this.props.post.title,
             component: WebVideo,
-            passProps: { post: this.props.post, hideSideMenu: this.props.hideSideMenu, popAndRefresh: this.props.popAndRefresh }
+            passProps: { post: this.props.post, 
+                         hideSideMenu: this.props.hideSideMenu, 
+                         popAndRefresh: this.props.popAndRefresh }
         });
     },
 
@@ -60,7 +62,9 @@ var MovieDetails = React.createClass({
         this.props.navigator.push({
             title: this.props.post.title,
             component: Chromecast,
-            passProps: { post: this.props.post, hideSideMenu: this.props.hideSideMenu, popAndRefresh: this.props.popAndRefresh }
+            passProps: { post: this.props.post, 
+                         hideSideMenu: this.props.hideSideMenu, 
+                         popAndRefresh: this.props.popAndRefresh }
         });
     },
 
