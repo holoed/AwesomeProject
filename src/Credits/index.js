@@ -10,8 +10,7 @@ var Credits = React.createClass({
     return (
       <View style={styles.container}>
         <View style={{marginTop:20, justifyContent: 'space-around', padding: 20}}>
-        	<Text style={styles.text}>All movie and tv shows information and posters provided by The Open Movie Database - http://www.omdbapi.com/ </Text>
-          <Text style={styles.text}>Native video provided by React-Native-Video - https://github.com/brentvatne/react-native-video </Text>
+        	<Text style={styles.text}>This product uses the TMDb API but is not endorsed or certified by TMDb.</Text>
           <Text style={styles.text}>Viewport size and orientation from https://github.com/pjjanak/react-native-viewport</Text>
           <Text style={styles.text}>Side menu powered by - https://github.com/Kureev/react-native-side-menu </Text>
           <Text style={styles.text}>Powered by React Native - http://facebook.github.io/react-native/ </Text>

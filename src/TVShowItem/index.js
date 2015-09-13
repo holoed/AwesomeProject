@@ -27,25 +27,13 @@ var TVShowItem = React.createClass({
 
   render: function() {
      return (
-      <View>
         <TouchableHighlight onPress={this.onPress}>
           <View style={styles.row}>
             <Image
-              source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
+              source={{uri: this.props.post.poster}}
               style={styles.cellImage}/>
-
-            <View style={styles.textContainer}>
-              <Text style={styles.movieTitle} numberOfLines={2}>
-                {this.props.post.title}
-              </Text>
-              <Text>
-                {this.props.post.plot}
-              </Text>
-            </View>
           </View>
         </TouchableHighlight>
-        <View style={styles.cellBorder} />
-      </View>
     );
   }
 });
@@ -57,25 +45,12 @@ var styles = StyleSheet.create({
   row: {
     alignItems: 'center',
     flexDirection: 'row',
-    padding: 5,
-    backgroundColor: '#F5FCFF',
+    padding: 2,
+    backgroundColor: '#000000',
   },
   cellImage: {
-    height: 323,
-    marginRight: 10,
-    width: 215,
-  },
-  cellBorder: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    // Trick to get the thinest line the device can display
-    height: 1 / PixelRatio.get(),
-    marginLeft: 4,
-  },
-  movieTitle: {
-    flex: 1,
-    fontSize: 25,
-    fontWeight: '500',
-    marginBottom: 2
+    height: 370,
+    width: 250,
   },
 });
 

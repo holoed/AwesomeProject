@@ -177,7 +177,7 @@ var Application = React.createClass({
     }
 
     return (
-    <TabBarIOS>
+    <TabBarIOS barTintColor='#46629D' tintColor='white' translucent={true}>
          <TabBarIOS.Item
          	selected={this.state.selectedTab == "Movies"}
          	title="Movies"
