@@ -358,20 +358,48 @@ Server.prototype.processRequest = function(req, res, next) {
   building.then(
     function(p) {
       if (requestType === 'bundle') {
-        res.end(p.getSource({
+        var bundleSource = p.getSource({
           inlineSourceMap: options.inlineSourceMap,
           minify: options.minify,
-        }));
+        });
+        res.setHeader('Content-Type', 'application/javascript');
+        res.end(bundleSource);
         Activity.endEvent(startReqEventId);
       } else if (requestType === 'map') {
-        res.end(JSON.stringify(p.getSourceMap()));
+        var sourceMap = JSON.stringify(p.getSourceMap());
+        res.setHeader('Content-Type', 'application/json');
+        res.end(sourceMap);
         Activity.endEvent(startReqEventId);
       }
     },
-    function(error) {
-      handleError(res, error);
-    }
+    this._handleError.bind(this, res, optionsJson)
   ).done();
+};
+
+Server.prototype._handleError = function(res, packageID, error) {
+  res.writeHead(error.status || 500, {
+    'Content-Type': 'application/json; charset=UTF-8',
+  });
+
+  if (error.type === 'TransformError' || error.type === 'NotFoundError') {
+    error.errors = [{
+      description: error.description,
+      filename: error.filename,
+      lineNumber: error.lineNumber,
+    }];
+    res.end(JSON.stringify(error));
+
+    if (error.type === 'NotFoundError') {
+      delete this._packages[packageID];
+    }
+  } else {
+    console.error(error.stack || error);
+    res.end(JSON.stringify({
+      type: 'InternalError',
+      message: 'react-packager has encountered an internal error, ' +
+        'please check your terminal error output for more details',
+    }));
+  }
 };
 
 function getOptionsFromUrl(reqUrl) {
@@ -412,27 +440,4 @@ function getBoolOptionFromQuery(query, opt, defaultVal) {
   }
 
   return query[opt] === 'true' || query[opt] === '1';
-}
-
-function handleError(res, error) {
-  res.writeHead(error.status || 500, {
-    'Content-Type': 'application/json; charset=UTF-8',
-  });
-
-  if (error.type === 'TransformError' || error.type === 'NotFoundError') {
-    error.errors = [{
-      description: error.description,
-      filename: error.filename,
-      lineNumber: error.lineNumber,
-    }];
-    console.error(error);
-    res.end(JSON.stringify(error));
-  } else {
-    console.error(error.stack || error);
-    res.end(JSON.stringify({
-      type: 'InternalError',
-      message: 'react-packager has encountered an internal error, ' +
-        'please check your terminal error output for more details',
-    }));
-  }
 }

@@ -17,6 +17,7 @@
 {
   NSTextStorage *_textStorage;
   NSMutableArray *_reactSubviews;
+  CAShapeLayer *_highlightLayer;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -61,7 +62,7 @@
   [_reactSubviews removeObject:subview];
 }
 
-- (NSMutableArray *)reactSubviews
+- (NSArray *)reactSubviews
 {
   return _reactSubviews;
 }
@@ -78,8 +79,39 @@
   NSTextContainer *textContainer = [layoutManager.textContainers firstObject];
   CGRect textFrame = UIEdgeInsetsInsetRect(self.bounds, _contentInset);
   NSRange glyphRange = [layoutManager glyphRangeForTextContainer:textContainer];
+
   [layoutManager drawBackgroundForGlyphRange:glyphRange atPoint:textFrame.origin];
   [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:textFrame.origin];
+
+  __block UIBezierPath *highlightPath = nil;
+  NSRange characterRange = [layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
+  [layoutManager.textStorage enumerateAttribute:RCTIsHighlightedAttributeName inRange:characterRange options:0 usingBlock:^(NSNumber *value, NSRange range, BOOL *_) {
+    if (!value.boolValue) {
+      return;
+    }
+
+    [layoutManager enumerateEnclosingRectsForGlyphRange:range withinSelectedGlyphRange:range inTextContainer:textContainer usingBlock:^(CGRect enclosingRect, __unused BOOL *__) {
+      UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(enclosingRect, -2, -2) cornerRadius:2];
+      if (highlightPath) {
+        [highlightPath appendPath:path];
+      } else {
+        highlightPath = path;
+      }
+    }];
+  }];
+
+  if (highlightPath) {
+    if (!_highlightLayer) {
+      _highlightLayer = [CAShapeLayer layer];
+      _highlightLayer.fillColor = [UIColor colorWithWhite:0 alpha:0.25].CGColor;
+      [self.layer addSublayer:_highlightLayer];
+    }
+    _highlightLayer.position = (CGPoint){_contentInset.left, _contentInset.top};
+    _highlightLayer.path = highlightPath.CGPath;
+  } else {
+    [_highlightLayer removeFromSuperlayer];
+    _highlightLayer = nil;
+  }
 }
 
 - (NSNumber *)reactTagAtPoint:(CGPoint)point
@@ -99,6 +131,22 @@
     reactTag = [_textStorage attribute:RCTReactTagAttributeName atIndex:characterIndex effectiveRange:NULL];
   }
   return reactTag;
+}
+
+
+- (void)didMoveToWindow
+{
+  [super didMoveToWindow];
+
+  if (!self.window) {
+    self.layer.contents = nil;
+    if (_highlightLayer) {
+      [_highlightLayer removeFromSuperlayer];
+      _highlightLayer = nil;
+    }
+  } else if (_textStorage.length) {
+    [self setNeedsDisplay];
+  }
 }
 
 #pragma mark - Accessibility
