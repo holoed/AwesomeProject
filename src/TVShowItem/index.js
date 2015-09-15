@@ -31,7 +31,7 @@ var TVShowItem = React.createClass({
           <View style={styles.row}>
             <Image
               source={{uri: this.props.post.poster}}
-              style={styles.cellImage}/>
+              style={{height: 272, width: 185, resizeMode: 'contain' }} />
           </View>
         </TouchableHighlight>
     );
@@ -43,14 +43,10 @@ var styles = StyleSheet.create({
     flex: 1,
    },
   row: {
-    alignItems: 'center',
+    alignItems: 'stretch',
     flexDirection: 'row',
     padding: 2,
     backgroundColor: '#000000',
-  },
-  cellImage: {
-    height: 370,
-    width: 250,
   },
 });
 

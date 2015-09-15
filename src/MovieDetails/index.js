@@ -92,7 +92,7 @@ var MovieDetails = React.createClass({
     renderPortrait: function() {
            return ( <View style={{marginLeft:10, marginRight:10}}>
                      <View style={styles.container}>
-                        <Image source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
+                        <Image source={{uri: this.props.post.poster}}
                                style={styles.cellImage} />
                         <View style={styles.rightContainer}>
 
@@ -154,7 +154,7 @@ var MovieDetails = React.createClass({
     renderLandscape: function() {
           return ( <View style={{marginLeft:10, marginRight:10}}>
                      <View style={styles.container}>
-                        <Image source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
+                        <Image source={{uri: this.props.post.poster}}
                                style={styles.cellImageLandscape} />
                         <View style={styles.rightContainer}>
 

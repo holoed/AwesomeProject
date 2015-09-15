@@ -25,6 +25,11 @@ var Movies = React.createClass({
     this.setState({filteredDataSource: this.state.filteredDataSource.cloneWithRows(this.props.dataSource)});
   },
 
+  componentDidMount: function() {
+    var listViewScrollView = this.refs.listview.getScrollResponder();
+    listViewScrollView.scrollTo(1);
+  },
+
   getDataSource: function(original) {
       var source = {};
       for (var i = 0; i < original.length; i++) {
@@ -74,6 +79,9 @@ var Movies = React.createClass({
         <View style={styles.separator} />
         <ListView
             ref="listview"
+            initialListSize={20}
+            pageSize={20}
+            scrollRenderAheadDistance={20}
             contentInset={{bottom:49}}
             automaticallyAdjustContentInsets={false}
             showsVerticalScrollIndicator={false}
@@ -95,7 +103,7 @@ var Movies = React.createClass({
 
 var styles = StyleSheet.create({
   list: {
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     flexWrap: 'wrap'
   },

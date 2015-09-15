@@ -109,6 +109,7 @@ var Chromecast = React.createClass({
   },
 
   seekToTime: function(value) {
+    this.setState({currentPosition: value})
     ChromecastManager.seekToTime(value);
   },
 
@@ -149,7 +150,7 @@ var Chromecast = React.createClass({
    
            <View style={{flexDirection:'column', alignItems: 'center' }}>
               <View style={{ flexDirection:'row', display: 'flex' }}>  
-                 <Image source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
+                 <Image source={{uri: this.props.post.poster}}
                                style={styles.cellImage} />
                  <View style={{ flexDirection:'column', alignItems: 'center', marginTop: 100 }}>
                     <TouchableHighlight onPress={this.play} style={styles.button}>
@@ -196,7 +197,7 @@ var Chromecast = React.createClass({
    
            <View style={{flexDirection:'column', alignItems: 'center' }}>
               <View style={{ flexDirection:'row', display: 'flex' }}>  
-                 <Image source={{uri: this.props.post.poster + "?time=" + Http.lastDownloadDate.getTime() }}
+                 <Image source={{uri: this.props.post.poster}}
                                style={styles.cellImage} />
                  <View style={{flexDirection:'column', alignItems: 'center', marginTop: 100 }}>
                   <TouchableHighlight onPress={this.castVideo} style={styles.button}>
