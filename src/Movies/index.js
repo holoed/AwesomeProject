@@ -79,9 +79,6 @@ var Movies = React.createClass({
         <View style={styles.separator} />
         <ListView
             ref="listview"
-            initialListSize={20}
-            pageSize={20}
-            scrollRenderAheadDistance={20}
             contentInset={{bottom:49}}
             automaticallyAdjustContentInsets={false}
             showsVerticalScrollIndicator={false}

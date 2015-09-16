@@ -148,45 +148,47 @@ var Chromecast = React.createClass({
     var _this = this;
     return (
    
-           <View style={{flexDirection:'column', alignItems: 'center' }}>
-              <View style={{ flexDirection:'row', display: 'flex' }}>  
-                 <Image source={{uri: this.props.post.poster}}
-                               style={styles.cellImage} />
-                 <View style={{ flexDirection:'column', alignItems: 'center', marginTop: 100 }}>
-                    <TouchableHighlight onPress={this.play} style={styles.button}>
-                      <Text style={styles.buttonText}>
-                        Play
-                      </Text>
-                   </TouchableHighlight>
-                   <TouchableHighlight onPress={this.pause} style={styles.button}>
-                      <Text style={styles.buttonText}>
-                        Pause
-                      </Text>
-                   </TouchableHighlight>
-                   <Text style={{fontSize:25, marginTop: 50, marginBottom: 20 }}>Device List</Text>
-                    {this.state.dataSource.map((d) => (<TouchableHighlight onPress={() => this.connectToDevice(d)} style={styles.button}>
-                                          <Text style={styles.buttonText}>{d}</Text>
-                                       </TouchableHighlight>))}
-                 </View>
-              </View>
-              <View style={{ flexDirection:'row', display: 'flex' }}>
-                <Text style={{ marginTop: 50, marginRight: 10, marginLeft: 10 }}>{this.toHHMMSS(this.state.currentPosition)}</Text>
-                <SliderIOS style={{ width: 500, marginTop: 40, marginBottom: 40 }} onValueChange={this.seekToTime} maximumValue={this.state.duration} value={this.state.currentPosition} />
-                <Text style={{ marginTop: 50, marginRight: 10, marginLeft: 10 }}>{this.toHHMMSS(this.state.duration)}</Text>
-              </View>
-              <View style={{ flexDirection:'row', display: 'flex' }}>
-                <TouchableHighlight onPress={this.castVideo} style={styles.button}>
-                  <Text style={styles.buttonText}>
-                    Cast Video
-                  </Text>
-                </TouchableHighlight>
-                <TouchableHighlight onPress={this.disconnect} style={[styles.button, {backgroundColor: 'darkred'}]}>
-                  <Text style={styles.buttonText}>
-                    Disconnect
-                  </Text>
-                </TouchableHighlight>
-              </View>
-           </View>
+           <Image source={{uri: this.props.post.poster}} style={{backgroundColor:'transparent', height: 1024, width: 768 }}>
+             <View style={{backgroundColor:'black', opacity: 0.9, height: 1024}}>
+                <View style={{ flexDirection:'row', display: 'flex' }}>  
+                   <Image source={{uri: this.props.post.poster}}
+                                 style={styles.cellImage} />
+                   <View style={{ flexDirection:'column', alignItems: 'center', marginTop: 100 }}>
+                      <TouchableHighlight onPress={this.play} style={styles.button}>
+                        <Text style={styles.buttonText}>
+                          Play
+                        </Text>
+                     </TouchableHighlight>
+                     <TouchableHighlight onPress={this.pause} style={styles.button}>
+                        <Text style={styles.buttonText}>
+                          Pause
+                        </Text>
+                     </TouchableHighlight>
+                     <Text style={{fontSize:25, marginTop: 50, marginBottom: 20, color: 'white' }}>Device List</Text>
+                      {this.state.dataSource.map((d) => (<TouchableHighlight onPress={() => this.connectToDevice(d)} style={styles.button}>
+                                            <Text style={styles.buttonText}>{d}</Text>
+                                         </TouchableHighlight>))}
+                   </View>
+                </View>
+                <View style={{ flexDirection:'row', display: 'flex' }}>
+                  <Text style={{ marginTop: 50, marginRight: 10, marginLeft: 10, color:'white' }}>{this.toHHMMSS(this.state.currentPosition)}</Text>
+                  <SliderIOS style={{ width: 600, marginTop: 40, marginBottom: 40 }} onValueChange={this.seekToTime} maximumValue={this.state.duration} value={this.state.currentPosition} />
+                  <Text style={{ marginTop: 50, marginRight: 10, marginLeft: 10, color:'white' }}>{this.toHHMMSS(this.state.duration)}</Text>
+                </View>
+                <View style={{ flexDirection:'row', display: 'flex' }}>
+                  <TouchableHighlight onPress={this.castVideo} style={styles.button}>
+                    <Text style={styles.buttonText}>
+                      Cast Video
+                    </Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={this.disconnect} style={[styles.button, {backgroundColor: 'darkred'}]}>
+                    <Text style={styles.buttonText}>
+                      Disconnect
+                    </Text>
+                  </TouchableHighlight>
+                </View>
+             </View>
+           </Image>
     
     );
   },
@@ -195,43 +197,45 @@ var Chromecast = React.createClass({
     var _this = this;
     return (
    
-           <View style={{flexDirection:'column', alignItems: 'center' }}>
-              <View style={{ flexDirection:'row', display: 'flex' }}>  
-                 <Image source={{uri: this.props.post.poster}}
-                               style={styles.cellImage} />
-                 <View style={{flexDirection:'column', alignItems: 'center', marginTop: 100 }}>
-                  <TouchableHighlight onPress={this.castVideo} style={styles.button}>
-                    <Text style={styles.buttonText}>
-                      Cast Video
-                    </Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={this.play} style={styles.button}>
-                    <Text style={styles.buttonText}>
-                      Play
-                    </Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={this.pause} style={styles.button}>
-                    <Text style={styles.buttonText}>
-                      Pause
-                    </Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={this.disconnect} style={[styles.button, {backgroundColor: 'darkred'}]}>
-                    <Text style={styles.buttonText}>
-                      Disconnect
-                    </Text>
-                  </TouchableHighlight>
-                   <Text style={{ fontSize:25, marginTop:50, marginBottom: 20 }}>Device List</Text>
-                    {this.state.dataSource.map((d) => (<TouchableHighlight onPress={() => this.connectToDevice(d)} style={styles.button}>
-                                          <Text style={styles.buttonText}>{d}</Text>
-                                       </TouchableHighlight>))}
-                 </View>
-              </View>
-              <View style={{ flexDirection:'row', display: 'flex' }}>
-                <Text style={{ marginTop: 30, marginRight: 10, marginLeft: 10 }}>{this.toHHMMSS(this.state.currentPosition)}</Text>
-                <SliderIOS style={{ width: 800, marginTop: 20, marginBottom: 20 }} onValueChange={this.seekToTime} maximumValue={this.state.duration} value={this.state.currentPosition} />
-                <Text style={{ marginTop: 30, marginRight: 10, marginLeft: 10 }}>{this.toHHMMSS(this.state.duration)}</Text>
-              </View>
-           </View>
+              <Image source={{uri: this.props.post.poster}} style={{backgroundColor:'transparent', height: 768, width: 1024 }}>
+                <View style={{backgroundColor:'black', opacity: 0.9, height: 768}}>
+                  <View style={{ flexDirection:'row', display: 'flex', justifyContent:'space-between' }}>  
+                     <Image source={{uri: this.props.post.poster}}
+                                   style={styles.cellImage} />
+                     <View style={{flexDirection:'column', alignItems: 'center', marginTop: 100 }}>
+                      <TouchableHighlight onPress={this.castVideo} style={styles.button}>
+                        <Text style={styles.buttonText}>
+                          Cast Video
+                        </Text>
+                      </TouchableHighlight>
+                      <TouchableHighlight onPress={this.play} style={styles.button}>
+                        <Text style={styles.buttonText}>
+                          Play
+                        </Text>
+                      </TouchableHighlight>
+                      <TouchableHighlight onPress={this.pause} style={styles.button}>
+                        <Text style={styles.buttonText}>
+                          Pause
+                        </Text>
+                      </TouchableHighlight>
+                      <TouchableHighlight onPress={this.disconnect} style={[styles.button, {backgroundColor: 'darkred'}]}>
+                        <Text style={styles.buttonText}>
+                          Disconnect
+                        </Text>
+                      </TouchableHighlight>
+                       <Text style={{ fontSize:25, marginTop:50, marginBottom: 20, color:'white' }}>Device List</Text>
+                        {this.state.dataSource.map((d) => (<TouchableHighlight onPress={() => this.connectToDevice(d)} style={styles.button}>
+                                              <Text style={styles.buttonText}>{d}</Text>
+                                           </TouchableHighlight>))}
+                     </View>
+                  </View>
+                  <View style={{ flexDirection:'row', display: 'flex' }}>
+                    <Text style={{ marginTop: 30, marginRight: 10, marginLeft: 10, color:'white' }}>{this.toHHMMSS(this.state.currentPosition)}</Text>
+                    <SliderIOS style={{ width: 850, marginTop: 20, marginBottom: 20 }} onValueChange={this.seekToTime} maximumValue={this.state.duration} value={this.state.currentPosition} />
+                    <Text style={{ marginTop: 30, marginRight: 10, marginLeft: 10, color:'white' }}>{this.toHHMMSS(this.state.duration)}</Text>
+                  </View>
+               </View>
+           </Image>
     
     );
   },

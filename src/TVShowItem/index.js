@@ -31,7 +31,7 @@ var TVShowItem = React.createClass({
           <View style={styles.row}>
             <Image
               source={{uri: this.props.post.poster}}
-              style={{height: 272, width: 185, resizeMode: 'contain' }} />
+              style={{height: 272 * 1.35, width: 185 * 1.35, resizeMode: 'contain' }} />
           </View>
         </TouchableHighlight>
     );

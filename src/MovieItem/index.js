@@ -39,7 +39,7 @@ var MovieItem = React.createClass({
           <View style={styles.row}>
             <Image
               source={{uri: this.props.post.poster}}
-              style={{height: 272, width: 185, resizeMode: 'contain', backgroundColor:'#232832' }}/>
+              style={{height: 272 * 1.35, width: 185 * 1.35, resizeMode: 'contain', backgroundColor:'#232832' }}/>
 
               { (this.props.post.episode != undefined) ?
             (<View style={styles.textContainer}>    
