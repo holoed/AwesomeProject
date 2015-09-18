@@ -75,6 +75,7 @@ var MovieDetails = React.createClass({
                     <View style={{flex:1}}></View>
                     <View style={{backgroundColor:'black', opacity:0.8, padding:25, flex:1}}>
                       <Text style={{fontWeight: 'bold', fontSize:30, backgroundColor:'transparent', color:'white'}}>{this.props.post.title}</Text>
+                      <Text style={{fontSize:15, backgroundColor:'transparent', color:'white'}}>{this.props.post.genre}</Text>
                       <ScrollView  contentInset={{top: -40}} style={{paddingTop:10, paddingBottom:10, height:260}}>
                         <Text style={{color:'white'}}>{this.props.post.plot}</Text>
                       </ScrollView>
