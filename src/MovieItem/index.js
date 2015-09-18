@@ -35,7 +35,7 @@ var MovieItem = React.createClass({
 
   render: function() {
      return (
-        <TouchableHighlight onPress={this.onPress}>
+        <TouchableHighlight onPress={this.onPress} underlayColor="transparent">
           <View style={styles.row}>
             <Image
               source={{uri: this.props.post.poster}}

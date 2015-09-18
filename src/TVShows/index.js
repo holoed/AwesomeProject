@@ -95,7 +95,7 @@ var Movies = React.createClass({
 
 var styles = StyleSheet.create({
   list: {
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
