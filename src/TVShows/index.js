@@ -88,7 +88,10 @@ var Movies = React.createClass({
   },
   renderPostCell: function(post){
     return(
-      <TVShowItem post={post} navigator={this.props.navigator} hideSideMenu={this.props.hideSideMenu} />
+      <TVShowItem key={post.source}
+                  post={post} 
+                  navigator={this.props.navigator} 
+                  hideSideMenu={this.props.hideSideMenu} />
     );
   }
 });

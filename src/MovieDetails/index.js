@@ -17,7 +17,7 @@ var {
 var Window = require('Dimensions').get('window');
 var Viewport = require('react-native-viewport');
 var VideoApplication = require('../VideoApplication');
-var WebVideo = require('../WebVideo');
+var NativeVideo = require('../NativeVideo');
 var Chromecast = require('../Chromecast');
 
 
@@ -27,7 +27,7 @@ var MovieDetails = React.createClass({
         this.props.hideSideMenu(true);
         this.props.navigator.push({
             title: this.props.post.title,
-            component: WebVideo,
+            component: NativeVideo,
             passProps: { post: this.props.post, 
                          hideSideMenu: this.props.hideSideMenu, 
                          popAndRefresh: this.props.popAndRefresh }
@@ -47,11 +47,11 @@ var MovieDetails = React.createClass({
 
     players : function() {
       return  (<View>
-                <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
-
                 <TouchableHighlight onPress={this.openWebVideo} style={styles.button}>
-                    <Text style={styles.buttonText}>Native video</Text>
+                    <Text style={styles.buttonText}>Play</Text>
                 </TouchableHighlight>
+
+                <VideoApplication url={this.props.post.source.replace("http", "infuse")} applicationName="Infuse" />
 
                 <TouchableHighlight onPress={this.openChromecast} style={styles.button}>
                     <Text style={styles.buttonText}>Chromecast</Text>
@@ -82,8 +82,6 @@ var MovieDetails = React.createClass({
                        {
                             (this.props.post.source != undefined && this.props.post.source != null) ?
                              (<View>
-                                <VideoApplication url={this.props.post.source} applicationName="Safari" />
-
                                 {(this.props.post.source.toLowerCase().contains("netflix")) ?
                                  (<View><Text>Netflix movie available only through Safari</Text></View>) :
                                  (this.props.post.source.toLowerCase().contains("amazon")) ?
@@ -91,6 +89,8 @@ var MovieDetails = React.createClass({
                                  (this.props.post.source.toLowerCase().contains("youtube")) ?
                                  (<View><Text>YouTube movie available only through Safari</Text></View>) :
                                  this.players()}
+
+                                 <VideoApplication url={this.props.post.source} applicationName="Safari" />
 
                               </View>): (<View></View>)
                           }

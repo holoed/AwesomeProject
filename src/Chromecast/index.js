@@ -199,7 +199,7 @@ var Chromecast = React.createClass({
    
               <Image source={{uri: this.props.post.poster}} style={{backgroundColor:'transparent', height: 768, width: 1024 }}>
                 <View style={{backgroundColor:'black', opacity: 0.9, height: 768}}>
-                  <View style={{ flexDirection:'row', display: 'flex', justifyContent:'space-between' }}>  
+                  <View style={{ flexDirection:'row', display: 'flex', justifyContent:'space-around' }}>  
                      <Image source={{uri: this.props.post.poster}}
                                    style={styles.cellImage} />
                      <View style={{flexDirection:'column', alignItems: 'center', marginTop: 100 }}>
@@ -324,7 +324,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#dddddd',
     marginTop: 100,
     height: 600,
-    marginRight: 10,
+    margin: 10,
     width: 410,
   }
 });

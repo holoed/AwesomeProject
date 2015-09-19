@@ -91,7 +91,8 @@ var Movies = React.createClass({
   },
   renderPostCell: function(post){
     return(
-      <MovieItem post={post} 
+      <MovieItem key={post.source}
+                 post={post} 
                  navigator={this.props.navigator} 
                  hideSideMenu={this.props.hideSideMenu} />
     );

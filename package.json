@@ -9,6 +9,7 @@
     "react-native": "^0.10.0",
     "react-native-orientation": "^1.1.1",
     "react-native-side-menu": "^0.8.2",
+    "react-native-videoplayer": "^1.2.0",
     "rx": "^2.5.3"
   }
 }

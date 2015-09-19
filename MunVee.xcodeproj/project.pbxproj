@@ -23,6 +23,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		22A0C67A86EC2352EB6A408D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C8EB15B03F2DEC8CCC6B7B /* libPods.a */; };
+		6C19E5871BAD8E610047EC3F /* VideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C19E5841BAD8E610047EC3F /* VideoPlayerView.m */; settings = {ASSET_TAGS = (); }; };
+		6C19E5881BAD8E610047EC3F /* VideoPlayerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C19E5861BAD8E610047EC3F /* VideoPlayerViewManager.m */; settings = {ASSET_TAGS = (); }; };
 		6C30EA1D1B5C5671007DF77C /* libViewport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C30EA1C1B5C557F007DF77C /* libViewport.a */; };
 		6C9ECF9C1B84E4E1005830CD /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9ECF9B1B84E4E1005830CD /* GoogleCast.framework */; };
 		6C9F3C4D1B84E9E700DE0529 /* ChromecastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F3C4B1B84E9E700DE0529 /* ChromecastManager.swift */; };
@@ -135,6 +137,10 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = iOS/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = iOS/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		6C19E5831BAD8E610047EC3F /* VideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoPlayerView.h; path = "node_modules/react-native-videoplayer/RCTVideoPlayer/VideoPlayerView.h"; sourceTree = "<group>"; };
+		6C19E5841BAD8E610047EC3F /* VideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoPlayerView.m; path = "node_modules/react-native-videoplayer/RCTVideoPlayer/VideoPlayerView.m"; sourceTree = "<group>"; };
+		6C19E5851BAD8E610047EC3F /* VideoPlayerViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoPlayerViewManager.h; path = "node_modules/react-native-videoplayer/RCTVideoPlayer/VideoPlayerViewManager.h"; sourceTree = "<group>"; };
+		6C19E5861BAD8E610047EC3F /* VideoPlayerViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoPlayerViewManager.m; path = "node_modules/react-native-videoplayer/RCTVideoPlayer/VideoPlayerViewManager.m"; sourceTree = "<group>"; };
 		6C30EA171B5C557F007DF77C /* Viewport.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Viewport.xcodeproj; path = "node_modules/react-native-viewport/Viewport.xcodeproj"; sourceTree = "<group>"; };
 		6C9ECF9B1B84E4E1005830CD /* GoogleCast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleCast.framework; path = "Pods/google-cast-sdk/GoogleCastSDK-2.7.1-Release/GoogleCast.framework"; sourceTree = "<group>"; };
 		6C9F3C4A1B84E9E700DE0529 /* ChromeCastExperiments-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChromeCastExperiments-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -239,9 +245,8 @@
 		13B07FAE1A68108700A75B9A /* MyMovies */ = {
 			isa = PBXGroup;
 			children = (
-				6C9F3C4A1B84E9E700DE0529 /* ChromeCastExperiments-Bridging-Header.h */,
-				6C9F3C4B1B84E9E700DE0529 /* ChromecastManager.swift */,
-				6C9F3C4C1B84E9E700DE0529 /* ChromecastManagerBridge.m */,
+				6C19E5821BAD8E340047EC3F /* RCTVideoPlayer */,
+				6C19E57E1BAD8B1A0047EC3F /* Chromecast */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -259,6 +264,27 @@
 				146834041AC3E56700842450 /* libReact.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6C19E57E1BAD8B1A0047EC3F /* Chromecast */ = {
+			isa = PBXGroup;
+			children = (
+				6C9F3C4A1B84E9E700DE0529 /* ChromeCastExperiments-Bridging-Header.h */,
+				6C9F3C4B1B84E9E700DE0529 /* ChromecastManager.swift */,
+				6C9F3C4C1B84E9E700DE0529 /* ChromecastManagerBridge.m */,
+			);
+			name = Chromecast;
+			sourceTree = "<group>";
+		};
+		6C19E5821BAD8E340047EC3F /* RCTVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				6C19E5831BAD8E610047EC3F /* VideoPlayerView.h */,
+				6C19E5841BAD8E610047EC3F /* VideoPlayerView.m */,
+				6C19E5851BAD8E610047EC3F /* VideoPlayerViewManager.h */,
+				6C19E5861BAD8E610047EC3F /* VideoPlayerViewManager.m */,
+			);
+			name = RCTVideoPlayer;
 			sourceTree = "<group>";
 		};
 		6C30EA181B5C557F007DF77C /* Products */ = {
@@ -587,8 +613,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C19E5871BAD8E610047EC3F /* VideoPlayerView.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				6C9F3C4E1B84E9E700DE0529 /* ChromecastManagerBridge.m in Sources */,
+				6C19E5881BAD8E610047EC3F /* VideoPlayerViewManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				6C9F3C4D1B84E9E700DE0529 /* ChromecastManager.swift in Sources */,
 			);
